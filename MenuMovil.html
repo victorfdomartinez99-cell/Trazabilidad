@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <base target="_top">
@@ -129,7 +129,7 @@
   </section>
   <script>
     const App={token:null,user:null,catalogos:{},op:'',history:[],allowed:[],summaryCache:{},historyCache:{},historyEditedRows:{},movimientosGuardando:[],columnasResumenAntesDeGuardar:{},colaOnlineMovimientos:[],procesandoColaOnline:false,idSolicitudMovimientoActual:null,datosSolicitudMovimientoActual:null,reintentoColaOfflineId:null,sincronizandoCola:false,sincronizandoColaCambio:false};const $=id=>document.getElementById(id);const operations={aduanas_entrada:'📥 Entrada Aduanas',aduanas_salida:'📤 Salida Aduanas',almacen_entrada:'🏭 Entrada Almacén',almacen_salida:'🚚 Salida Almacén'};
-    const localUsers={'32866':{nombre:'Victor Martinez',rol:'DEV',departamento:'TODOS',password:'@VFernando199',requeridoCambio:false},'1001':{nombre:'Usuario Aduanas',rol:'UAD',departamento:'UAD',password:'demo',requeridoCambio:true},'2001':{nombre:'Usuario Almacén',rol:'UWH',departamento:'UWH',password:'demo',requeridoCambio:true}};
+    const localUsers={};
     const OFFLINE_QUEUE_KEY='trazabilidad-offline-queue-v1';
       function escapeHtml_(value){const text=String(value==null?'':value);return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}
       function sanitizeText_(value){return String(value==null?'':value).replace(/[\u0000-\u001F\u007F]/g,'').replace(/\s+/g,' ').trim()}
@@ -149,7 +149,7 @@
     function sincronizarColaOffline_(){if(!navigator.onLine||App.sincronizandoCola||!App.token)return;const empleado=App.user&&App.user.empleado;if(!leerColaOffline_().some(item=>item.empleado===empleado))return;App.sincronizandoCola=true;App.sincronizandoColaCambio=false;const enviarSiguiente=()=>{const actual=leerColaOffline_();const pendiente=actual.find(item=>item.empleado===empleado);if(!pendiente){App.sincronizandoCola=false;if(App.sincronizandoColaCambio){refrescarDatosTrasColaOffline_();App.sincronizandoColaCambio=false}actualizarColaOfflineUI_();return}if(pendiente.estado==='error'){App.sincronizandoCola=false;if(App.sincronizandoColaCambio){refrescarDatosTrasColaOffline_();App.sincronizandoColaCambio=false}mostrarErrorColaOffline_(pendiente,pendiente.error||'El registro no se pudo sincronizar.');return}if(!pendiente.datos.idSolicitud)pendiente.datos.idSolicitud=crearIdSolicitudMovimiento_();pendiente.estado='sincronizando';delete pendiente.error;guardarColaOffline_(actual);api('registrarMovimientoUnificado',[pendiente.datos,App.token],()=>{const nuevaCola=leerColaOffline_();const indice=nuevaCola.findIndex(item=>item.id===pendiente.id&&item.empleado===empleado);if(indice>=0)nuevaCola.splice(indice,1);guardarColaOffline_(nuevaCola);App.sincronizandoColaCambio=true;enviarSiguiente()},error=>{const nuevaCola=leerColaOffline_();const actualPendiente=nuevaCola.find(item=>item.id===pendiente.id&&item.empleado===empleado);App.sincronizandoCola=false;if(App.sincronizandoColaCambio){refrescarDatosTrasColaOffline_();App.sincronizandoColaCambio=false}else{App.sincronizandoColaCambio=false}if(actualPendiente){actualPendiente.estado=navigator.onLine?'error':'pendiente';actualPendiente.error=navigator.onLine?(error.message||String(error)):'';guardarColaOffline_(nuevaCola);if(navigator.onLine)mostrarErrorColaOffline_(actualPendiente,actualPendiente.error)}})};enviarSiguiente()}
     window.addEventListener('online',()=>{toast('Conexión restablecida. Sincronizando registros pendientes...');sincronizarColaOffline_()});window.addEventListener('offline',()=>toast('Conexión perdida: los nuevos registros se guardarán en la cola offline.',true));
     function toast(text,error){$('toast').textContent=text;$('toast').className='toast'+(error?' error':'');setTimeout(()=>{$('toast').className='toast hidden'},3500)}function marcarBotonOcupado_(boton,texto){if(!boton)return()=>{};const original=boton.dataset.textoOriginal||boton.textContent;boton.dataset.textoOriginal=original;if(boton.id==='loginButton' || texto==='Iniciando'){boton.disabled=true;boton.classList.remove('busy-button');boton.textContent=texto||'Iniciando';return()=>{boton.disabled=false;boton.classList.remove('busy-button');boton.textContent=original;delete boton.dataset.textoOriginal;}};boton.disabled=true;boton.classList.add('busy-button');boton.textContent=texto;const frames=['.','..','...'];let indice=0;const actualizar=()=>{if(!boton.disabled){clearInterval(boton._busyInterval);boton._busyInterval=null;boton.classList.remove('busy-button');delete boton.dataset.textoOriginal;return;}boton.textContent=texto+frames[indice];indice=(indice+1)%frames.length};actualizar();boton._busyInterval=setInterval(actualizar,420);return()=>{clearInterval(boton._busyInterval);boton._busyInterval=null;boton.disabled=false;boton.classList.remove('busy-button');boton.textContent=original;delete boton.dataset.textoOriginal}}function marcarBotonGlobal_(boton,texto){App.botonOcupado=boton;return marcarBotonOcupado_(boton,texto)}function terminarBotonGlobal_(){if(App.botonOcupado){const boton=App.botonOcupado;App.botonOcupado=null;boton.disabled=false;boton.classList.remove('busy-button');boton.textContent=boton.dataset.textoOriginal||boton.textContent}}    function aplicarTemaDepartamento_(departamento){const dept=departamentoUI_(departamento);document.body.classList.toggle('uwh-theme',dept==='UWH');document.body.classList.toggle('uqm-theme',dept==='UQM');document.body.classList.toggle('qm-user',dept==='UQM');}function api(name,args,ok,fail){const resolver=res=>{if(App.botonOcupado){const boton=App.botonOcupado;App.botonOcupado=null;boton.disabled=false;boton.classList.remove('busy-button');boton.textContent=boton.dataset.textoOriginal||boton.textContent}ok(res)};const manejarFallo=error=>{if(App.botonOcupado){const boton=App.botonOcupado;App.botonOcupado=null;boton.disabled=false;boton.classList.remove('busy-button');boton.textContent=boton.dataset.textoOriginal||boton.textContent}const mensaje=String(error&&error.message||error||'');const pareceFalloRed=/failed to fetch|network|timeout|connection|unavailable|offline/i.test(mensaje);if(name==='registrarMovimientoUnificado'&&( !navigator.onLine||pareceFalloRed)&&args&&args[0]){registrarMovimientoOfflineTrasFallo_(args[0],error);return}fail(error)};const isLocal=location.protocol==='file:';if(!isLocal&&window.google?.script?.run){const call=google.script.run.withSuccessHandler(resolver).withFailureHandler(manejarFallo);call[name](...(args||[]))}else setTimeout(()=>localApi(name,args,resolver,manejarFallo),250)}
-    function localApi(name,args,ok,fail){try{if(name==='iniciarSesion'){const id=args[0],p=args[1],u=localUsers[id];if(!u||u.password!==p)throw Error('Empleado o contraseña incorrectos.');return ok({token:'local',usuario:{empleado:id,nombre:u.nombre,rol:u.rol,departamento:u.departamento,requiereCambio:u.requeridoCambio},catalogos:{empleados:{'32866':'Victor Martinez','1001':'Usuario Aduanas','2001':'Usuario Almacén'},partes:{'B/C L':'B/C L','B/C R':'B/C R','B/C M':'B/C M','F/C':'F/C'},fechaAduanas:new Date().toISOString().slice(0,10),turnoActual:'A',corteActual:'1'}})}if(name==='obtenerResumenVisual')return ok({totalAduanas:0,totalAlmacen:0,discrepancias:0,filas:[]});if(name==='obtenerResumenConciliacion')return ok({totalAduanas:0,totalAlmacen:0,discrepancias:0,detalles:[]});if(name==='obtenerResumenHXH')return ok({items:[],total:0});if(name==='listarHistorial')return ok([]);if(name==='listarUsuarios')return ok(Object.entries(localUsers).map(([empleado,u])=>({empleado,nombre:u.nombre,rol:u.rol,departamento:u.departamento,estado:'ACTIVO',intentos:0,requeridoCambio:u.requeridoCambio})));if(name==='buscarUsuario')return ok(null);if(name==='listarPartesAdmin')return ok([]);if(name==='listarAuditoria')return ok([]);if(name==='registrarMovimientoUnificado'||name==='crearUsuario'||name==='agregarClasificaciones'||name==='eliminarRegistro'||name==='solicitarEliminacionRegistro'||name==='aprobarEliminacionRegistro'||name==='rechazarEliminacionRegistro'||name==='actualizarRegistro')return ok(true);if(name==='listarRegistros')return ok([]);ok(true)}catch(e){fail(e)}}
+    function localApi(name,args,ok,fail){fail(Error('La vista previa local no está conectada a Google Sheets. Abre la aplicación desplegada para usar datos reales.'))}
 
     let loginLockCheckId_=0;let loginLockCheckTimer_=null;
     function ocultarBloqueoLogin_(){const timer=$('loginLockTimer');if(!timer)return;clearInterval(timer._intervalo);timer._intervalo=null;timer.classList.add('hidden');timer.textContent='';timer.dataset.restanteMs='0';const boton=$('loginButton');if(boton&&!boton.dataset.loginPending){boton.disabled=false;boton.textContent='Iniciar sesión';}}
@@ -663,6 +663,54 @@
     document.addEventListener('submit',e=>{if(e.target.id==='newUserForm'){const boton=e.target.querySelector('button[type="submit"]');if(boton&&!boton.disabled)marcarBotonGlobal_(boton,'Agregando usuario')}},true);
   </script>
   <script>
+    // Mantiene las mismas llamadas de la interfaz y cambia solo el transporte fuera de Apps Script.
+    function api(name,args,ok,fail){
+      const resolver=res=>{
+        if(App.botonOcupado){
+          const boton=App.botonOcupado;
+          App.botonOcupado=null;
+          boton.disabled=false;
+          boton.classList.remove('busy-button');
+          boton.textContent=boton.dataset.textoOriginal||boton.textContent;
+        }
+        ok(res);
+      };
+      const manejarFallo=error=>{
+        if(App.botonOcupado){
+          const boton=App.botonOcupado;
+          App.botonOcupado=null;
+          boton.disabled=false;
+          boton.classList.remove('busy-button');
+          boton.textContent=boton.dataset.textoOriginal||boton.textContent;
+        }
+        const mensaje=String(error&&error.message||error||'');
+        const pareceFalloRed=/failed to fetch|network|timeout|connection|unavailable|offline/i.test(mensaje);
+        if(name==='registrarMovimientoUnificado'&&(!navigator.onLine||pareceFalloRed)&&args&&args[0]){
+          registrarMovimientoOfflineTrasFallo_(args[0],error);
+          return;
+        }
+        fail(error);
+      };
+      if(window.google?.script?.run){
+        const call=google.script.run.withSuccessHandler(resolver).withFailureHandler(manejarFallo);
+        call[name](...(args||[]));
+        return;
+      }
+      if(location.protocol==='file:'){
+        setTimeout(()=>localApi(name,args,resolver,manejarFallo),250);
+        return;
+      }
+      fetch('/api/gas',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({method:name,args:args||[]})
+      }).then(async response=>{
+        let payload;
+        try{payload=await response.json()}catch(error){throw Error('La API devolvió una respuesta no válida.')}
+        if(!response.ok||!payload||payload.ok!==true)throw Error(payload&&payload.error||'No se pudo completar la operación.');
+        resolver(payload.result);
+      }).catch(manejarFallo);
+    }
     function actualizarResumenLocalCaptura_(datos,respuesta){
       const grupo=String(datos.tipoOperacion||'').split('_')[0];
       if(!['aduanas','almacen'].includes(grupo))return false;
