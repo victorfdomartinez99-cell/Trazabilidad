@@ -11,6 +11,54 @@ function doGet(e) {
   return htmlOutput;
 }
 
+function doPost(e) {
+  var respuesta;
+  try {
+    var contenido = e && e.postData && e.postData.contents || '';
+    if (!contenido || contenido.length > 1000000) throw new Error('Solicitud no válida.');
+    var solicitud = JSON.parse(contenido);
+    var secreto = PropertiesService.getScriptProperties().getProperty('VERCEL_API_SECRET');
+    if (!secreto || solicitud.secret !== secreto) throw new Error('Solicitud no autorizada.');
+    if (typeof solicitud.method !== 'string' || !Array.isArray(solicitud.args) || solicitud.args.length > 8) {
+      throw new Error('Solicitud no válida.');
+    }
+
+    var metodos = {
+      obtenerEstadoBloqueoLogin: obtenerEstadoBloqueoLogin,
+      iniciarSesion: iniciarSesion,
+      cerrarSesion: cerrarSesion,
+      listarAuditoria: listarAuditoria,
+      repararEstructuraHojas: repararEstructuraHojas,
+      migrarCarrosAValores: migrarCarrosAValores,
+      listarUsuarios: listarUsuarios,
+      crearUsuario: crearUsuario,
+      eliminarUsuarioPermanentemente: eliminarUsuarioPermanentemente,
+      agregarClasificaciones: agregarClasificaciones,
+      listarPartesAdmin: listarPartesAdmin,
+      actualizarParte: actualizarParte,
+      eliminarParte: eliminarParte,
+      registrarMovimientoUnificado: registrarMovimientoUnificado,
+      listarRegistros: listarRegistros,
+      listarHistorial: listarHistorial,
+      obtenerResumenHXH: obtenerResumenHXH,
+      actualizarRegistro: actualizarRegistro,
+      obtenerResumenVisual: obtenerResumenVisual,
+      obtenerResumenPorDia: obtenerResumenPorDia
+    };
+    if (!Object.prototype.hasOwnProperty.call(metodos, solicitud.method)) {
+      throw new Error('La operación solicitada no está habilitada.');
+    }
+    var metodo = metodos[solicitud.method];
+    respuesta = { ok: true, result: metodo.apply(null, solicitud.args) };
+  } catch (error) {
+    var mensaje = error && error.message ? error.message : 'Error interno del servidor.';
+    console.error('Error en API de Vercel: ' + mensaje);
+    respuesta = { ok: false, error: mensaje };
+  }
+  return ContentService.createTextOutput(JSON.stringify(respuesta))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
 function onOpen() {
   SpreadsheetApp.getUi()
     .createMenu('🚀 Trazabilidad Móvil')
