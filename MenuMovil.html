@@ -1,0 +1,1276 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Registro de materiales</title>
+  <style>
+    :root{--bg:#07131b;--panel:#10232b;--input:#0b1b23;--line:#28434b;--text:#effafa;--muted:#9ab2b6;--uad:#00aaa6;--uwh:#f28c28;--good:#18bd86;--bad:#ef6262;--focus:#5ee7df}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at top right,#1b3c42 0,#07131b 45%);color:var(--text);font-family:'Trebuchet MS',Arial,sans-serif;padding-bottom:74px}button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+    .login-shell{min-height:100vh;display:grid;place-items:center;padding:22px}.login-card,.card{width:min(100%,620px);background:#10232bee;border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 18px 48px #0008}.logo{font-size:28px;margin-bottom:8px}.login-card h1{font-size:24px;margin:0 0 5px}.login-card p{color:var(--muted);margin:0 0 22px}.field{margin:0 0 14px}.field label{display:block;color:var(--muted);font-size:12px;font-weight:bold;margin:0 0 6px}.field input,.field select{width:100%;padding:12px;background:var(--input);color:var(--text);border:1px solid var(--line);border-radius:9px;outline:0}.field input:focus,.field select:focus{border-color:var(--focus);box-shadow:0 0 0 3px #5ee7df24}.primary{width:100%;border:0;border-radius:9px;padding:13px;background:var(--uad);color:#04201f;font-weight:bold}.primary.uwh{background:var(--uwh);color:#271301}.primary:disabled{opacity:.55}.message{margin:0 0 14px;padding:10px;border-radius:8px;display:none;font-size:13px}.message.error{display:block;background:#571f2a;color:#ffd7dc;border:1px solid #b84a59}.message.good{display:block;background:#123e34;color:#c8ffe9;border:1px solid #228c6e}
+    header{position:sticky;top:0;z-index:4;padding:13px 16px;background:#0d2028ee;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:10px}.brand-icon{padding:9px;border-radius:8px;background:var(--uad);font-size:20px}.brand h1{font-size:16px;margin:0}.brand p{font-size:11px;color:var(--focus);margin:3px 0 0}.session{display:flex;align-items:center;gap:8px}.session strong{font-size:12px}.session small{display:block;color:var(--muted);font-size:10px;text-align:right}.icon-btn{border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--text);padding:8px}.toolbar{display:flex;justify-content:space-between;gap:8px;padding:8px 16px;background:#0a1a21;border-bottom:1px solid var(--line);color:var(--muted);font-size:12px}.toolbar select{background:var(--input);color:var(--text);border:1px solid var(--line);border-radius:5px;padding:4px}.content{padding:14px 16px}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}.tab{border:1px solid var(--line);border-radius:11px;background:var(--panel);color:var(--muted);padding:11px 5px;font-weight:bold}.tab.active{border-color:var(--uad);color:var(--text);box-shadow:0 0 16px #00aaa633}.tab.uwh.active{border-color:var(--uwh);box-shadow:0 0 16px #f28c2833}.tab small{display:block;font-weight:normal;font-size:10px;margin-top:3px}.card{width:100%;padding:18px}.badge{display:inline-block;border-radius:999px;padding:5px 10px;background:#00aaa622;color:var(--focus);font-size:11px;font-weight:bold;margin-bottom:15px}.badge.uwh{background:#f28c2824;color:#ffc17f}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.group{margin-bottom:13px}.group label{display:block;color:var(--muted);font-size:12px;font-weight:bold;margin-bottom:5px}.group input,.group select{width:100%;padding:11px;background:var(--input);color:var(--text);border:1px solid var(--line);border-radius:9px;outline:0}.group input:focus,.group select:focus{border-color:var(--focus)}.lateral{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--input);border:1px solid var(--line);border-radius:9px;margin-bottom:14px;font-size:12px}.lateral input{width:20px;height:20px;accent-color:var(--uad)}.breakdown{display:none;grid-template-columns:repeat(3,1fr);gap:5px;margin:-6px 0 12px;padding:8px;background:#0b1b23;border:1px dashed var(--line);border-radius:8px;font-size:11px}.breakdown span{display:block;color:var(--focus);font-weight:bold}.subnav{display:flex;gap:8px;margin:0 0 14px}.subnav button{border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--muted);padding:8px 10px}.subnav button.active{color:var(--text);border-color:var(--focus)}.panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.notice{padding:10px;border:1px solid var(--line);border-radius:8px;margin:7px 0;font-size:12px}.notice button{float:right;background:transparent;border:0;color:var(--focus)}.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;font-size:12px}.table th,.table td{padding:8px 5px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}.table button{border:1px solid #8b3340;background:#381b24;color:#ffd7dc;border-radius:5px;padding:4px 7px}.toast{position:fixed;top:72px;left:5%;right:5%;z-index:9;padding:11px;border-radius:8px;background:#123e34;color:#c8ffe9;text-align:center;font-weight:bold}.toast.error{background:#571f2a;color:#ffd7dc}nav{position:fixed;bottom:0;left:0;right:0;z-index:5;background:#0d2028f2;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:8px}nav button{border:0;background:transparent;color:var(--muted);font-weight:bold;padding:5px 12px}nav button.active{color:var(--focus)}@media(max-width:560px){.panel-grid{grid-template-columns:1fr}.session strong{display:none}}
+    .session strong{display:inline!important;font-size:14px;line-height:1.2}.session small{font-size:11px;line-height:1.2}.uwh-theme .brand-icon{background:var(--uwh)}.uwh-theme .primary{background:var(--uwh);color:#271301}.uwh-theme .tab.active{border-color:var(--uwh);box-shadow:0 0 16px #f28c2833}.uwh-theme .breakdown span{color:#ffc17f}.summary-card{max-width:100%;overflow:hidden}.summary-tools{display:flex;gap:10px;align-items:end;flex-wrap:wrap}.summary-tools .field{min-width:150px}.summary-table{font-size:11px}.summary-table th,.summary-table td{padding:7px 6px}.summary-table .ok{color:var(--good)}.summary-table .error{color:#ff8994}.summary-table-wrap{overflow:auto;max-height:65vh}.part-filter{max-width:180px}#registro .card{max-width:480px;margin-left:auto;margin-right:auto}#movementForm .row{display:block}#movementForm .group{margin-bottom:16px}#movementForm .group:last-child{margin-bottom:0}#movementForm input,#movementForm select{min-height:44px}@media(max-width:560px){#registro .card{max-width:none}.session strong{font-size:13px}.session small{font-size:10px}}
+    :root{--bg:#f4f8f8;--panel:#ffffff;--input:#ffffff;--line:#d7e3e3;--text:#173236;--muted:#63777a;--uad:#008f8c;--uwh:#e47b19;--focus:#00aaa6}body{background:linear-gradient(135deg,#f7fbfb,#e8f2f1);color:var(--text)}.login-card,.card{background:#ffffff;box-shadow:0 10px 28px #21484a18}.field input,.field select,.group input,.group select{background:#ffffff;color:var(--text);border-color:var(--line)}header,.toolbar,nav{background:#ffffffee}.tab,.table button,.subnav button{background:#ffffff;color:var(--text)}button{transition:background .15s ease,box-shadow .15s ease,transform .15s ease}button:hover{background:#00aaa61c;box-shadow:0 3px 9px #21484a22;transform:translateY(-1px)}.uwh-theme button:hover,.movement-warehouse button:hover{background:#e47b191c}.movement-warehouse #registro:not(.registration-modal){background:#fff3e5}.movement-aduanas #registro:not(.registration-modal){background:#e8f5f4}.registration-modal{background:transparent!important}.breakdown-ok div{border-color:#28a66f;background:#effbf4}.breakdown-ok span{color:#16845d!important}.breakdown-ok .scan-check{display:inline;color:#16845d;font-size:16px;margin-left:5px}.admin-user-form{background:#f7fbfb;padding:14px;border:1px solid var(--line);border-radius:8px}.admin-user-form h3{margin-top:0}
+    .brand h1{display:flex;align-items:baseline;gap:12px;font-size:32px;line-height:1.05}.brand-version{font-size:16px;font-weight:normal;color:var(--muted);white-space:nowrap}.uqm-theme .brand-icon{background:#249447}.uqm-theme .primary{background:#249447;color:#fff}.uqm-theme .tab.active{border-color:#249447;box-shadow:0 0 16px #24944733}.uqm-theme .breakdown span{color:#249447}.uqm-theme .lateral input{accent-color:#249447}.busy-button{position:relative}.busy-button:disabled{opacity:.7;cursor:wait}
+    .session strong{font-size:21px!important;line-height:1.2}.session small{font-size:16px!important;line-height:1.2}.summary-table{border-collapse:collapse}.summary-table th,.summary-table td{border:1px solid rgba(39,67,74,.85)}.summary-table tbody tr:nth-child(odd){background:rgba(18,47,52,.12)}.summary-table tbody tr:nth-child(even){background:rgba(255,255,255,.03)}.summary-card .summary-table thead th{font-size:13px;font-weight:800;color:#173236;background:#e5f0ef;text-align:center}.summary-card .summary-table thead th:first-child,.summary-card .summary-table tbody td:first-child{text-align:center}.summary-card .summary-table thead th:nth-last-child(-n+3),.summary-card .summary-table tbody td:nth-last-child(-n+3){text-align:center;font-weight:800}
+    .summary-table tbody tr:nth-child(odd){background:rgba(18,47,52,.08)}.summary-table tbody tr:nth-child(even){background:rgba(255,255,255,.02)}.summary-table .diff-ok{background:#dff9e8!important;color:#126843;font-weight:800}.summary-table .diff-error{background:#ffd7dc!important;color:#7a1d2b;font-weight:800}.summary-controls{display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:0 0 12px}.header-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-start}.header-controls label{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:11px}.header-controls input,.header-controls select{background:var(--input);color:var(--text);border:1px solid var(--line);border-radius:7px;padding:6px 8px}.summary-filter-tools{display:flex;align-items:end;gap:10px;flex-wrap:wrap}.summary-filter-tools .field{min-width:150px;margin:0}.summary-filter-tools .primary{width:auto;white-space:nowrap}.role-dev{color:#087f68!important;text-shadow:1px 1px 0 #064b3f,-1px -1px 0 #b9ffe7,1px -1px 0 #b9ffe7,-1px 1px 0 #064b3f;animation:goldPulse 2.8s ease-in-out infinite}.role-dev .role-mark{color:#ffd447!important;-webkit-text-stroke:1px #5b3b00;animation:goldPulse 2.8s ease-in-out infinite}header .brand p{display:none}@media(max-width:560px){.summary-table{font-size:10px}.summary-controls{align-items:stretch}.summary-filter-tools,.header-controls{width:100%}}
+    header .brand-icon{display:none}#registrationControls{display:none}.summary-controls #registrationControls{display:flex;background:#fff;border:0;padding:0}.summary-controls .header-controls label{color:var(--muted)}.summary-controls .header-controls input,.summary-controls .header-controls select{background:#fff;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:12px}.summary-controls .header-controls{gap:10px}.role-dev:hover{color:#087f68!important;text-shadow:0 0 10px #20c997,0 0 20px #20c997,1px 1px 0 #064b3f,-1px -1px 0 #b9ffe7}
+    .role-dev{color:#102a56!important;font-weight:400!important;-webkit-text-stroke:0!important;text-shadow:none;animation:none}.role-dev:hover,.role-dev:hover .role-mark{color:#173f7a!important;text-shadow:0 0 8px #4f9cff,0 0 18px #4f9cff}.role-dev .role-mark{color:#d3a62a!important;font-weight:400!important;-webkit-text-stroke:0!important;text-shadow:none;animation:goldPulse 2.8s ease-in-out infinite}.preview-mode #saveButton,.preview-mode #adminNav{display:none}.preview-menu{position:absolute;top:calc(100% + 6px);left:0;z-index:10;display:flex;flex-direction:column;gap:5px;min-width:245px;padding:6px;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 14px 30px #21484a35}.preview-menu.hidden{display:none}.preview-menu button{padding:9px 11px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--text);text-align:left}.preview-back{display:none;margin-left:8px;padding:5px 9px;border:1px solid var(--line);border-radius:7px;background:#fff;color:#173236}.preview-back.visible{display:inline-block}            .brand{position:relative}.registration-meta .field input,.registration-meta .field select{pointer-events:none;background:#f4f8f8;color:var(--text)}.deletion-modal .capture-error-card{border-color:#d8a33a}.deletion-modal textarea{display:block;width:100%;min-height:110px;margin:14px 0;padding:10px;border:1px solid var(--line);border-radius:8px;resize:vertical;color:var(--text);background:var(--input)}.history-delete-button{border:1px solid #c62828!important;background:#ffebee!important;color:#c62828!important}.delete-approve,.delete-reject{float:right;border:0!important;background:transparent!important;font-size:21px;padding:0 5px!important}.delete-approve{color:#16845d!important}.delete-reject{color:#c62828!important}#historyFilters .field:has(#historyPartSearch){margin-left:auto;order:10}#historyFilters .field:not(:has(#historyPartSearch)){order:1}#historyFilters #hxhButton{order:11;width:auto;padding:8px 12px}#historyFilters #refreshHistory{order:1}
+    .registration-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-items:end}.registration-meta .field{margin:0;min-width:0}.registration-meta .field select{-webkit-appearance:none;appearance:none;border-color:transparent!important;background:transparent!important;padding:0!important;font-weight:800}.registration-meta .field input{border-color:transparent!important;background:transparent!important;padding:0!important;font-weight:800}.brand-title-button{border:0;background:transparent;color:inherit;font:inherit;font-weight:inherit;padding:0;cursor:pointer}.preview-mode .brand-title-button{cursor:default}
+    .user-menu button{color:#fff!important}.user-menu button:hover{color:#fff!important}.capture-error-modal{position:fixed;inset:0;z-index:30;display:grid;place-items:center;background:rgba(23,50,54,.35);padding:16px}.capture-error-modal.hidden{display:none}.capture-error-card{position:relative;width:min(100%,480px);min-height:120px;padding:28px 22px 22px;background:#fff;border:1px solid #ef6262;border-radius:12px;box-shadow:0 18px 48px #0004;color:#173236;text-align:center}.capture-error-card h3{margin:0 0 10px;color:#a82e3d}.capture-error-close{position:absolute;top:7px;right:10px;border:0;background:transparent;color:#a82e3d;font-size:22px;line-height:1}.capture-error-card button:not(.capture-error-close){margin-top:14px;border:1px solid #a82e3d;border-radius:7px;background:#fff;color:#a82e3d;padding:8px 14px}.registration-collapsed .registration-meta{display:none}#summaryOperations{grid-template-columns:repeat(4,minmax(0,1fr))}.summary-table tbody tr.summary-line-even{background:rgba(18,47,52,.12)}.summary-table tbody tr.summary-line-odd{background:rgba(255,255,255,.03)}.movement-warehouse #summaryOperations .tab:hover{background:#e47b191c!important;box-shadow:0 3px 9px #e47b1944}.movement-aduanas #summaryOperations .tab:hover{background:#00aaa61c!important}@media(max-width:700px){#summaryOperations{grid-template-columns:1fr 1fr}}
+    #hxhModal .capture-error-card{width:min(100%,620px);border-color:var(--line);text-align:left}#hxhModal h3{color:var(--text)}#hxhModal .hxh-filters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;text-align:left}#hxhModal .hxh-actions{display:flex;justify-content:flex-end;gap:8px}#hxhModal .hxh-actions button{margin-top:0;width:auto;padding:8px 12px}#hxhModal .hxh-table{margin-top:16px;font-size:19.2px}#hxhModal .hxh-table th,#hxhModal .hxh-table td{text-align:center;font-size:19.2px;padding:9.6px 8px}#hxhModal .hxh-table th{font-weight:900}@media(max-width:560px){#hxhModal .hxh-filters{grid-template-columns:1fr}}
+    .summary-total-value{font-size:27px!important;line-height:1;font-weight:800}.audit-tools{align-items:end}.audit-tools button{width:auto;white-space:nowrap;padding:8px 12px}.audit-tools #refreshAudit{margin-left:auto}
+    #maintenancePanel #migrateCarsButton,#maintenancePanel #repairSheetsButton{width:auto;display:inline-block}
+    #newPassword{display:none}.field:has(#newPassword){display:none}
+    .role-user,.role-admin{font-weight:400!important;-webkit-text-stroke:0!important;text-shadow:none!important}.role-user{color:#008f8c!important}.role-admin{color:#0756a8!important}.uwh-theme .role-user,.uwh-theme .role-admin{color:#e47b19!important}.movement-aduanas #tabs .tab:hover,.movement-aduanas #summaryOperations .tab:hover{background:#008f8c22!important;border-color:#008f8c!important;color:#006d6a!important;box-shadow:0 0 12px #008f8c66!important}.movement-warehouse #tabs .tab:hover,.movement-warehouse #summaryOperations .tab:hover{background:#e47b1922!important;border-color:#e47b19!important;color:#bd5e00!important;box-shadow:0 0 12px #e47b1966!important}.summary-tools .header-controls,.summary-tools .summary-filter-tools{min-height:50px}.summary-tools .summary-filter-tools{justify-content:flex-end}#dailyPanel .summary-tools{align-items:center}#dailyPanel .summary-tools .primary{width:auto;white-space:nowrap}button:active{transform:translateY(1px) scale(.97)!important;box-shadow:inset 0 2px 5px rgba(0,0,0,.22)!important;filter:brightness(.96)!important}
+    .summary-table .carro-summary-cell{position:relative;min-width:72px;height:44px;padding:0!important;overflow:hidden;background:#fff}.summary-table .carro-summary-cell .carro-label{position:absolute;top:3px;right:4px;max-width:calc(100% - 8px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13.5px;font-weight:700}.summary-table .carro-summary-cell .carro-cantidad{position:absolute;bottom:3px;left:4px;font-weight:700}.summary-table .carro-add-cell{min-width:48px}.summary-table .carro-add-button{border:1px solid var(--uad);border-radius:6px;background:#008f8c12;color:var(--uad);font-size:22px;line-height:1;padding:4px 12px}.summary-card > .badge{font-size:16.5px}.summary-card > p{font-size:24px}.summary-card .summary-table{font-size:19.5px}.summary-card .summary-table th,.summary-card .summary-table td{font-size:inherit}
+    .summary-total-value{font-size:27px!important;line-height:1;font-weight:800}
+    .summary-card .summary-table{border-collapse:separate;border-spacing:0;background:var(--panel);isolation:isolate}.summary-card .summary-table th:nth-child(1),.summary-card .summary-table td:nth-child(1){position:sticky;left:0;z-index:10;min-width:72px;width:72px;background-color:var(--panel);background-image:none;background-clip:border-box;box-shadow:3px 0 0 var(--line);overflow:hidden}.summary-card .summary-table th:nth-child(2),.summary-card .summary-table td:nth-child(2){position:sticky;left:72px;z-index:10;min-width:190px;width:190px;background-color:var(--panel);background-image:none;background-clip:border-box;box-shadow:3px 0 0 var(--line);overflow:hidden}.summary-card .summary-table thead th:nth-child(1),.summary-card .summary-table thead th:nth-child(2){z-index:11;background-color:#0f2430}.summary-card .summary-table tbody tr:nth-child(odd) td:nth-child(1),.summary-card .summary-table tbody tr:nth-child(odd) td:nth-child(2){background-color:#eef4f4}.summary-card .summary-table tbody tr:nth-child(even) td:nth-child(1),.summary-card .summary-table tbody tr:nth-child(even) td:nth-child(2){background-color:#fff}
+    .summary-total-row td{background:#dceeed!important;border-top:2px solid var(--line);font-weight:800}
+    @media(max-width:560px){.summary-card .summary-table{font-size:15px}.summary-total-value{font-size:21px!important}.summary-table .carro-summary-cell .carro-label{font-size:13.5px}}.history-row-ok td{background:#dff9e8!important;color:#126843!important;font-weight:800}.history-table{table-layout:auto;font-size:18px!important}.history-table th,.history-table td{padding:6px 5px;white-space:nowrap}.history-table th{width:1%;font-size:15px}.history-table th:nth-child(1),.history-table th:nth-child(2),.history-table th:nth-child(3),.history-table th:nth-child(4){white-space:normal}.history-table .history-comment{white-space:normal;min-width:110px}.history-table .history-status{color:#e53935!important;font-weight:800;text-align:center}.history-table .history-status.valid{color:#16845d!important}
+    #usersPanel .panel-grid>div:nth-child(2){display:none!important}.history-number-column{width:1%;white-space:nowrap;padding-left:4px!important;padding-right:4px!important}
+    .pagination{display:flex;align-items:center;justify-content:center;gap:12px;margin:14px 0}.pagination button{width:auto;min-width:92px;padding:7px 12px}.pagination span{font-weight:700;white-space:nowrap}
+    .session strong{font-size:21px!important;line-height:1.2}.session small{font-size:16px!important;line-height:1.2}.summary-card .summary-table thead th{font-weight:900;color:#173236;background:#dceeed;text-align:center;text-shadow:0 1px 0 #fff}.summary-card .summary-table thead th:first-child,.summary-card .summary-table tbody td:first-child{text-align:center}.summary-card .summary-table thead th:nth-last-child(-n+3),.summary-card .summary-table tbody td:nth-last-child(-n+3){text-align:center;font-weight:900}.summary-card .summary-table tbody tr.summary-line-8003 td:not(:nth-last-child(-n+3)){background:rgba(244,153,67,.22)!important;border-top:2px solid rgba(214,113,24,.75);border-bottom:2px solid rgba(214,113,24,.75)}.summary-card .summary-table tbody tr.summary-line-8003 td:first-child{border-left:2px solid rgba(214,113,24,.75)}.summary-card .summary-table tbody tr.summary-line-8003 td:nth-last-child(4){border-right:2px solid rgba(214,113,24,.75)}
+    .session-name-button{border:0!important;background:transparent!important;box-shadow:none!important;padding:0!important}.summary-card .summary-table thead th{font-size:22.82px;color:#173236!important;background:#dceeed!important;font-weight:900}.summary-card .summary-table tbody td:nth-child(1),.summary-card .summary-table tbody td:nth-child(2){background:transparent!important}.summary-card .summary-table tbody tr.summary-line-odd td:nth-child(1),.summary-card .summary-table tbody tr.summary-line-odd td:nth-child(2){background:rgba(255,255,255,.03)!important}.summary-card .summary-table tbody tr.summary-line-even td:nth-child(1),.summary-card .summary-table tbody tr.summary-line-even td:nth-child(2){background:rgba(18,47,52,.12)!important}.summary-card .summary-table thead th,.summary-card .summary-table tbody td{text-align:center}.history-table th,.history-table td{text-align:center!important}
+    .summary-card .summary-table th:nth-child(1),.summary-card .summary-table td:nth-child(1),.summary-card .summary-table th:nth-child(2),.summary-card .summary-table td:nth-child(2){z-index:20!important;background-clip:padding-box!important}
+    .summary-card .summary-table thead th:nth-child(1),.summary-card .summary-table thead th:nth-child(2){z-index:30!important;background:#dceeed!important}
+    .summary-card .summary-table tbody tr.summary-line-odd td:nth-child(1),.summary-card .summary-table tbody tr.summary-line-odd td:nth-child(2){background:#f7fbfb!important}
+    .summary-card .summary-table tbody tr.summary-line-even td:nth-child(1),.summary-card .summary-table tbody tr.summary-line-even td:nth-child(2){background:#eaf3f2!important}
+    #partsModal{position:fixed!important;inset:0!important;z-index:100!important;display:grid!important;place-items:center!important;background:rgba(23,50,54,.35)!important;padding:16px!important}
+    #partsModal .camera-card{position:relative;width:min(100%,560px);max-height:90vh;overflow:auto;margin:0;background:#fff!important;color:#173236!important;opacity:1!important;border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 48px #0004;padding:22px}
+    #registro.registration-modal{position:fixed;inset:0;z-index:90;display:grid;place-items:center;overflow:auto;padding:16px;background:rgba(23,50,54,.35)!important;background-color:rgba(23,50,54,.35)!important}
+    #registro.registration-modal>#tabs{display:none}
+    #registro.registration-modal>.card{width:min(100%,620px)}
+    #registro.registration-modal>.card{margin:0}
+    .lateral{display:none!important}.qm-hidden-cut{display:none!important}
+    @media(max-width:560px){#registro.registration-modal{padding:12px 8px}}
+    #partsAdmin{display:none}#partsList .summary-tools{display:flex;align-items:end;gap:10px}#partsList .summary-tools .field{margin:0;min-width:150px}#partsList #openPartForm,#partsList #refreshParts{width:auto;padding:8px 12px;white-space:nowrap}#partsList #openPartForm{margin-left:auto}#partsList .table-wrap{width:50%}#partsList .parts-table{table-layout:auto}#partsList .parts-table th,#partsList .parts-table td{width:1%;white-space:nowrap}#partsList .parts-table th:nth-child(2),#partsList .parts-table td:nth-child(2){width:auto}#partsList .parts-table th:first-child,#partsList .parts-table td:first-child{width:42px;text-align:center}#partsList .parts-table th:nth-child(3),#partsList .parts-table td:nth-child(3){width:70px}#partsList .parts-table th:nth-child(4),#partsList .parts-table td:nth-child(4),#partsList .parts-table th:nth-child(5),#partsList .parts-table td:nth-child(5){width:78px}#partsList .parts-table tbody tr:nth-child(odd){background:rgba(18,47,52,.12)}#partsList .parts-table tbody tr:nth-child(even){background:rgba(255,255,255,.03)}@media(max-width:700px){#partsList .summary-tools{align-items:stretch;flex-wrap:wrap}#partsList #openPartForm{margin-left:0}#partsList .table-wrap{width:100%}}
+    #summaryOperations:has(> #pendingSummaryButton:nth-child(3)){display:grid;grid-template-columns:1fr 1fr;align-items:center}#summaryOperations:has(> #pendingSummaryButton:nth-child(3))>[data-summary-op]:first-child{grid-column:1;grid-row:1;justify-self:start}#summaryOperations:has(> #pendingSummaryButton:nth-child(3))>[data-summary-op]:nth-child(2){grid-column:2;grid-row:1;justify-self:end}#summaryOperations:has(> #pendingSummaryButton:nth-child(3))>#pendingSummaryButton{grid-column:2;grid-row:2;justify-self:end}#summaryOperations:has(> #pendingSummaryButton:nth-child(3))>.tab{box-sizing:border-box;width:33.3333%}#tabs [data-op$="_salida"],#summaryOperations [data-summary-op$="_salida"]{background:rgba(220,70,70,.12);border-color:rgba(190,55,55,.4)}#tabs [data-op$="_salida"].active,#summaryOperations [data-summary-op$="_salida"].active{background:rgba(220,70,70,.2);border-color:rgba(190,55,55,.65);box-shadow:0 0 12px rgba(190,55,55,.22)}
+  </style>
+  <style>
+    .summary-refresh-modal{position:fixed;inset:0;z-index:31;display:grid;place-items:center;background:rgba(23,50,54,.35);padding:16px}
+    .summary-refresh-notice{width:min(100%,440px);padding:24px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 48px #0004;color:var(--text);text-align:center}
+    .summary-refresh-notice p{margin:0;line-height:1.5}
+    .history-row-edited td{background:#fff2b2!important;color:#6b5200!important;font-weight:800}
+  </style>
+  <style>
+    @media (max-width: 560px), (max-width: 950px) and (max-height: 560px) and (orientation: landscape) {
+      .brand{min-width:0;gap:6px}
+      .brand h1{display:block;font-size:15px!important;line-height:1.15;white-space:nowrap}
+      .brand-version{display:inline;font-size:9px;margin-left:3px}
+      .session{min-width:0;flex-shrink:1}
+      .session-name-button{max-width:100%}
+      .session strong{font-size:10px!important;white-space:nowrap}
+      .session small{font-size:9px!important;white-space:nowrap}
+      #summaryOperations .tab,#tabs .tab{font-size:12px;padding:8px 4px}
+      #summaryOperations .tab small,#tabs .tab small{font-size:9px}
+      .summary-filter-tools .field label,.header-controls label{font-size:10px}
+      .summary-filter-tools .field input,.summary-filter-tools .field select,.summary-controls .header-controls input,.summary-controls .header-controls select{font-size:12px!important;padding:7px 8px!important}
+      .summary-tools .field,.summary-filter-tools .field{width:max-content;min-width:0;max-width:100%}
+      .summary-tools .field input,.summary-tools .field select,.summary-filter-tools .field input,.summary-filter-tools .field select{width:auto;min-width:0;max-width:100%}
+      #historyFilters #historyPartSearch{width:150px}
+      #auditEmployee{width:130px}
+      .summary-tools .field label{font-size:10px}
+      .summary-tools .field input,.summary-tools .field select{font-size:12px!important;padding:7px 8px!important}
+      #historyFilters .field input,#historyFilters .field select{font-size:12px!important;padding:7px 8px!important}
+      #auditPanel .summary-tools .field input,#auditPanel .summary-tools .field select{font-size:12px!important;padding:7px 8px!important}
+      .summary-filter-tools .primary,.summary-controls .primary,#dailyPanel .summary-tools .primary,#historyFilters .primary,#partsList .primary,.subnav button,.audit-tools button{font-size:12px;padding:7px 9px}
+      #partsList #refreshParts{align-self:flex-start;font-size:12px;line-height:1.2;min-height:0;padding:6px 9px;white-space:nowrap}
+      .summary-card>.badge{font-size:13px}
+      .summary-card>p{font-size:15px}
+      .summary-card .summary-table,.summary-card .summary-table th,.summary-card .summary-table td{font-size:12px!important}
+      .summary-card .summary-table th:nth-child(1),.summary-card .summary-table td:nth-child(1){width:max-content!important;min-width:0!important;max-width:none!important}
+      .summary-card .summary-table th:nth-child(2),.summary-card .summary-table td:nth-child(2){left:var(--summary-first-column-width,72px)!important;width:max-content!important;min-width:0!important;max-width:45vw!important}
+      #dailyPanel .summary-table thead th:last-child{width:94px!important;min-width:94px!important;max-width:94px!important;white-space:normal;overflow-wrap:anywhere}
+      #dailyPanel .summary-table tbody td:last-child{width:94px!important;min-width:94px!important;max-width:94px!important}
+      #dailyPanel .summary-total-row td{position:static!important;left:auto!important;z-index:auto!important;background:#dceeed!important}
+      .summary-total-value{font-size:17px!important}
+      .summary-table .carro-summary-cell{min-width:56px;height:36px}
+      .summary-table .carro-summary-cell .carro-label{font-size:10px}
+      .summary-table .carro-add-button{font-size:18px;padding:3px 8px}
+      .history-table td{font-size:12px!important;padding:4px 3px}
+      #historyFilters .field label{font-size:10px}
+      #historyFilters .field input,#historyFilters .field select{font-size:12px;padding:7px 8px}
+      #hxhModal .hxh-table,#hxhModal .hxh-table th,#hxhModal .hxh-table td{font-size:14px!important}
+      #hxhModal .hxh-table th,#hxhModal .hxh-table td{padding:7px 5px}
+      .capture-error-card,.summary-refresh-notice{font-size:14px;padding:20px 16px}
+      #partsModal .camera-card{padding:18px}
+    }
+    #loginLockTimer:not(.hidden){display:block;background:#571f2a;color:#ffd7dc;border:1px solid #b84a59}
+    #loginButton,#loginButton:hover,#loginButton:active{transition:none!important;animation:none!important;transform:none!important;box-shadow:none!important;filter:none!important}
+    .summary-table .carro-summary-cell .carro-label-guardando{font-size:9px!important;color:#a85c00}
+    .summary-table .carro-summary-cell .carro-label-pendiente{font-size:9px!important;color:#a82e3d}
+    .summary-table .carro-summary-cell .carro-label-encola{font-size:9px!important;color:#52717a}
+    .queue-indicator{border-radius:999px;padding:4px 7px;background:#163b43;color:#b9edf0;font-size:10px;white-space:nowrap}
+    #movementForm .breakdown{background:transparent;font-size:14.3px}
+    #movementForm .breakdown span{color:#000;font-weight:700}
+    #movementForm .group label{color:#000}
+    #movementForm #cantidadPreview:not(:empty){display:block;margin-top:6px;padding:8px;border:1px dashed var(--line);border-radius:8px;font-size:17.3px;font-weight:700;line-height:1.3}
+    #movementForm #empleadoNombre:not(:empty){display:block;margin-top:6px;padding:8px;border:1px dashed var(--line);border-radius:8px;font-size:17.3px;font-weight:700;line-height:1.3}
+    #outgoingConfirmModal{z-index:110}
+    .outgoing-confirm-card{width:min(100%,480px);border:3px solid #c62828;box-shadow:0 18px 48px #0006;text-align:center}
+    .outgoing-confirm-card h3{margin:0 0 14px;color:#b71c1c;font-size:22px}
+    .outgoing-confirm-card p{font-size:17px;font-weight:700;line-height:1.5}
+    .outgoing-confirm-actions{display:flex;justify-content:space-between;gap:12px;margin-top:22px}
+    .outgoing-confirm-actions button{width:50%;min-height:48px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--text);font-weight:800}
+    .outgoing-confirm-actions .outgoing-confirm-continue{border-color:#b71c1c;background:#c62828;color:#fff}
+    .outgoing-confirm-actions .outgoing-confirm-continue:hover{background:#a91515;box-shadow:0 4px 12px #c6282866}
+    @media(max-width:560px){.outgoing-confirm-card h3{font-size:20px}.outgoing-confirm-card p{font-size:16px}}
+  </style>
+</head>
+<body>
+  <section id="loginView" class="login-shell"><form id="loginForm" class="login-card"><div class="logo">📦</div><h1>Trazabilidad Móvil</h1><p>Acceso seguro por departamento</p><div id="loginMessage" class="message"></div><div id="loginLockTimer" class="message hidden" aria-live="polite"></div><div class="field"><label for="loginEmpleado">Número de empleado</label><input id="loginEmpleado" autocomplete="username" required autofocus></div><div class="field"><label for="loginPassword">Contraseña</label><input id="loginPassword" type="password" autocomplete="current-password" required></div><button id="loginButton" class="primary" type="submit">Iniciar sesión</button></form></section>
+  <section id="appView" class="hidden"><header><div class="brand"><div class="brand-icon">📦</div><div><h1>Registro de materiales <span class="brand-version">version 1.1.3</span></h1><p id="fecha">Cargando...</p></div></div><div class="session"><span id="onlineQueueStatus" class="queue-indicator hidden" aria-live="polite"></span><span id="offlineQueueStatus" class="queue-indicator hidden"></span><div class="session-user-wrap"><button id="sessionNameBtn" class="session-name-button" type="button"><strong id="sessionName"></strong><small class="session-role-line" id="sessionRole"></small></button><div id="userMenu" class="user-menu hidden"><button id="logout" type="button">Cerrar sesión</button></div></div></div></header><div class="header-controls" id="registrationControls"><input id="turno" type="hidden"><label>Fecha: <input id="registroFecha" type="date"></label><label id="registrationCutControl">Corte: <select id="corte"><option>1</option><option>2</option><option>3</option><option>Acumulado</option></select></label></div><div id="toast" class="toast hidden"></div>
+    <main id="registro" class="content"><div id="tabs" class="tabs"></div><section class="card"><div id="operationBadge" class="badge"></div><div class="registration-meta"><div class="field"><label>Fecha</label><input id="registroFechaMeta" type="date"></div><div class="field"><label>Turno</label><input id="registroTurno" type="text" readonly></div><div id="registrationMetaCutControl" class="field"><label>Corte</label><select id="registroCorte"><option>1</option><option>2</option><option>3</option><option>Acumulado</option></select></div></div><div class="lateral"><span>¿Pieza lateral?<br><small>Registra dos escaneos juntos</small></span><input id="esLateral" type="checkbox"></div><form id="movementForm"><div class="group"><label for="escaneo">Código de etiqueta</label><input id="escaneo" autocomplete="off" required></div><div id="breakdown" class="breakdown"><div>Rolling<span id="rolling"></span></div><div>No. parte<span id="parte"></span></div><div>Tipo<span id="tipoParte"></span></div></div><div id="secondGroup" class="group hidden"><label for="escaneo2">Segundo escaneo lateral</label><input id="escaneo2" autocomplete="off"></div><div class="row"><div class="group"><label for="carro">No. carro/caja</label><input id="carro" required></div><div class="group"><label for="cantidad">Cantidad</label><input id="cantidad" type="text" inputmode="numeric" pattern="[0-9]+" required></div></div><div class="row"><div class="group"><label for="linea">Línea</label><select id="linea" tabindex="-1" required><option value="">Selecciona</option></select></div><div class="group"><label for="empleado">Empleado que registra</label><input id="empleado" list="empleadosLista" required><datalist id="empleadosLista"></datalist><small id="empleadoNombre"></small></div></div><button id="saveButton" class="primary" type="submit">✓ Registrar movimiento</button></form></section></main>
+    <main id="dashboard" class="content hidden"><section class="card"><div class="badge">📊 Resumen por corte</div><div class="row"><div class="group"><label>Total Aduanas</label><input id="totalAduanas" readonly value="0"></div><div class="group"><label>Total Almacén</label><input id="totalAlmacen" readonly value="0"></div></div><div class="group"><label>Discrepancias</label><input id="discrepancias" readonly value="0"></div><button id="refreshSummary" class="primary">↻ Actualizar resumen</button><div class="table-wrap"><table class="table"><thead><tr><th>Línea</th><th>Parte</th><th>Aduanas</th><th>Almacén</th><th>Estado</th></tr></thead><tbody id="summaryBody"></tbody></table></div></section></main>
+    <main id="admin" class="content hidden"><div class="subnav"><button class="active" data-admin-view="users">Usuarios</button><button data-admin-view="records">Registros</button></div><section id="usersPanel" class="card"><div class="badge">👥 Administración de usuarios</div><div class="panel-grid"><form id="newUserForm"><h3>Agregar usuario</h3><div class="field hidden"><label>Fecha del registro</label><input id="newRegistrationDate" type="date" readonly></div><div class="field"><label>Número de empleado</label><input id="newEmployee" required></div><div class="field"><label>Nombre</label><input id="newName" required></div><div class="field"><label>Tipo de usuario</label><select id="newRole"><option value="U">Usuario Estándar</option><option value="ADM">Administrador</option></select></div><div class="field"><label>Departamento</label><select id="newDepartment"><option value="UAD">Aduanas</option><option value="UWH">Almacén</option></select></div><button class="primary" type="submit">Agregar usuario</button></form></div><h3>Usuarios registrados</h3><div class="table-wrap"><table class="table"><thead><tr><th>Empleado</th><th>Nombre</th><th>Rol</th><th>Estado</th><th>Acción</th></tr></thead><tbody id="usersBody"></tbody></table></div></section><section id="recordsPanel" class="card hidden"><div class="badge">🧾 Gestión de registros</div><div class="field"><label>Operación</label><select id="recordsOperation"></select></div><button id="loadRecords" class="primary">Cargar registros</button><div class="table-wrap"><table class="table"><thead><tr><th>Fila</th><th>Escaneo</th><th>Parte</th><th>Cantidad</th><th>Empleado</th><th>Acción</th></tr></thead><tbody id="recordsBody"></tbody></table></div></section></main>
+    <main id="history" class="content hidden"><section class="card"><div class="badge">📜 Movimientos de esta sesión</div><div id="historyList"></div></section></main><nav><button class="active" data-view="dashboard">📊<br>Resumen</button><button data-view="history">📜<br>Historial</button><button id="adminNav" class="hidden" data-view="admin">⚙<br>Admin</button></nav>
+  </section>
+  <script>
+    const App={token:null,user:null,catalogos:{},op:'',history:[],allowed:[],summaryCache:{},historyCache:{},historyEditedRows:{},movimientosGuardando:[],columnasResumenAntesDeGuardar:{},colaOnlineMovimientos:[],procesandoColaOnline:false,idSolicitudMovimientoActual:null,datosSolicitudMovimientoActual:null,reintentoColaOfflineId:null,sincronizandoCola:false,sincronizandoColaCambio:false};const $=id=>document.getElementById(id);const operations={aduanas_entrada:'📥 Entrada Aduanas',aduanas_salida:'📤 Salida Aduanas',almacen_entrada:'🏭 Entrada Almacén',almacen_salida:'🚚 Salida Almacén'};
+    const localUsers={'32866':{nombre:'Victor Martinez',rol:'DEV',departamento:'TODOS',password:'@VFernando199',requeridoCambio:false},'1001':{nombre:'Usuario Aduanas',rol:'UAD',departamento:'UAD',password:'demo',requeridoCambio:true},'2001':{nombre:'Usuario Almacén',rol:'UWH',departamento:'UWH',password:'demo',requeridoCambio:true}};
+    const OFFLINE_QUEUE_KEY='trazabilidad-offline-queue-v1';
+      function escapeHtml_(value){const text=String(value==null?'':value);return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}
+      function sanitizeText_(value){return String(value==null?'':value).replace(/[\u0000-\u001F\u007F]/g,'').replace(/\s+/g,' ').trim()}
+      function htmlCell_(value){return escapeHtml_(String(value==null?'':value))}
+    function leerColaOffline_(){const texto=localStorage.getItem(OFFLINE_QUEUE_KEY);if(!texto)return[];try{const cola=JSON.parse(texto);return Array.isArray(cola)?cola:[]}catch(error){localStorage.removeItem(OFFLINE_QUEUE_KEY);return[]}}
+    function guardarColaOffline_(cola){localStorage.setItem(OFFLINE_QUEUE_KEY,JSON.stringify(cola));actualizarColaOfflineUI_()}
+    function actualizarColaOfflineUI_(){const empleado=App.user&&App.user.empleado;const cantidad=leerColaOffline_().filter(item=>item.empleado===empleado).length;const indicador=$('offlineQueueStatus');if(indicador){indicador.textContent=cantidad?'Pendientes: '+cantidad:'';indicador.classList.toggle('hidden',cantidad===0)}const online=$('onlineQueueStatus');if(online){const enProceso=App.procesandoColaOnline;const pendientes=App.colaOnlineMovimientos.length;online.textContent=pendientes?(enProceso?'Enviando · '+pendientes:'En cola online · '+pendientes):'';online.classList.toggle('hidden',pendientes===0)}const boton=$('pendingSummaryButton');if(boton)boton.textContent='Pendientes ('+cantidad+')'}
+    function obtenerCarroAsignadoVisualOffline_(datos){const fecha=String(datos.fecha||'').trim();const turno=String(datos.turno||'').trim();const linea=String(datos.linea||'').trim();const escaneo=String(datos.escaneo||'').trim();const parte=segmentosEscaneo_(escaneo)[2]||'';const normalizar=v=>String(v||'').replace(/\u00a0/g,' ').trim().replace(/\s+/g,' ').toUpperCase();let maximo=0;const filas=(App.summaryData&&Array.isArray(App.summaryData.filas)?App.summaryData.filas:[]);filas.forEach(fila=>{if(String(fila.linea||'').trim()!==linea)return;if(parte&&normalizar(fila.parte)!==normalizar(parte))return;const carros=Array.isArray(fila.carros)?fila.carros:[];for(let i=0;i<carros.length;i++){const valor=Number(carros[i]||0);if(valor!==0&&i+1>maximo)maximo=i+1;}});const empleadoActual=App.user?App.user.empleado:null;const pendientes=leerColaOffline_().filter(item=>item.empleado===empleadoActual&&String(item.datos.fecha||'')===fecha&&String(item.datos.turno||'')===turno&&String(item.datos.linea||'')===linea);pendientes.forEach(item=>{const datosPendiente=item.datos||{};const partePendiente=segmentosEscaneo_(datosPendiente.escaneo)[2]||'';if(parte&&normalizar(partePendiente)!==normalizar(parte))return;const valor=item.carroAsignado||datosPendiente.carroAsignado||datosPendiente.carro||datosPendiente.numCarroCaja||datosPendiente.carroCaja||'';const matchNumero=String(valor).match(/\d+/);const numero=matchNumero?Number(matchNumero[0]):0;if(numero>maximo)maximo=numero;});if(maximo>0)return String(maximo+1);const matchBase=String(datos.numCarroCaja||'').match(/\d+/);const numeroBase=matchBase?Number(matchBase[0]):0;return numeroBase>0?String(numeroBase):'1';}
+    function crearIdSolicitudMovimiento_(){return'm-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,14)}
+    function encolarMovimientoOffline_(datos){const cola=leerColaOffline_();if(!datos.idSolicitud)datos.idSolicitud=crearIdSolicitudMovimiento_();const item={id:Date.now()+'-'+Math.random().toString(36).slice(2),empleado:App.user&&App.user.empleado,datos:datos,carroAsignado:obtenerCarroAsignadoVisualOffline_(datos),estado:'pendiente'};cola.push(item);guardarColaOffline_(cola);return item}
+    function obtenerPendientesPropios_(){const empleado=App.user&&App.user.empleado;return leerColaOffline_().filter(item=>item.empleado===empleado)}
+    function descargarColaOffline_(){const pendientes=obtenerPendientesPropios_();if(!pendientes.length)return toast('No hay registros pendientes para descargar.',true);const contenido=JSON.stringify(pendientes,null,2);const enlace=document.createElement('a');enlace.href=URL.createObjectURL(new Blob([contenido],{type:'application/json;charset=utf-8'}));enlace.download='registros-pendientes-'+(App.user.empleado||'usuario')+'-'+new Date().toISOString().slice(0,10)+'.json';enlace.click();setTimeout(()=>URL.revokeObjectURL(enlace.href),1000);toast('Respaldo de registros pendientes descargado.')}
+    function mostrarPendientesOffline_(){const pendientes=obtenerPendientesPropios_();if(!pendientes.length){toast('No hay registros pendientes para mostrar en el resumen.',true);return;}const pendienteConError=pendientes.find(item=>item.estado==='error');if(pendienteConError){mostrarErrorColaOffline_(pendienteConError,pendienteConError.error||'El registro no se pudo sincronizar.');return;}const dashboard=$('dashboard');if(dashboard){dashboard.scrollIntoView({behavior:'smooth',block:'start'});}loadSummary(true);toast('Los pendientes ya aparecen en el resumen principal.');}
+    function avisarEstadoOffline_(){if(!navigator.onLine)toast('Sin conexión: el registro se guardará temporalmente en la cola offline.',true)}
+    function mostrarErrorColaOffline_(pendiente,mensaje){if($('offlineErrorModal'))return;const datos=pendiente.datos;const modal=document.createElement('div');modal.id='offlineErrorModal';modal.className='capture-error-modal';modal.innerHTML='<div class="capture-error-card"><button class="capture-error-close" type="button" aria-label="Cerrar">×</button><h3>No se pudo registrar una entrada pendiente</h3><p>'+escapeHtml_(mensaje)+'</p><p><b>Parte:</b> '+escapeHtml_(datos.escaneo||'')+'<br><b>Línea:</b> '+escapeHtml_(datos.linea||'')+'<br><b>Cantidad:</b> '+escapeHtml_(datos.cantidad||'')+'<br><b>Carro/caja:</b> '+escapeHtml_(datos.numCarroCaja||'')+'<br><b>Carro asignado:</b> '+escapeHtml_(pendiente.carro||'Pendiente')+'</p><div class="camera-actions"><button type="button" id="retryOfflineMovement" class="primary">Volver a registrar esta entrada</button><button type="button" id="discardOfflineMovement">Descartar registro</button></div></div>';document.body.appendChild(modal);const cerrar=()=>modal.remove();modal.querySelector('.capture-error-close').onclick=cerrar;modal.querySelector('#retryOfflineMovement').onclick=()=>{cerrar();App.reintentoColaOfflineId=pendiente.id;App.op=datos.tipoOperacion;buildTabs();$('registroTurno').value=datos.turno;$('registroFechaMeta').value=datos.fecha;$('registroCorte').value=datos.corte;$('turno').value=datos.turno;$('registroFecha').value=datos.fecha;$('corte').value=datos.corte;$('escaneo').value=datos.escaneo;$('carro').value=datos.numCarroCaja;$('cantidad').value=datos.cantidad;$('linea').value=datos.linea;$('empleado').value=datos.numEmpleado;analyze(datos.escaneo);if(datos.esLateral==='Si'){$('esLateral').checked=true;$('secondGroup').classList.remove('hidden');$('escaneo2').value=datos.escaneo2||'';analyzeSecond(datos.escaneo2||'');}showView('registro');$('escaneo').focus();};modal.querySelector('#discardOfflineMovement').onclick=()=>{if(!confirm('¿Descartar permanentemente este registro pendiente?'))return;const cola=leerColaOffline_().filter(item=>item.id!==pendiente.id||item.empleado!==App.user.empleado);guardarColaOffline_(cola);App.reintentoColaOfflineId=null;cerrar();toast('Registro pendiente descartado.');if(navigator.onLine)sincronizarColaOffline_();};}
+    function refrescarDatosTrasColaOffline_(){App.summaryCache={};App.historyCache={};if($('summaryDate'))loadSummary(true);if($('historyDate'))loadHistory_(true)}
+    function sincronizarColaOffline_(){if(!navigator.onLine||App.sincronizandoCola||!App.token)return;const empleado=App.user&&App.user.empleado;if(!leerColaOffline_().some(item=>item.empleado===empleado))return;App.sincronizandoCola=true;App.sincronizandoColaCambio=false;const enviarSiguiente=()=>{const actual=leerColaOffline_();const pendiente=actual.find(item=>item.empleado===empleado);if(!pendiente){App.sincronizandoCola=false;if(App.sincronizandoColaCambio){refrescarDatosTrasColaOffline_();App.sincronizandoColaCambio=false}actualizarColaOfflineUI_();return}if(pendiente.estado==='error'){App.sincronizandoCola=false;if(App.sincronizandoColaCambio){refrescarDatosTrasColaOffline_();App.sincronizandoColaCambio=false}mostrarErrorColaOffline_(pendiente,pendiente.error||'El registro no se pudo sincronizar.');return}if(!pendiente.datos.idSolicitud)pendiente.datos.idSolicitud=crearIdSolicitudMovimiento_();pendiente.estado='sincronizando';delete pendiente.error;guardarColaOffline_(actual);api('registrarMovimientoUnificado',[pendiente.datos,App.token],()=>{const nuevaCola=leerColaOffline_();const indice=nuevaCola.findIndex(item=>item.id===pendiente.id&&item.empleado===empleado);if(indice>=0)nuevaCola.splice(indice,1);guardarColaOffline_(nuevaCola);App.sincronizandoColaCambio=true;enviarSiguiente()},error=>{const nuevaCola=leerColaOffline_();const actualPendiente=nuevaCola.find(item=>item.id===pendiente.id&&item.empleado===empleado);App.sincronizandoCola=false;if(App.sincronizandoColaCambio){refrescarDatosTrasColaOffline_();App.sincronizandoColaCambio=false}else{App.sincronizandoColaCambio=false}if(actualPendiente){actualPendiente.estado=navigator.onLine?'error':'pendiente';actualPendiente.error=navigator.onLine?(error.message||String(error)):'';guardarColaOffline_(nuevaCola);if(navigator.onLine)mostrarErrorColaOffline_(actualPendiente,actualPendiente.error)}})};enviarSiguiente()}
+    window.addEventListener('online',()=>{toast('Conexión restablecida. Sincronizando registros pendientes...');sincronizarColaOffline_()});window.addEventListener('offline',()=>toast('Conexión perdida: los nuevos registros se guardarán en la cola offline.',true));
+    function toast(text,error){$('toast').textContent=text;$('toast').className='toast'+(error?' error':'');setTimeout(()=>{$('toast').className='toast hidden'},3500)}function marcarBotonOcupado_(boton,texto){if(!boton)return()=>{};const original=boton.dataset.textoOriginal||boton.textContent;boton.dataset.textoOriginal=original;if(boton.id==='loginButton' || texto==='Iniciando'){boton.disabled=true;boton.classList.remove('busy-button');boton.textContent=texto||'Iniciando';return()=>{boton.disabled=false;boton.classList.remove('busy-button');boton.textContent=original;delete boton.dataset.textoOriginal;}};boton.disabled=true;boton.classList.add('busy-button');boton.textContent=texto;const frames=['.','..','...'];let indice=0;const actualizar=()=>{if(!boton.disabled){clearInterval(boton._busyInterval);boton._busyInterval=null;boton.classList.remove('busy-button');delete boton.dataset.textoOriginal;return;}boton.textContent=texto+frames[indice];indice=(indice+1)%frames.length};actualizar();boton._busyInterval=setInterval(actualizar,420);return()=>{clearInterval(boton._busyInterval);boton._busyInterval=null;boton.disabled=false;boton.classList.remove('busy-button');boton.textContent=original;delete boton.dataset.textoOriginal}}function marcarBotonGlobal_(boton,texto){App.botonOcupado=boton;return marcarBotonOcupado_(boton,texto)}function terminarBotonGlobal_(){if(App.botonOcupado){const boton=App.botonOcupado;App.botonOcupado=null;boton.disabled=false;boton.classList.remove('busy-button');boton.textContent=boton.dataset.textoOriginal||boton.textContent}}    function aplicarTemaDepartamento_(departamento){const dept=departamentoUI_(departamento);document.body.classList.toggle('uwh-theme',dept==='UWH');document.body.classList.toggle('uqm-theme',dept==='UQM');document.body.classList.toggle('qm-user',dept==='UQM');}function api(name,args,ok,fail){const resolver=res=>{if(App.botonOcupado){const boton=App.botonOcupado;App.botonOcupado=null;boton.disabled=false;boton.classList.remove('busy-button');boton.textContent=boton.dataset.textoOriginal||boton.textContent}ok(res)};const manejarFallo=error=>{if(App.botonOcupado){const boton=App.botonOcupado;App.botonOcupado=null;boton.disabled=false;boton.classList.remove('busy-button');boton.textContent=boton.dataset.textoOriginal||boton.textContent}const mensaje=String(error&&error.message||error||'');const pareceFalloRed=/failed to fetch|network|timeout|connection|unavailable|offline/i.test(mensaje);if(name==='registrarMovimientoUnificado'&&( !navigator.onLine||pareceFalloRed)&&args&&args[0]){registrarMovimientoOfflineTrasFallo_(args[0],error);return}fail(error)};const isLocal=location.protocol==='file:';if(!isLocal&&window.google?.script?.run){const call=google.script.run.withSuccessHandler(resolver).withFailureHandler(manejarFallo);call[name](...(args||[]))}else setTimeout(()=>localApi(name,args,resolver,manejarFallo),250)}
+    function localApi(name,args,ok,fail){try{if(name==='iniciarSesion'){const id=args[0],p=args[1],u=localUsers[id];if(!u||u.password!==p)throw Error('Empleado o contraseña incorrectos.');return ok({token:'local',usuario:{empleado:id,nombre:u.nombre,rol:u.rol,departamento:u.departamento,requiereCambio:u.requeridoCambio},catalogos:{empleados:{'32866':'Victor Martinez','1001':'Usuario Aduanas','2001':'Usuario Almacén'},partes:{'B/C L':'B/C L','B/C R':'B/C R','B/C M':'B/C M','F/C':'F/C'},fechaAduanas:new Date().toISOString().slice(0,10),turnoActual:'A',corteActual:'1'}})}if(name==='obtenerResumenVisual')return ok({totalAduanas:0,totalAlmacen:0,discrepancias:0,filas:[]});if(name==='obtenerResumenConciliacion')return ok({totalAduanas:0,totalAlmacen:0,discrepancias:0,detalles:[]});if(name==='obtenerResumenHXH')return ok({items:[],total:0});if(name==='listarHistorial')return ok([]);if(name==='listarUsuarios')return ok(Object.entries(localUsers).map(([empleado,u])=>({empleado,nombre:u.nombre,rol:u.rol,departamento:u.departamento,estado:'ACTIVO',intentos:0,requeridoCambio:u.requeridoCambio})));if(name==='buscarUsuario')return ok(null);if(name==='listarPartesAdmin')return ok([]);if(name==='listarAuditoria')return ok([]);if(name==='registrarMovimientoUnificado'||name==='crearUsuario'||name==='agregarClasificaciones'||name==='eliminarRegistro'||name==='solicitarEliminacionRegistro'||name==='aprobarEliminacionRegistro'||name==='rechazarEliminacionRegistro'||name==='actualizarRegistro')return ok(true);if(name==='listarRegistros')return ok([]);ok(true)}catch(e){fail(e)}}
+
+    let loginLockCheckId_=0;let loginLockCheckTimer_=null;
+    function ocultarBloqueoLogin_(){const timer=$('loginLockTimer');if(!timer)return;clearInterval(timer._intervalo);timer._intervalo=null;timer.classList.add('hidden');timer.textContent='';timer.dataset.restanteMs='0';const boton=$('loginButton');if(boton&&!boton.dataset.loginPending){boton.disabled=false;boton.textContent='Iniciar sesión';}}
+    function formatearTiempoBloqueo_(restanteMs){const total=Math.max(0,Math.ceil(restanteMs/1000));const minutos=Math.floor(total/60);const segundos=total%60;return minutos>0?String(minutos)+' min '+String(segundos).padStart(2,'0')+' s':String(segundos)+' s';}
+    function actualizarBloqueoLogin_(estado){const timer=$('loginLockTimer');const boton=$('loginButton');if(!timer)return;const restanteMs=Number(estado&&estado.restanteMs||0);if(!estado||!estado.bloqueado||restanteMs<=0){ocultarBloqueoLogin_();return;}timer.classList.remove('hidden');timer.dataset.restanteMs=String(Date.now()+restanteMs);const ejecutar=()=>{const final=Number(timer.dataset.restanteMs||0);const restante=Math.max(0,final-Date.now());if(restante<=0){ocultarBloqueoLogin_();return;}timer.textContent='Cuenta bloqueada temporalmente. Inténtalo en '+formatearTiempoBloqueo_(restante);if(boton){boton.disabled=true;boton.textContent='Bloqueado';}};clearInterval(timer._intervalo);timer._intervalo=setInterval(ejecutar,1000);ejecutar();}
+    function login(e){if(e&&typeof e.preventDefault==='function')e.preventDefault();const boton=$('loginButton');const empleado=$('loginEmpleado').value.trim();const password=$('loginPassword').value;if(!empleado||!password)return;const timer=$('loginLockTimer');if(timer&&!timer.classList.contains('hidden')){setLoginMessage('Cuenta bloqueada temporalmente. Espera el tiempo restante antes de intentar de nuevo.',true);return;}if(boton&&(boton.disabled||boton.dataset.loginPending))return;const textoOriginal=boton.textContent;loginLockCheckId_++;clearTimeout(loginLockCheckTimer_);loginLockCheckTimer_=null;boton.dataset.loginPending='1';boton.disabled=true;boton.classList.remove('busy-button');if(boton._busyInterval){clearInterval(boton._busyInterval);boton._busyInterval=null}boton.textContent='Iniciando';const terminar=()=>{delete boton.dataset.loginPending;boton.disabled=false;boton.classList.remove('busy-button');if(boton._busyInterval){clearInterval(boton._busyInterval);boton._busyInterval=null}boton.textContent=textoOriginal};api('iniciarSesion',[empleado,password],data=>{terminar();startSession(data)},error=>{setLoginMessage(error.message||error,true);terminar();if(String(error&&error.message||'').toLowerCase().indexOf('bloqueada temporalmente')>=0){api('obtenerEstadoBloqueoLogin',[empleado],estado=>actualizarBloqueoLogin_(estado),()=>{});}})}
+    function setLoginMessage(text,error){$('loginMessage').textContent=text;$('loginMessage').className='message '+(error?'error':'good')}
+    function esAdministradorUI_(rol){const valor=String(rol||'').trim().toUpperCase();return valor==='DEV'||['ADMAD','ADMWH','ADMQM','ADM','ADMIN','ADMINISTRADOR'].includes(valor)||valor.indexOf('ADM')===0}
+    function etiquetaRol_(rol){return String(rol||'').trim().toUpperCase()==='DEV'?'Administrador':esAdministradorUI_(rol)?'Administrador':'Usuario Estándar'}
+    function startSession(data){App.token=data.token;App.user=data.usuario;App.catalogos=data.catalogos||{};const dept=departamentoUI_(App.user.rol||App.user.departamento);aplicarTemaDepartamento_(dept);$('loginView').classList.add('hidden');$('appView').classList.remove('hidden');$('sessionName').textContent=App.user.nombre+' - '+App.user.empleado;$('sessionRole').textContent=etiquetaRol_(App.user.rol)+' - '+App.user.rol;$('empleado').value=App.user.empleado;$('empleadoNombre').textContent=App.user.nombre;$('fecha').textContent='Fecha corte: '+(App.catalogos.fechaAduanas||'');$('corte').value=App.catalogos.corteActual||'1';App.allowed=dept==='UAD'?['aduanas_entrada','aduanas_salida']:dept==='UWH'?['almacen_entrada','almacen_salida']:dept==='UQM'?['calidad_entrada','calidad_salida']:Object.keys(operations);const esAdmin=esAdministradorUI_(App.user.rol);const puedeMatriz=esAdmin||['UAD','UWH','UQM'].includes(String(App.user.rol||'').trim().toUpperCase());$('adminNav').classList.toggle('hidden',!puedeMatriz);if($('newDepartment')&&!$('newDepartment').querySelector('[value="UQM"]'))$('newDepartment').insertAdjacentHTML('beforeend','<option value="UQM">Calidad</option>');if($('recordsOperation'))$('recordsOperation').innerHTML=Object.entries(operations).map(([k,v])=>'<option value="'+k+'">'+v+'</option>').join('');buildEmployeeList();buildTabs();buildSummaryUI();actualizarComentariosQM_();montarHistorial_();limitarAltaUsuarios_();limpiarCaptura_();activarProteccionesUI();actualizarColaOfflineUI_();sincronizarColaOffline_();const clase=App.user.rol==='DEV'?'role-dev':App.user.rol.indexOf('ADM')===0?'role-admin':'role-user';const marca=App.user.rol==='DEV'?'♛ ':App.user.rol.indexOf('ADM')===0?'◆ ':'● ';$('sessionName').innerHTML='<span class="role-mark">'+marca+'</span>'+escapeHtml_(App.user.nombre)+' - '+escapeHtml_(App.user.empleado);$('sessionName').className=clase;showView('dashboard');}
+    function buildTabs(){App.op=App.allowed[0];$('tabs').innerHTML=App.allowed.map(op=>`<button class="tab ${op.indexOf('almacen_')===0?'uwh':''} ${op===App.op?'active':''}" data-op="${op}">${operations[op]}<small>${op.indexOf('almacen_')===0?'Operación Almacén':'Operación Aduanas'}</small></button>`).join('');document.querySelectorAll('#tabs .tab').forEach(b=>b.onclick=e=>{e.preventDefault();e.stopPropagation();const card=document.querySelector('#registro .card');const registroVisible=!$('registro').classList.contains('hidden');if(App.op===b.dataset.op&&registroVisible){card.classList.add('registration-collapsed');showView('dashboard');return;}App.op=b.dataset.op;document.querySelectorAll('#tabs .tab').forEach(x=>x.classList.toggle('active',x===b));card.classList.remove('registration-collapsed');$('operationBadge').textContent=operations[App.op];$('operationBadge').className='badge '+(App.op.indexOf('almacen_')===0?'uwh':'');actualizarComentariosQM_();syncRegistroMeta();showView('registro');$('escaneo').focus()});$('operationBadge').textContent=operations[App.op];actualizarComentariosQM_()}
+    $('loginEmpleado').addEventListener('input',()=>{const empleado=$('loginEmpleado').value.trim();const consulta=++loginLockCheckId_;clearTimeout(loginLockCheckTimer_);loginLockCheckTimer_=null;if(!empleado){if(!$('loginButton').dataset.loginPending)ocultarBloqueoLogin_();return;}if($('loginButton').dataset.loginPending)return;loginLockCheckTimer_=setTimeout(()=>{loginLockCheckTimer_=null;if(consulta!==loginLockCheckId_||$('loginButton').dataset.loginPending||empleado!==$('loginEmpleado').value.trim())return;api('obtenerEstadoBloqueoLogin',[empleado],estado=>{if(consulta!==loginLockCheckId_||$('loginButton').dataset.loginPending||empleado!==$('loginEmpleado').value.trim())return;actualizarBloqueoLogin_(estado)},()=>{if(consulta===loginLockCheckId_&&!$('loginButton').dataset.loginPending)ocultarBloqueoLogin_()});},800);});
+    function configurarPrevisualizacionDEV_(){const icono=$('brandIcon')||document.querySelector('.brand-icon');const title=icono&&icono.nextElementSibling?icono.nextElementSibling.querySelector('h1'):null;if(!title||title.dataset.previewReady)return;title.dataset.previewReady='1';const titleButton=document.createElement('button');titleButton.type='button';titleButton.className='brand-title-button';titleButton.textContent='Registro de materiales';title.textContent='';title.appendChild(titleButton);const back=document.createElement('button');back.id='previewBack';back.type='button';back.className='preview-back';back.textContent='Volver a DEV';title.appendChild(back);const menu=document.createElement('div');menu.id='previewMenu';menu.className='preview-menu hidden';menu.innerHTML='<button data-preview-role="UAD">Ver como Usuario estándar de aduanas (UAD)</button><button data-preview-role="UWH">Ver como Usuario estándar de almacén (UWH)</button><button data-preview-role="ADMAD">Ver como Administrador de aduanas (ADMAD)</button><button data-preview-role="ADMWH">Ver como Administrador de almacén (ADMWH)</button>';title.parentElement.appendChild(menu);titleButton.onclick=()=>{if(App.user&&App.user.rol==='DEV'&&!App.previewRole)menu.classList.toggle('hidden')};menu.querySelectorAll('[data-preview-role]').forEach(button=>button.onclick=()=>activarPrevisualizacion_(button.dataset.previewRole));back.onclick=salirPrevisualizacion_;}
+    function activarPrevisualizacion_(rol){if(App.user.rol!=='DEV')return;App.previewRole=rol;App.previewOriginal=App.previewOriginal||App.user;const departamento=['UAD','ADMAD'].includes(rol)?'UAD':'UWH';App.user={empleado:App.previewOriginal.empleado,nombre:App.previewOriginal.nombre,rol:rol,departamento:departamento,requiereCambio:false};document.body.classList.add('preview-mode');aplicarTemaDepartamento_(departamento);$('previewMenu').classList.add('hidden');$('previewBack').classList.add('visible');$('sessionName').textContent='Vista previa · '+rol;$('sessionName').className=rol==='UAD'||rol==='UWH'?'role-user':'role-admin';$('sessionRole').textContent=etiquetaRol_(rol)+' - '+rol;$('adminNav').classList.toggle('hidden',true);App.allowed=departamento==='UAD'?['aduanas_entrada','aduanas_salida']:['almacen_entrada','almacen_salida'];buildTabs();showView('registro');}
+    function salirPrevisualizacion_(){if(!App.previewOriginal)return;App.user=App.previewOriginal;App.previewRole='';App.previewOriginal=null;document.body.classList.remove('preview-mode');document.body.classList.remove('uwh-theme');$('previewBack').classList.remove('visible');$('sessionName').innerHTML='<span class="role-mark">♛ </span>'+escapeHtml_(App.user.nombre);$('sessionName').className='role-dev';$('sessionRole').textContent='Administrador - DEV';$('adminNav').classList.remove('hidden');App.allowed=Object.keys(operations);buildTabs();showView('dashboard');}
+    function limpiarCaptura_(){App.reintentoColaOfflineId=null;const form=$('movementForm');if(form)form.reset();if($('empleado')&&App.user){$('empleado').value=App.user.empleado;$('empleadoNombre').textContent=App.user.nombre}if($('registroTurno'))$('registroTurno').value='';if($('breakdown'))$('breakdown').style.display='none';if($('breakdown2'))$('breakdown2').remove();if($('secondGroup'))$('secondGroup').classList.add('hidden');if($('esLateral'))$('esLateral').checked=false;const card=document.querySelector('#registro .card');if(card)card.classList.add('registration-collapsed');}
+    function normalizarParte_(value){return String(value||'').replace(/\u00a0/g,' ').trim().replace(/\s+/g,' ').replace(/\s*\/\s*/g,'/').toUpperCase()}
+    function buscarTipoParte_(part){const wanted=normalizarParte_(part);const entries=Object.entries(App.catalogos.partes||{});const match=entries.find(([key])=>normalizarParte_(key)===wanted);return match?match[1]:''}
+    function segmentosEscaneo_(value){return String(value||'').trim().split('-').map(segmento=>segmento.trim())}
+    function datosEscaneo_(value){const segmentos=segmentosEscaneo_(value);if(segmentos.length<7||segmentos.slice(0,7).some(segmento=>!segmento))return null;return{rolling:segmentos[1],parte:segmentos[2],cantidad:segmentos[4],linea:segmentos[5]}}
+    function analyze(value){const segmentos=segmentosEscaneo_(value);if(segmentos.length<3||!segmentos[1]||!segmentos[2]){$('breakdown').style.display='none';return}const part=segmentos[2];$('rolling').textContent=segmentos[1];$('parte').textContent=part;const type=buscarTipoParte_(part);$('tipoParte').textContent=type||'No registrado';$('breakdown').style.display='grid'}
+    function actualizarDatosDesdeEscaneo_(){const datos=datosEscaneo_($('escaneo').value);$('registroTurno').value=$('turno')?.value||'';if(!datos){$('cantidad').value='';$('linea').value='';actualizarEdicionCantidad_();return}const opcion=Array.from($('linea').options).find(item=>item.value===datos.linea);if(!opcion)$('linea').add(new Option(datos.linea,datos.linea));$('cantidad').value=datos.cantidad;$('linea').value=datos.linea;actualizarEdicionCantidad_()}
+    function actualizarEdicionCantidad_(){const carro=$('carro').value.trim();const esCaja=/^caja$/i.test(carro);const esNumero=/^\d+$/.test(carro);if(esCaja){$('cantidad').value='';$('cantidad').readOnly=false}else{if(esNumero){const datos=datosEscaneo_($('escaneo').value);if(datos)$('cantidad').value=datos.cantidad}$('cantidad').readOnly=true}$('linea').disabled=true}
+    function mostrarErrorCaptura_(mensaje,accion){if($('captureErrorModal'))return;const dialog=document.createElement('div');dialog.id='captureErrorModal';dialog.className='capture-error-modal';dialog.innerHTML='<div class="capture-error-card"><button class="capture-error-close" type="button" aria-label="Cerrar">×</button><h3>Error</h3><div>'+escapeHtml_(mensaje)+'</div>'+(accion?'<button id="captureErrorAction" type="button">Corregir segundo escaneo</button>':'')+'</div>';document.body.appendChild(dialog);dialog.querySelector('.capture-error-close').onclick=()=>dialog.remove();if(accion)dialog.querySelector('#captureErrorAction').onclick=()=>{dialog.remove();accion()};}
+    function showPartRequest(part){registrarParteManual_(part)}
+    function syncRegistroMeta(){const fecha=$('registroFecha').value||new Date().toISOString().slice(0,10);$('registroFechaMeta').value=fecha;$('registroTurno').value=$('turno')?.value||'';$('registroCorte').value=$('corte').value;}
+    function organizarControlesResumen_(){const dashboard=$('dashboard');const tools=dashboard?dashboard.querySelector('.summary-card .summary-tools'):null;const registro=$('registrationControls');if(!dashboard||!tools||!registro||tools.classList.contains('summary-controls'))return;if(tools.querySelector('.summary-filter-tools'))return;tools.className='summary-controls';registro.className='header-controls';const filtros=document.createElement('div');filtros.className='summary-filter-tools';const fechaField=$('summaryDate')?$('summaryDate').parentElement:null;const corteField=$('summaryCut')?$('summaryCut').parentElement:null;const turnoField=$('summaryTurn')?$('summaryTurn').parentElement:null;const departamentoField=$('summaryDepartment')?$('summaryDepartment').parentElement:null;const refresh=$('refreshSummary');if(fechaField)filtros.append(fechaField);if(corteField)filtros.append(corteField);if(turnoField)filtros.append(turnoField);if(departamentoField)filtros.append(departamentoField);if(refresh)filtros.append(refresh);tools.innerHTML='';tools.append(registro,filtros);$('corte').value='1';$('registroFecha').value=new Date().toISOString().slice(0,10);syncRegistroMeta();}
+    const summaryControlsObserver_=new MutationObserver(organizarControlesResumen_);summaryControlsObserver_.observe($('dashboard'),{childList:true,subtree:true});
+    function limpiarFormularioMovimiento_(){ $('movementForm').reset();$('empleado').value=App.user.empleado;$('empleadoNombre').textContent=App.user.nombre;$('breakdown').style.display='none';$('secondGroup').classList.add('hidden');$('esLateral').checked=false;$('registroTurno').value='';actualizarDatosDesdeEscaneo_();document.querySelector('#registro .card').classList.remove('registration-collapsed');}
+    function cambiarEstadoMovimientoGuardando_(idSolicitud,estado){const id=String(idSolicitud||'');App.movimientosGuardando.forEach(movimiento=>{if(movimiento.idSolicitud===id)movimiento.estado=estado});redibujarResumenActual_();}
+    let omitirConfirmacionSalida_=false;
+    function mostrarConfirmacionSalida_(alContinuar,mensaje){
+      if($('outgoingConfirmModal'))return;
+      const modal=document.createElement('div');
+      modal.id='outgoingConfirmModal';
+      modal.className='capture-error-modal';
+      modal.innerHTML='<div class="capture-error-card outgoing-confirm-card" role="dialog" aria-modal="true" aria-labelledby="outgoingConfirmTitle" tabindex="-1"><h3 id="outgoingConfirmTitle">Confirmación de salida</h3><p>'+escapeHtml_(mensaje)+'</p><div class="outgoing-confirm-actions"><button id="cancelOutgoingRegistration" type="button">Cancelar</button><button id="continueOutgoingRegistration" class="outgoing-confirm-continue" type="button">Continuar</button></div></div>';
+      document.body.appendChild(modal);
+      const cerrar=()=>modal.remove();
+      modal.querySelector('#cancelOutgoingRegistration').onclick=cerrar;
+      const continuar=modal.querySelector('#continueOutgoingRegistration');
+      modal.addEventListener('keydown',evento=>{
+        if(evento.target===continuar&&(evento.key==='Enter'||evento.key===' ')){
+          evento.preventDefault();
+          evento.stopImmediatePropagation();
+        }
+      },true);
+      continuar.addEventListener('click',evento=>{
+        if(!evento.isTrusted||evento.detail===0){
+          evento.preventDefault();
+          evento.stopImmediatePropagation();
+          return;
+        }
+        cerrar();
+        alContinuar();
+      });
+      modal.querySelector('[role="dialog"]').focus();
+    }
+    function submitMovement(e){
+      if(App.previewRole){e.preventDefault();toast('La previsualización no permite registrar movimientos',true);return}
+      if(!validarLaterales_())return;
+      e.preventDefault();
+      syncRegistroMeta();
+      const escaneo=$('escaneo').value.trim();const scanData=datosEscaneo_(escaneo);if(!scanData)return toast('El escaneo debe contener al menos siete valores separados por guiones.',true);const cantidadEscaneada=Number(scanData.cantidad);if(!Number.isInteger(cantidadEscaneada)||cantidadEscaneada<=0)return toast('El quinto valor del escaneo debe ser una cantidad entera positiva.',true);const turnoRegistro=String($('turno')?.value||'').trim().toUpperCase();if(!/^[A-D]$/.test(turnoRegistro))return toast('Selecciona un turno válido (A, B, C o D) en los filtros de captura.',true);
+      const esLateral=$('esLateral').checked;const segundoScan=esLateral?datosEscaneo_($('escaneo2').value.trim()):null;if(esLateral&&!segundoScan)return toast('El segundo escaneo debe contener al menos siete valores separados por guiones.',true);if(esLateral&&Number(segundoScan.cantidad)!==cantidadEscaneada)return toast('Los dos escaneos laterales deben tener la misma cantidad.',true);
+      const d={tipoOperacion:App.op,esLateral:esLateral?'Si':'No',escaneo:escaneo,escaneo2:$('escaneo2').value.trim(),numCarroCaja:$('carro').value.trim(),cantidad:$('cantidad').value,linea:scanData.linea,numEmpleado:$('empleado').value.trim(),turno:turnoRegistro,corte:esQM_()?'':$('corte').value,fecha:$('registroFecha').value || new Date().toISOString().slice(0,10),horaRegistro:new Date().toLocaleTimeString('en-GB',{hour12:false})};
+      if((esQM_()||App.user&&App.user.rol==='DEV')&&String(App.op||'').indexOf('calidad_')===0)d.comentarios=$('comentarios').value.trim();
+      if(esQM_()&&String(App.op||'').indexOf('calidad_')===0&&!d.comentarios)return toast('Los comentarios son obligatorios para QM.',true);
+      if(d.escaneo.length<8)return toast('El código debe tener al menos 8 caracteres',true);
+      if(d.esLateral==='Si'&&d.escaneo2.length<8)return toast('Falta el segundo escaneo lateral',true);
+      if(!d.numCarroCaja||!d.cantidad||!d.linea||!d.numEmpleado)return toast('Completa todos los campos',true);
+      if(!Number.isInteger(Number(d.cantidad))||Number(d.cantidad)<=0)return toast('La cantidad debe ser un número entero positivo',true);
+      if(String(d.tipoOperacion||'').endsWith('_salida')&&!omitirConfirmacionSalida_){
+        mostrarConfirmacionSalida_(()=>{
+          omitirConfirmacionSalida_=true;
+          try{$('movementForm').requestSubmit()}
+          finally{if(omitirConfirmacionSalida_)omitirConfirmacionSalida_=false}
+        },'El registro que estás por realizar es una salida. ¿Es correcto registrarlo como salida y no como entrada?');
+        return;
+      }
+      omitirConfirmacionSalida_=false;
+      const pendienteReintento=App.reintentoColaOfflineId?leerColaOffline_().find(item=>item.id===App.reintentoColaOfflineId&&item.empleado===App.user.empleado&&item.datos.tipoOperacion===d.tipoOperacion):null;
+      if(App.reintentoColaOfflineId&&!pendienteReintento)App.reintentoColaOfflineId=null;
+      const esMismaSolicitud=App.datosSolicitudMovimientoActual&&['tipoOperacion','esLateral','escaneo','escaneo2','numCarroCaja','cantidad','linea','numEmpleado','turno','corte','fecha','comentarios'].every(campo=>String(App.datosSolicitudMovimientoActual[campo]||'')===String(d[campo]||''));
+      d.idSolicitud=pendienteReintento&&pendienteReintento.datos.idSolicitud||(esMismaSolicitud&&App.idSolicitudMovimientoActual)||crearIdSolicitudMovimiento_();
+      const hayPendientes=leerColaOffline_().some(item=>item.empleado===App.user.empleado);
+      const colaOnlineActiva=App.procesandoColaOnline||App.colaOnlineMovimientos.length>0;
+      if(pendienteReintento){pendienteReintento.datos=d;pendienteReintento.carroAsignado=obtenerCarroAsignadoVisualOffline_(d);pendienteReintento.estado='pendiente';delete pendienteReintento.error;guardarColaOffline_(leerColaOffline_().map(item=>item.id===pendienteReintento.id?pendienteReintento:item));App.reintentoColaOfflineId=null;App.idSolicitudMovimientoActual=null;App.datosSolicitudMovimientoActual=null;finalizarCapturaEnColaOffline_(d,'Reintento agregado a la cola. Se sincronizará en orden.');return;}
+      if(!colaOnlineActiva&&(!navigator.onLine||hayPendientes)){encolarMovimientoOffline_(d);App.idSolicitudMovimientoActual=null;App.datosSolicitudMovimientoActual=null;finalizarCapturaEnColaOffline_(d,!navigator.onLine?'Sin conexión: registro guardado en cola.':'Registro agregado después de los pendientes. Se sincronizará en orden.');return;}
+      const primeraSolicitud=App.colaOnlineMovimientos.length===0&&!App.procesandoColaOnline;
+      App.colaOnlineMovimientos.push({datos:Object.assign({},d),estado:'encola'});
+      if(['aduanas','almacen'].includes(String(d.tipoOperacion||'').split('_')[0]))registrarMovimientoGuardando_(d,'encola');
+      App.idSolicitudMovimientoActual=null;
+      App.datosSolicitudMovimientoActual=null;
+      App.saving=false;
+      limpiarFormularioMovimiento_();
+      actualizarColaOfflineUI_();
+      showView('dashboard');
+      procesarColaOnline_();
+    }
+    function procesarColaOnline_(){
+      if(App.procesandoColaOnline||!App.colaOnlineMovimientos.length)return;
+      if(!navigator.onLine||leerColaOffline_().some(item=>item.empleado===App.user.empleado)){migrarColaOnlineAOffline_(null,false);return}
+      const trabajo=App.colaOnlineMovimientos[0];
+      trabajo.estado='guardando';
+      App.procesandoColaOnline=true;
+      App.saving=true;
+      cambiarEstadoMovimientoGuardando_(trabajo.datos.idSolicitud,'guardando');
+      actualizarColaOfflineUI_();
+      api('registrarMovimientoUnificado',[trabajo.datos,App.token],res=>{
+        quitarMovimientoGuardando_(trabajo.datos.idSolicitud,false);
+        App.colaOnlineMovimientos=App.colaOnlineMovimientos.filter(item=>item.datos.idSolicitud!==trabajo.datos.idSolicitud);
+        App.procesandoColaOnline=false;
+        App.saving=false;
+        const d=trabajo.datos;
+        const detalle=res&&res.detalles&&res.detalles[0]||{};
+        const grupoOperacion=String(d.tipoOperacion||'').split('_')[0];
+        const actualizacionLocalPermitida=grupoOperacion==='aduanas'||grupoOperacion==='almacen';
+        const resumenActualizado=actualizacionLocalPermitida&&actualizarResumenLocalCaptura_(d,res);
+        if(actualizacionLocalPermitida&&!resumenActualizado)actualizarCeldasResumenConfirmadas_(d,res);
+        if(!actualizacionLocalPermitida)App.summaryCache={};
+        App.historyCache={};
+        App.history.unshift({fila:detalle.fila,opCode:d.tipoOperacion,escaneo:d.escaneo,op:operations[d.tipoOperacion],cantidad:d.cantidad,hora:new Date().toLocaleTimeString()});
+        actualizarColaOfflineUI_();
+        if(res&&res.avisoCalidad)toast(res.avisoCalidad.mensaje,!res.avisoCalidad.validado);
+        else toast(App.colaOnlineMovimientos.length?'Registro guardado · '+App.colaOnlineMovimientos.length+' en cola':'Registro guardado');
+        if(actualizacionLocalPermitida&&!resumenActualizado)setTimeout(mostrarAvisoResumenPendiente_,3500);
+        if(!actualizacionLocalPermitida&&$('summaryDate'))loadSummary(true);
+        if($('dailySummaryDate')&&$('dailyPanel')&&!$('dailyPanel').classList.contains('hidden'))loadDailySummary_();
+        mostrarDashboardSiFormularioCerrado_();
+        if(App.colaOnlineMovimientos.length)procesarColaOnline_();
+      },error=>migrarColaOnlineAOffline_(error,true));
+    }
+    function migrarColaOnlineAOffline_(error,marcarError){
+      const trabajos=App.colaOnlineMovimientos.slice();
+      if(!trabajos.length){App.procesandoColaOnline=false;App.saving=false;actualizarColaOfflineUI_();return}
+      const cola=leerColaOffline_();
+      const empleado=App.user&&App.user.empleado;
+      trabajos.forEach((trabajo,indice)=>{
+        const datos=trabajo.datos;
+        const existente=cola.find(item=>item.empleado===empleado&&item.datos&&item.datos.idSolicitud===datos.idSolicitud);
+        if(!existente){
+          const movimientoVisual=App.movimientosGuardando.find(item=>item.idSolicitud===datos.idSolicitud&&item.datos.escaneo===datos.escaneo);
+          const pendiente={id:Date.now()+'-'+Math.random().toString(36).slice(2),empleado:empleado,datos:datos,carroAsignado:movimientoVisual&&movimientoVisual.carroAsignado||obtenerCarroAsignadoVisualOffline_(datos),estado:indice===0&&marcarError?'error':'pendiente'};
+          if(pendiente.estado==='error')pendiente.error=error&&error.message||String(error||'No se pudo registrar el movimiento.');
+          cola.push(pendiente);
+          App.history.unshift({escaneo:datos.escaneo,op:operations[datos.tipoOperacion],cantidad:datos.cantidad,hora:new Date().toLocaleTimeString(),pendiente:true});
+        }
+        quitarMovimientoGuardando_(datos.idSolicitud,false);
+      });
+      App.colaOnlineMovimientos=[];
+      App.procesandoColaOnline=false;
+      App.saving=false;
+      App.idSolicitudMovimientoActual=null;
+      App.datosSolicitudMovimientoActual=null;
+      App.historyCache={};
+      guardarColaOffline_(cola);
+      if($('summaryDate'))loadSummary(true);
+      mostrarDashboardSiFormularioCerrado_();
+      actualizarColaOfflineUI_();
+      const primerError=marcarError?cola.find(item=>item.empleado===empleado&&item.estado==='error'):null;
+      if(primerError)mostrarErrorColaOffline_(primerError,primerError.error);
+      else toast('Conexión interrumpida: los registros se conservaron en la cola offline en orden.',true);
+    }
+    function finalizarCapturaEnColaOffline_(datos,mensaje){App.historyCache={};App.history.unshift({escaneo:datos.escaneo,op:operations[datos.tipoOperacion],cantidad:datos.cantidad,hora:new Date().toLocaleTimeString(),pendiente:true});$('movementForm').reset();$('empleado').value=App.user.empleado;$('empleadoNombre').textContent=App.user.nombre;$('breakdown').style.display='none';$('secondGroup').classList.add('hidden');$('esLateral').checked=false;toast(mensaje);if(navigator.onLine)sincronizarColaOffline_();if($('summaryDate'))loadSummary(true);showView('dashboard');}
+    function registrarMovimientoOfflineTrasFallo_(datos,error){App.saving=false;App.sincronizandoCola=false;if($('saveButton')){$('saveButton').disabled=false;$('saveButton').textContent='✓ Registrar movimiento';}if(!datos.idSolicitud)datos.idSolicitud=App.idSolicitudMovimientoActual||crearIdSolicitudMovimiento_();App.idSolicitudMovimientoActual=null;App.datosSolicitudMovimientoActual=null;const cola=leerColaOffline_();const existente=cola.find(item=>item.empleado===(App.user&&App.user.empleado)&&item.datos&&item.datos.idSolicitud===datos.idSolicitud);if(existente){existente.estado=navigator.onLine?'error':'pendiente';existente.error=navigator.onLine?(error&&error.message||String(error||'')):'';guardarColaOffline_(cola);if(navigator.onLine)mostrarErrorColaOffline_(existente,existente.error);return;}encolarMovimientoOffline_(datos);App.history.unshift({escaneo:datos.escaneo,op:operations[datos.tipoOperacion],cantidad:datos.cantidad,hora:new Date().toLocaleTimeString(),pendiente:true});toast('No se pudo confirmar la conexión: registro guardado en cola para sincronizar.',true);if($('summaryDate'))loadSummary(true);mostrarDashboardSiFormularioCerrado_();if(navigator.onLine)sincronizarColaOffline_();}
+    function renderHistory(){$('historyList').innerHTML=App.history.length?App.history.slice(0,20).map(x=>`<div class="notice"><b>${escapeHtml_(x.escaneo)}</b><br><small>${escapeHtml_(x.op)} · ${escapeHtml_(x.hora)} · ${escapeHtml_(x.cantidad)} pzs</small></div>`).join(''):'<p>No hay movimientos en esta sesión.</p>'}
+    function renderDailySummary_(data){const body=$('dailySummaryBody');if(!body)return;const filas=(data&&data.filas)||[];const rows=[];const totalRows=Math.max(14,filas.length);const totalesCorte={corte1:0,corte2:0,corte3:0,acumulado:0,produccionTotal:0};const totalesTipo={};filas.forEach(fila=>{totalesCorte.corte1+=Number(fila.corte1)||0;totalesCorte.corte2+=Number(fila.corte2)||0;totalesCorte.corte3+=Number(fila.corte3)||0;totalesCorte.acumulado+=Number(fila.acumulado)||0;totalesCorte.produccionTotal+=Number(fila.produccionTotal)||0;const tipo=String(fila.tipo||'').trim();if(tipo)totalesTipo[tipo]=(totalesTipo[tipo]||{corte1:0,corte2:0,corte3:0,acumulado:0,produccionTotal:0});if(tipo){totalesTipo[tipo].corte1+=Number(fila.corte1)||0;totalesTipo[tipo].corte2+=Number(fila.corte2)||0;totalesTipo[tipo].corte3+=Number(fila.corte3)||0;totalesTipo[tipo].acumulado+=Number(fila.acumulado)||0;totalesTipo[tipo].produccionTotal+=Number(fila.produccionTotal)||0;}});for(let i=0;i<totalRows;i++){const fila=filas[i]||{linea:i+1,parte:'',tipo:'',corte1:'',corte2:'',corte3:'',acumulado:'',produccionTotal:0};rows.push('<tr>'+'<td><strong>'+htmlCell_(fila.linea||i+1)+'</strong></td>'+'<td class="part-cell"><strong>'+htmlCell_(fila.parte||'')+'</strong></td>'+'<td class="strong">'+htmlCell_(fila.tipo||'')+'</td>'+'<td><strong>'+htmlCell_(fila.corte1===0?0:fila.corte1||'')+'</strong></td>'+'<td><strong>'+htmlCell_(fila.corte2===0?0:fila.corte2||'')+'</strong></td>'+'<td><strong>'+htmlCell_(fila.corte3===0?0:fila.corte3||'')+'</strong></td>'+'<td><strong>'+htmlCell_(fila.acumulado===0?0:fila.acumulado||'')+'</strong></td>'+'<td class="diff-ok"><strong>'+htmlCell_(fila.produccionTotal||0)+'</strong></td></tr>');}const totalRow=t=>'<tr class="summary-total-row"><td colspan="3"><strong>'+htmlCell_(t.etiqueta)+'</strong></td><td><strong>'+htmlCell_(t.corte1)+'</strong></td><td><strong>'+htmlCell_(t.corte2)+'</strong></td><td><strong>'+htmlCell_(t.corte3)+'</strong></td><td><strong>'+htmlCell_(t.acumulado)+'</strong></td><td><strong>'+htmlCell_(t.produccionTotal)+'</strong></td></tr>';rows.push(totalRow({etiqueta:'Total general',corte1:totalesCorte.corte1,corte2:totalesCorte.corte2,corte3:totalesCorte.corte3,acumulado:totalesCorte.acumulado,produccionTotal:totalesCorte.produccionTotal}));['F/C','B/C M','B/C L','B/C R'].forEach(tipo=>{const t=totalesTipo[tipo]||{corte1:0,corte2:0,corte3:0,acumulado:0,produccionTotal:0};rows.push(totalRow({etiqueta:'Total '+tipo,corte1:t.corte1,corte2:t.corte2,corte3:t.corte3,acumulado:t.acumulado,produccionTotal:t.produccionTotal}));});const totalMateriales=['F/C','B/C M','B/C L','B/C R'].reduce((t,tipo)=>{const v=totalesTipo[tipo]||{};t.corte1+=v.corte1||0;t.corte2+=v.corte2||0;t.corte3+=v.corte3||0;t.acumulado+=v.acumulado||0;t.produccionTotal+=v.produccionTotal||0;return t;},{corte1:0,corte2:0,corte3:0,acumulado:0,produccionTotal:0});rows.push(totalRow({etiqueta:'Total materiales',corte1:totalMateriales.corte1,corte2:totalMateriales.corte2,corte3:totalMateriales.corte3,acumulado:totalMateriales.acumulado,produccionTotal:totalMateriales.produccionTotal}));body.innerHTML=rows.join('');Array.from(body.rows).forEach(row=>{const line=Number(row.cells[0]?.textContent)||0;if(!row.classList.contains('summary-total-row'))row.classList.add(line%2?'summary-line-odd':'summary-line-even')});if($('dailyProductionTotal'))$('dailyProductionTotal').textContent='Producción total del dia: '+((data&&data.produccionTotalDia)||0)}
+    function loadDailySummary_(finalizado){if(!navigator.onLine){renderDailySummary_({fecha:$('dailySummaryDate').value,turno:$('dailySummaryTurn').value,filas:[],produccionTotalDia:0});if(finalizado)finalizado();return}api('obtenerResumenPorDia',[App.token,$('dailySummaryDate').value,$('dailySummaryTurn').value],res=>{renderDailySummary_(res);if(finalizado)finalizado()},e=>{if(finalizado)finalizado();toast(e.message||e,true)})}
+    function loadUsersAdmin(finalizado){api('listarUsuarios',[App.token,App.usersPage||1,10],res=>{App.usersPage=res.pagina||1;renderUsers(res.items||res);renderAdminPager_('usersPager',res,n=>{App.usersPage=n;loadUsersAdmin()});if(finalizado)finalizado()},e=>{if(finalizado)finalizado();toast(e.message||e,true)})}
+    function renderAdminPager_(id,res,onChange){if(!res||!res.paginas)return;let pager=$(id);if(!pager){pager=document.createElement('div');pager.id=id;pager.className='pagination';const target=id==='usersPager'?$('usersPanel'):id==='partsPager'?$('partsList'):id==='historyPager'?$('history'):$('auditPanel');if(target)target.appendChild(pager)}pager.innerHTML='<button type="button" data-prev '+(res.pagina<=1?'disabled':'')+'>Anterior</button><span>Página '+res.pagina+' de '+res.paginas+'</span><button type="button" data-next '+(res.pagina>=res.paginas?'disabled':'')+'>Siguiente</button>';pager.querySelector('[data-prev]').onclick=()=>onChange(res.pagina-1);pager.querySelector('[data-next]').onclick=()=>onChange(res.pagina+1)}
+    function renderUsers(list){const body=$('usersBody');if(!body)return;const filas=(list||[]).sort((a,b)=>(a.rol==='DEV'?-1:1)-(b.rol==='DEV'?-1:1));body.closest('table').querySelector('thead').innerHTML='<tr><th>Número de empleado</th><th>Nombre</th><th>Rol</th><th>Siglas</th><th>Departamento</th><th>Estado</th><th>Detalles</th><th>Borrar</th></tr>';body.innerHTML=filas.map(u=>{const esDEV=App.user.rol==='DEV';const esCuentaPropiaDEV=esDEV&&String(u.empleado).trim()===String(App.user.empleado).trim();const puedeBorrar=(esDEV&&!esCuentaPropiaDEV)||(['ADMAD','ADMWH','ADMQM'].includes(App.user.rol)&&u.rol!=='DEV'&&u.departamento===App.user.departamento);return '<tr><td>'+escapeHtml_(u.empleado)+'</td><td>'+escapeHtml_(u.nombre)+'</td><td>'+escapeHtml_(etiquetaRol_(u.rol))+'</td><td>'+escapeHtml_(u.rol)+'</td><td>'+escapeHtml_(u.departamento)+'</td><td>'+escapeHtml_(u.estado)+'</td><td><span data-user-detail="'+escapeHtml_(u.empleado)+'"></span></td><td>'+(puedeBorrar?'<button type="button" class="history-delete-button" data-delete-user-row="'+escapeHtml_(u.empleado)+'">🗑</button>':'')+'</td></tr>'}).join('');document.querySelectorAll('[data-delete-user-row]').forEach(button=>button.onclick=()=>confirmarBorradoUsuario_(button.dataset.deleteUserRow));}
+    function loadRecords(){const op=$('recordsOperation').value;api('listarRegistros',[App.token,op,50],list=>{$('recordsBody').innerHTML=list.map(r=>`<tr><td>${escapeHtml_(r.fila)}</td><td>${escapeHtml_(r.escaneo)}</td><td>${escapeHtml_(r.parte)}</td><td>${escapeHtml_(r.cantidad)}</td><td>${escapeHtml_(r.empleado)}</td><td>${App.user.rol==='DEV'?`<button data-edit="${escapeHtml_(r.id||r.fila)}">Editar</button>`:'Sin acciones'}</td></tr>`).join('')||'<tr><td colspan="6">No hay registros.</td></tr>';document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>{const registro=list.find(r=>String(r.id||'')===String(b.dataset.edit))||list.find(r=>!r.id&&String(r.fila)===String(b.dataset.edit));editarRegistro(op,b.dataset.edit,registro)})},e=>toast(e.message||e,true))}
+    function editarRegistro(op,fila,registro){const cambios={};const escaneo=prompt('Código escaneado:',registro.escaneo);if(escaneo===null)return;cambios.escaneo=escaneo;const cantidad=prompt('Cantidad:',registro.cantidad);if(cantidad===null)return;cambios.cantidad=Number(cantidad);const carro=prompt('No. carro/caja:',registro.carroCaja);if(carro===null)return;const referencia=registro.id||fila;cambios.carroCaja=carro;api('actualizarRegistro',[App.token,op,referencia,cambios],()=>{toast('Registro actualizado');loadRecords()},e=>toast(e.message||e,true))}
+    function buildEmployeeList(){const list=Object.entries(App.catalogos.empleados||{});$('empleadosLista').innerHTML=list.map(([id,nombre])=>`<option value="${escapeHtml_(id)}">${escapeHtml_(nombre)}</option>`).join('');$('escaneo2').oninput=e=>analyzeSecond(e.target.value)}
+    function analyzeSecond(value){const segmentos=segmentosEscaneo_(value);if(segmentos.length<3||!segmentos[1]||!segmentos[2])return;let box=$('breakdown2');if(!box){box=document.createElement('div');box.id='breakdown2';box.className='breakdown';box.innerHTML='<div>Rolling<span id="rolling2"></span></div><div>No. parte<span id="parte2"></span></div><div>Tipo<span id="tipoParte2"></span></div>';$('secondGroup').appendChild(box)}const part=segmentos[2];$('rolling2').textContent=segmentos[1];$('parte2').textContent=part;$('tipoParte2').textContent=buscarTipoParte_(part)||'No registrado';box.style.display='grid'}
+    function updateEmployeeName(){const id=$('empleado').value.trim();$('empleadoNombre').textContent=(App.catalogos.empleados||{})[id]||''}
+    function buildPartsAdmin(){if($('partsAdmin'))return;const panel=document.createElement('section');panel.id='partsAdmin';panel.className='card';panel.innerHTML='<div class="badge">🏷 Números de parte</div><button id="openPartForm" class="primary" type="button">Registrar nuevo número de parte</button>';$('usersPanel').appendChild(panel);$('openPartForm').onclick=()=>{if($('partsModal'))return;const modal=document.createElement('div');modal.id='partsModal';modal.className='camera-modal';modal.innerHTML='<div class="camera-card"><h3>Registrar nuevos números de parte</h3><p>Puedes registrar hasta dos números al mismo tiempo.</p><div id="newPartRows"></div><div class="camera-actions">    <button type="button" id="closePartsModal">Cancelar</button><button type="button" id="saveNewParts" class="primary">Guardar</button></div></div>';document.body.appendChild(modal);for(let i=1;i<=2;i++)$('newPartRows').insertAdjacentHTML('beforeend',`<div class="row"><div class="field"><label>Número de parte ${i}</label><input data-new-part></div><div class="field"><label>Tipo ${i}</label><select data-new-type><option value="">Selecciona</option><option>B/C M</option><option>F/C</option><option>B/C L</option><option>B/C R</option></select></div></div>`);$('closePartsModal').onclick=()=>modal.remove();$('saveNewParts').onclick=()=>{const boton=$('saveNewParts');const parts=document.querySelectorAll('[data-new-part]'),types=document.querySelectorAll('[data-new-type]');const items=Array.from(parts).map((input,i)=>({parte:input.value,tipo:types[i].value})).filter(item=>item.parte.trim()||item.tipo);if(!items.length||items.some(item=>!item.parte.trim()||!item.tipo))return toast('Completa correctamente los números de parte',true);boton.disabled=true;boton.textContent='Guardando...';api('agregarClasificaciones',[App.token,items],partsCatalog=>{App.catalogos.partes=partsCatalog;modal.remove();toast('Matriz de partes actualizada');loadPartsList()},e=>{boton.disabled=false;boton.textContent='Guardar';toast(e.message||e,true)})}}}
+    document.addEventListener('keydown',e=>{if(e.key.toLowerCase()!=='e'||e.ctrlKey||e.altKey||e.metaKey||!App.user||String(App.user.rol||'').trim().toUpperCase()==='DEV'||App.previewRole||$('dashboard').classList.contains('hidden')||!$('registro').classList.contains('hidden'))return;const entrada=App.allowed.find(op=>op.endsWith('_entrada'));if(!entrada)return;const boton=Array.from(document.querySelectorAll('#summaryOperations [data-summary-op]')).find(button=>button.dataset.summaryOp===entrada);if(boton){e.preventDefault();boton.click()}});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('partsModal'))$('partsModal').remove()});
+    function buildPartsList(){if($('partsList'))return;const partsOnly=!esAdministradorUI_(App.user&&App.user.rol);const panel=document.createElement('section');panel.id='partsList';panel.className='card';panel.innerHTML='<div class="badge">📚 Números de parte registrados</div><div class="summary-tools"><div class="field"><label>Buscar número de parte</label><input id="partSearch" type="search" placeholder="Buscar..."></div><div class="field"><label>Filtro</label><select id="partFilter" class="part-filter"><option>Todos</option><option>B/C L</option><option>B/C R</option><option>B/C M</option><option>F/C</option></select></div><button id="refreshParts" class="primary" type="button">Actualizar</button></div><div class="table-wrap"><table class="table parts-table"><thead><tr><th>No.</th><th>Número de parte</th><th>Tipo</th>'+(partsOnly?'':'<th>Acción</th><th>Borrar</th>')+'</tr></thead><tbody id="partsBody"></tbody></table></div>';$('usersPanel').appendChild(panel);const tools=panel.querySelector('.summary-tools');if($('openPartForm'))tools.appendChild($('openPartForm'));$('refreshParts').onclick=loadPartsList;$('partFilter').onchange=loadPartsList;let partSearchDebounceTimer=null;$('partSearch').oninput=()=>{clearTimeout(partSearchDebounceTimer);partSearchDebounceTimer=setTimeout(loadPartsList,180)};loadPartsList()}
+    function loadPartsList(){api('listarPartesAdmin',[App.token,$('partFilter').value,App.partsPage||1,30,$('partSearch').value],res=>{const list=res.items||res;App.partsPage=res.pagina||1;const partsOnly=!esAdministradorUI_(App.user&&App.user.rol);const visibles=list;$('partsBody').innerHTML=visibles.map((p,i)=>`<tr data-part-row="${escapeHtml_(p.parte)}" data-part-type-original="${escapeHtml_(p.tipo)}"><td>${((res.pagina||1)-1)*30+i+1}</td><td><span data-part-value>${escapeHtml_(p.parte)}</span><input data-part-input value="${escapeHtml_(p.parte)}" class="hidden"></td><td><span data-type-value>${escapeHtml_(p.tipo)}</span><select data-part-type class="hidden"><option ${p.tipo==='B/C L'?'selected':''}>B/C L</option><option ${p.tipo==='B/C R'?'selected':''}>B/C R</option><option ${p.tipo==='B/C M'?'selected':''}>B/C M</option><option ${p.tipo==='F/C'?'selected':''}>F/C</option></select></td>`+(partsOnly?'':'<td><button type="button" data-edit-part>Editar</button></td><td><button type="button" data-remove-part>Borrar</button></td>')+'</tr>').join('')||'<tr><td colspan="'+(partsOnly?'3':'5')+'">No hay partes.</td></tr>';renderAdminPager_('partsPager',res,n=>{App.partsPage=n;loadPartsList()});document.querySelectorAll('[data-edit-part]').forEach(button=>button.onclick=()=>{const row=button.closest('tr');const input=row.querySelector('[data-part-input]');const select=row.querySelector('[data-part-type]');const editing=!input.classList.contains('hidden');if(editing){const oldPart=row.dataset.partRow;const newPart=input.value.trim().toUpperCase();const type=select.value.trim();if(newPart===oldPart.trim().toUpperCase()&&type===row.dataset.partTypeOriginal.trim()){input.classList.add('hidden');row.querySelector('[data-part-value]').classList.remove('hidden');select.classList.add('hidden');row.querySelector('[data-type-value]').classList.remove('hidden');button.textContent='Editar';toast('No se han generado cambios');return;}api('actualizarParte',[App.token,oldPart,newPart,type],res=>{toast(res&&res.mensaje||'Cambios realizados y guardados correctamente.');loadPartsList()},e=>toast(e.message||e,true))}else{row.querySelector('[data-part-value]').classList.add('hidden');input.classList.remove('hidden');row.querySelector('[data-type-value]').classList.add('hidden');select.classList.remove('hidden');button.textContent='Guardar'}});document.querySelectorAll('[data-remove-part]').forEach(button=>button.onclick=()=>{const row=button.closest('tr');if(confirm('¿Borrar esta parte de la matriz?'))api('eliminarParte',[App.token,row.dataset.partRow],()=>{toast('Parte eliminada');loadPartsList()},e=>toast(e.message||e,true))})},e=>toast(e.message||e,true))}
+    function cerrarAvisosCaptura_(){['partRequest','lateralError','captureErrorModal'].forEach(id=>{const element=$(id);if(element)element.remove()})}
+    function mostrarDashboardSiFormularioCerrado_(){if($('registro').classList.contains('hidden'))showView('dashboard')}
+    function showView(view){if(view==='admin'&&(!App.user||(!esAdministradorUI_(App.user.rol)&&!['UAD','UWH','UQM'].includes(String(App.user.rol||'').trim().toUpperCase()))))return;cerrarAvisosCaptura_();['registro','dashboard','history','admin'].forEach(id=>$(id).classList.toggle('hidden',id!==view&&!(view==='registro'&&id==='dashboard')));$('registro').classList.toggle('registration-modal',view==='registro');if(view==='registro')document.querySelector('#registro .card').classList.remove('registration-collapsed');document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===view));if(view==='history')montarHistorial_();if(view==='admin'){if(!document.querySelector('[data-admin-view="parts"]'))configurarAdminTabs();if(esAdministradorUI_(App.user&&App.user.rol))loadUsersAdmin();}}
+    $('loginForm').onsubmit=login;$('loginEmpleado').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();if($('loginEmpleado').value.trim())$('loginPassword').focus();}});$('movementForm').onsubmit=submitMovement;$('escaneo').oninput=e=>analyze(e.target.value);$('esLateral').onchange=()=>$('secondGroup').classList.toggle('hidden',!$('esLateral').checked);$('refreshSummary').onclick=()=>{App.summaryCache={};loadSummary(true)};$('logout').onclick=()=>{api('cerrarSesion',[App.token],()=>location.reload(),()=>location.reload())};document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>showView(b.dataset.view));for(let i=1;i<=14;i++)$('linea').insertAdjacentHTML('beforeend',`<option>${i}</option>`);$('linea').insertAdjacentHTML('beforeend','<option>8003 RWK</option>');let lineaBuffer='';let lineaTimer=null;$('linea').addEventListener('keydown',e=>{if(!/^[0-9]$/.test(e.key))return;e.preventDefault();lineaBuffer+=e.key;clearTimeout(lineaTimer);const opcion=Array.from($('linea').options).find(option=>option.value===lineaBuffer);if(opcion)$('linea').value=lineaBuffer;else lineaBuffer=e.key;$('linea').dispatchEvent(new Event('change',{bubbles:true}));lineaTimer=setTimeout(()=>{lineaBuffer=''},700)});if($('recordsOperation'))$('recordsOperation').innerHTML=Object.entries(operations).map(([k,v])=>`<option value="${k}">${v}</option>`).join('');$('loadRecords')?.addEventListener('click',loadRecords);$('newUserForm').onsubmit=e=>{e.preventDefault();api('crearUsuario',[App.token,{empleado:$('newEmployee').value,nombre:$('newName').value,rol:$('newRole').value,departamento:$('newDepartment').value,password:$('newPassword').value}],()=>{toast('Usuario creado');e.target.reset();loadUsersAdmin()},err=>toast(err.message||err,true))};
+    $('corte').addEventListener('change', syncRegistroMeta); $('registroFecha').addEventListener('change', syncRegistroMeta); $('registroCorte').addEventListener('change', syncRegistroMeta); $('registroFechaMeta').addEventListener('change', syncRegistroMeta);
+    $('carro').addEventListener('input',actualizarEdicionCantidad_);$('cantidad').addEventListener('click',()=>{if($('cantidad').readOnly&&!/^\d+$/.test($('carro').value.trim())){$('cantidad').readOnly=false;$('cantidad').focus()}});$('linea').addEventListener('click',()=>{$('linea').focus()});
+    const enfocarCantidadParaReemplazo_=()=>{const cantidad=$('cantidad');cantidad.focus();cantidad.setSelectionRange(0,cantidad.value.length)};
+    $('cantidad').addEventListener('focus',()=>{if(/^caja$/i.test($('carro').value.trim()))requestAnimationFrame(enfocarCantidadParaReemplazo_)});
+    const enterFields=['escaneo','escaneo2','carro','cantidad','linea','empleado'];enterFields.forEach((id,index)=>$(id).addEventListener('keydown',e=>{if(e.key!=='Enter')return;e.preventDefault();let nextIndex=index+1;if(id==='carro'&&!/^caja$/i.test($('carro').value.trim()))nextIndex=enterFields.indexOf('empleado');if(id==='cantidad')nextIndex=enterFields.indexOf('empleado');while(nextIndex<enterFields.length&&$(enterFields[nextIndex]).closest('.hidden'))nextIndex++;if(nextIndex<enterFields.length){const nextField=$(enterFields[nextIndex]);nextField.scrollIntoView({behavior:'smooth',block:'center'});if(id==='carro'&&/^caja$/i.test($('carro').value.trim())&&nextField.id==='cantidad')requestAnimationFrame(enfocarCantidadParaReemplazo_);else nextField.focus();return;}const comentariosQM=$('commentsGroup')&&!$('commentsGroup').classList.contains('hidden')&&$('comentarios').required;if(id==='linea'&&comentariosQM){$('comentarios').focus();$('comentarios').scrollIntoView({behavior:'smooth',block:'center'});return;}submitMovement(e)}));$('empleado').oninput=updateEmployeeName;$('empleado').onchange=updateEmployeeName;
+    function activarProteccionesUI(){
+      if(App.proteccionesUIInicializadas)return;
+      App.proteccionesUIInicializadas=true;
+      $('logout').onclick=()=>{if(App.colaOnlineMovimientos.length){toast('Espera a que termine la cola online antes de cerrar sesión.',true);return}api('cerrarSesion',[App.token],reiniciarSesion,reiniciarSesion)};
+    }
+    function reiniciarSesion(){
+      App.token=null;App.user=null;App.history=[];App.saving=false;App.movimientosGuardando=[];App.columnasResumenAntesDeGuardar={};App.colaOnlineMovimientos=[];App.procesandoColaOnline=false;App.idSolicitudMovimientoActual=null;App.datosSolicitudMovimientoActual=null;App.reintentoColaOfflineId=null;actualizarColaOfflineUI_();document.body.classList.remove('qm-user');
+      $('appView').classList.add('hidden');$('loginView').classList.remove('hidden');$('loginForm').reset();ocultarBloqueoLogin_();$('loginEmpleado').focus();
+    }
+    window.addEventListener('beforeunload',evento=>{if(App.colaOnlineMovimientos.length){evento.preventDefault();evento.returnValue=''}});
+    function configurarAdminTabs(){
+      const subnav=document.querySelector('#admin .subnav');
+      const partsOnly=!esAdministradorUI_(App.user&&App.user.rol);
+      if(partsOnly){const usersButton=subnav.querySelector('[data-admin-view="users"]');if(usersButton)usersButton.remove();}
+      if(!subnav||document.querySelector('[data-admin-view="parts"]'))return;
+      const recordsButton=subnav.querySelector('[data-admin-view="records"]');if(recordsButton)recordsButton.remove();
+      const recordsPanelExisting=$('recordsPanel');if(recordsPanelExisting)recordsPanelExisting.remove();
+      subnav.insertAdjacentHTML('beforeend','<button data-admin-view="parts">Números de parte</button>'+(!partsOnly?'<button data-admin-view="daily">Resumen por dia</button>'+(App.user&&App.user.rol==='DEV'?'<button data-admin-view="maintenance">Mantenimiento</button>':''):''));
+      const partsPanel=document.createElement('section');partsPanel.id='partsPanel';partsPanel.className='card hidden';partsPanel.innerHTML='<div class="badge">🏷 Números de parte</div>';
+      const dailyPanel=document.createElement('section');dailyPanel.id='dailyPanel';dailyPanel.className='card summary-card hidden';dailyPanel.innerHTML='<div class="badge">📊 Resumen de materiales por dia</div><div class="summary-tools"><div class="field"><label>Fecha</label><input id="dailySummaryDate" type="date"></div><div class="field"><label>Turno</label><select id="dailySummaryTurn"><option value="A">Turno A</option><option value="B">Turno B</option><option value="C">Turno C</option><option value="D">Turno D</option><option value="">Producción total</option></select></div><button id="dailySummaryRefresh" class="primary" type="button">Actualizar resumen</button></div><p id="dailyProductionTotal">Producción total del dia: 0</p><div class="summary-table-wrap"><table class="table summary-table"><thead><tr><th>Línea</th><th>Parte</th><th>Tipo</th><th>Corte 1</th><th>Corte 2</th><th>Corte 3</th><th>Acumulado</th><th>Producción total del dia</th></tr></thead><tbody id="dailySummaryBody"></tbody></table></div>';
+      const maintenancePanel=document.createElement('section');maintenancePanel.id='maintenancePanel';maintenancePanel.className='card hidden';maintenancePanel.innerHTML='<div class="badge">🛠 Mantenimiento</div><p>Herramientas disponibles únicamente para DEV.</p><button id="migrateCarsButton" class="primary" type="button">Actualizar carros</button> <button id="repairSheetsButton" class="primary" type="button">Reparar estructura de hojas</button>';
+      const usersPanel=$('usersPanel');usersPanel.parentNode.insertBefore(partsPanel,usersPanel.nextSibling);usersPanel.parentNode.insertBefore(dailyPanel,partsPanel.nextSibling);usersPanel.parentNode.insertBefore(maintenancePanel,dailyPanel.nextSibling);
+      if(partsOnly){usersPanel.classList.add('hidden');dailyPanel.remove();maintenancePanel.remove();}
+      const mover=()=>{if($('partsAdmin'))partsPanel.appendChild($('partsAdmin'));if($('partsList'))partsPanel.appendChild($('partsList'));if($('auditPanel'))admin.appendChild($('auditPanel'));if($('maintenancePanel'))admin.appendChild($('maintenancePanel'))};
+      document.querySelectorAll('[data-admin-view]').forEach(button=>button.onclick=()=>{document.querySelectorAll('[data-admin-view]').forEach(item=>item.classList.toggle('active',item===button));usersPanel.classList.toggle('hidden',button.dataset.adminView!=='users');partsPanel.classList.toggle('hidden',button.dataset.adminView!=='parts');dailyPanel.classList.toggle('hidden',button.dataset.adminView!=='daily');maintenancePanel.classList.toggle('hidden',button.dataset.adminView!=='maintenance');if($('auditPanel'))$('auditPanel').classList.toggle('hidden',button.dataset.adminView!=='audit');if(button.dataset.adminView==='users')loadUsersAdmin();if(button.dataset.adminView==='parts'){buildPartsAdmin();buildPartsList();mover();}if(button.dataset.adminView==='daily'){if(!$('dailySummaryDate').value)$('dailySummaryDate').value=new Date().toISOString().slice(0,10);loadDailySummary_()}});
+      $('dailySummaryDate').value=new Date().toISOString().slice(0,10);$('dailySummaryTurn').value='';$('dailySummaryDate').onchange=loadDailySummary_;$('dailySummaryTurn').onchange=loadDailySummary_;$('dailySummaryRefresh').onclick=()=>{const boton=$('dailySummaryRefresh');const terminar=marcarBotonOcupado_(boton,'Actualizando...');loadDailySummary_(terminar)};
+      if($('migrateCarsButton'))$('migrateCarsButton').onclick=()=>{const boton=$('migrateCarsButton');boton.disabled=true;boton.textContent='Actualizando...';api('migrarCarrosAValores',[App.token],mensaje=>{boton.disabled=false;boton.textContent='Actualizar carros';toast(mensaje||'Columna de carros actualizada')},e=>{boton.disabled=false;boton.textContent='Actualizar carros';toast(e.message||e,true)})};
+      if($('repairSheetsButton'))$('repairSheetsButton').onclick=()=>{const boton=$('repairSheetsButton');boton.disabled=true;boton.textContent='Reparando...';api('repararEstructuraHojas',[App.token],mensaje=>{boton.disabled=false;boton.textContent='Reparar estructura de hojas';toast(mensaje||'Estructura de hojas reparada correctamente.')},e=>{boton.disabled=false;boton.textContent='Reparar estructura de hojas';toast(e.message||e,true)})};
+      mover();configurarAuditoriaDEV_();if(partsOnly){const partsButton=subnav.querySelector('[data-admin-view="parts"]');if(partsButton)partsButton.click();}
+    }
+    function registrarParteManual_(parte){if($('partRequest'))return;const esAdmin=['DEV','ADMAD','ADMWH','ADMQM'].includes(App.user.rol);const dialog=document.createElement('div');dialog.id='partRequest';dialog.className='toast error';if(!esAdmin){dialog.innerHTML='Número de parte no registrado, se solicitará su registro.<br><button id="requestPart">Solicitar registro</button>';document.body.appendChild(dialog);$('requestPart').onclick=()=>api('solicitarRegistroParte',[App.token,parte],()=>{dialog.remove();toast('Solicitud enviada a administradores y DEV')},e=>toast(e.message||e,true));return}dialog.innerHTML='<b>Número de parte no registrado</b><br>'+escapeHtml_(parte)+'<br><select id="newCapturePartType"><option value="">Selecciona el tipo</option><option>B/C L</option><option>B/C R</option><option>B/C M</option><option>F/C</option></select><br><button id="registerPartNow">Registrar ahora</button> <button id="registerPartLater">Registrar más tarde</button>';document.body.appendChild(dialog);$('registerPartNow').onclick=()=>{const tipo=$('newCapturePartType').value;if(!tipo)return toast('Selecciona el tipo de parte',true);api('agregarClasificaciones',[App.token,[{parte:parte,tipo:tipo}]],parts=>{App.catalogos.partes=parts;dialog.remove();toast('Parte registrada en Matriz de Finish God');analyze($('escaneo').value);analyzeSecond($('escaneo2').value)},e=>toast(e.message||e,true))};$('registerPartLater').onclick=()=>dialog.remove()}
+    function tipoDeEscaneo_(valor){const segmentos=segmentosEscaneo_(valor);return segmentos.length>=3&&segmentos[2]?buscarTipoParte_(segmentos[2]):''}
+    function actualizarEtiquetasEscaneo_(){const tipos=[tipoDeEscaneo_($('escaneo').value),tipoDeEscaneo_($('escaneo2').value)];if(['B/C L','B/C R'].includes(tipos[0])){$('esLateral').checked=true;$('secondGroup').classList.remove('hidden');}$('movementForm').querySelector('label[for="escaneo"]').textContent=$('esLateral').checked?'Primer escaneo':'Escaneo';$('movementForm').querySelector('label[for="escaneo2"]').textContent='Segundo escaneo';const correcto=$('esLateral').checked&&['B/C L','B/C R'].includes(tipos[0])&&['B/C L','B/C R'].includes(tipos[1])&&tipos[0]!==tipos[1];$('breakdown').classList.toggle('breakdown-ok',correcto);if($('breakdown2'))$('breakdown2').classList.toggle('breakdown-ok',correcto);if(correcto){$('tipoParte').innerHTML=tipos[0]+' <span class="scan-check">✓</span>';if($('tipoParte2'))$('tipoParte2').innerHTML=tipos[1]+' <span class="scan-check">✓</span>';}}
+    function mostrarErrorLateral_(mensaje){mostrarErrorCaptura_(mensaje,()=>$('escaneo2').focus())}
+    function validarLaterales_(){if(!$('esLateral').checked)return true;const primero=tipoDeEscaneo_($('escaneo').value),segundo=tipoDeEscaneo_($('escaneo2').value);if(primero===segundo&&['B/C L','B/C R'].includes(primero)){mostrarErrorLateral_('Se registraron dos veces '+primero+'. Escanea el lado faltante.');return false}if(!['B/C L','B/C R'].includes(primero)||!['B/C L','B/C R'].includes(segundo)||primero===segundo){mostrarErrorLateral_('Para un lateral debes escanear una pieza B/C L y una pieza B/C R.');return false}const scan1=datosEscaneo_($('escaneo').value),scan2=datosEscaneo_($('escaneo2').value);if(!scan1||!scan2){mostrarErrorLateral_('Ambos escaneos laterales deben contener siete valores separados por guiones.');return false}if(Number(scan1.cantidad)!==Number(scan2.cantidad)){mostrarErrorLateral_('Los dos escaneos laterales deben tener la misma cantidad.');return false}return true}
+    $('escaneo').oninput=e=>{analyze(e.target.value);actualizarDatosDesdeEscaneo_();actualizarEtiquetasEscaneo_()};$('escaneo2').oninput=e=>{analyzeSecond(e.target.value);actualizarEtiquetasEscaneo_()};$('esLateral').onchange=()=>{$('secondGroup').classList.toggle('hidden',!$('esLateral').checked);actualizarEtiquetasEscaneo_()};
+    document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if($('outgoingConfirmModal')){$('outgoingConfirmModal').remove();return;}$('hxhModal')?.remove();$('captureErrorModal')?.remove();$('previewMenu')?.classList.add('hidden');$('userMenu')?.classList.add('hidden');if(!$('registro').classList.contains('hidden')){limpiarCaptura_();showView('dashboard')}});document.addEventListener('click',e=>{const boton=e.target.closest('[data-op],[data-summary-op]');if(boton){const op=boton.dataset.op||boton.dataset.summaryOp;document.body.classList.toggle('movement-warehouse',op.indexOf('almacen_')===0);document.body.classList.toggle('movement-aduanas',op.indexOf('aduanas_')===0);if(boton.dataset.op&&document.querySelector('#registro .card').classList.contains('registration-collapsed')){limpiarCaptura_();showView('dashboard')}}});
+    $('sessionNameBtn').onclick=()=>{$('userMenu').classList.toggle('hidden');};
+    document.addEventListener('click',evento=>{if(!App.reintentoColaOfflineId)return;const boton=evento.target.closest('#tabs [data-op],#summaryOperations [data-summary-op],nav button');if(boton&&(boton.matches('nav button')||(boton.dataset.op||boton.dataset.summaryOp)!==App.op))App.reintentoColaOfflineId=null;},true);
+    configurarPrevisualizacionDEV_();
+    $('movementForm').onsubmit=submitMovement;
+    $('newUserForm').onsubmit=e=>{e.preventDefault();$('newRegistrationDate').value=new Date().toISOString().slice(0,10);api('crearUsuario',[App.token,{empleado:$('newEmployee').value,nombre:$('newName').value,rol:$('newRole').value,departamento:$('newDepartment').value,password:$('newEmployee').value}],()=>{toast('Usuario creado. La contraseña inicial es su número de empleado.');e.target.reset();$('newRegistrationDate').value=new Date().toISOString().slice(0,10);loadUsersAdmin()},err=>toast(err.message||err,true))};
+    function limitarAltaUsuarios_(){const esDev=App.user&&App.user.rol==='DEV';const role=$('newRole');const department=$('newDepartment');if(!role||!department)return;if(!esDev){const adminOption=role.querySelector('option[value="ADM"]');if(adminOption)adminOption.remove();department.value=App.user.departamento;Array.from(department.options).forEach(option=>option.hidden=option.value!==App.user.departamento);department.disabled=true;}else{department.disabled=false;Array.from(department.options).forEach(option=>option.hidden=false);}}
+    operations.calidad_entrada='📋 Entrada Calidad';operations.calidad_salida='📋 Salida Calidad';localUsers['3001']={nombre:'Usuario Calidad',rol:'UQM',departamento:'UQM',password:'demo',requeridoCambio:true};
+    const departamentoUI_=rol=>['UAD','ADMAD'].includes(rol)?'UAD':['UWH','ADMWH'].includes(rol)?'UWH':['UQM','ADMQM'].includes(rol)?'UQM':'TODOS';
+    const esQM_=()=>App.user&&(departamentoUI_(App.user.rol)==='UQM'||departamentoUI_(App.user.departamento)==='UQM');
+    function actualizarVisibilidadQM_(){const ocultar=!!esQM_();['registrationCutControl','registrationMetaCutControl'].forEach(id=>$(id)?.classList.toggle('qm-hidden-cut',ocultar));['summaryDate','summaryCut'].forEach(id=>$(id)?.parentElement.classList.remove('hidden','qm-hidden-cut'));}
+    function montarComentariosQM_(){const form=$('movementForm');if(!form||$('commentsGroup'))return;const group=document.createElement('div');group.id='commentsGroup';group.className='group hidden';group.innerHTML='<label for="comentarios">Comentarios</label><input id="comentarios" maxlength="250">';form.insertBefore(group,$('saveButton'));}
+    function actualizarComentariosQM_(){actualizarVisibilidadQM_();montarComentariosQM_();const group=$('commentsGroup');if(!group)return;const form=$('movementForm');const esDev=App.user&&String(App.user.rol||'').trim().toUpperCase()==='DEV';const visible=(esQM_()||esDev)&&String(App.op||'').indexOf('calidad_')===0;const soloQM=esQM_()&&String(App.op||'').indexOf('calidad_')===0;const empleado=$('empleado');const empleadoGroup=empleado&&empleado.closest('.group');const empleadoRow=empleadoGroup&&empleadoGroup.parentElement;const linea=$('linea');const lineaGroup=linea&&linea.closest('.group');const lineaRow=lineaGroup&&lineaGroup.parentElement;if(soloQM&&empleadoGroup&&empleadoRow&&lineaGroup&&lineaRow&&!lineaGroup.dataset.qmMoved){lineaGroup.dataset.qmMoved='1';lineaRow.parentNode.insertBefore(lineaGroup,group);lineaRow.remove();group.parentNode.insertBefore(empleadoGroup,group.nextSibling);}else if(!soloQM){if(empleadoGroup&&empleadoRow&&empleadoGroup.parentNode!==empleadoRow)empleadoRow.appendChild(empleadoGroup);form.insertBefore(group,$('saveButton'));}group.classList.toggle('hidden',!visible);$('comentarios').required=soloQM;if(!visible)$('comentarios').value='';}
+    function renderVisualSummary(data){
+      App.summaryData=agregarMovimientosGuardandoResumen_(agregarPendientesResumenVisual_(data||{filas:[]}));
+      const visible=Math.min(App.summaryVisibleCarros||14,50);
+      const head=['<th>Línea</th><th>Número de parte</th><th>Tipo</th>'];
+      for(let i=1;i<=visible;i++)head.push('<th>C'+i+'</th>');
+      head.push('<th class="carro-add-cell"><button class="carro-add-button" type="button" title="Agregar carro" aria-label="Agregar carro">+</button></th><th>Total Aduanas</th><th>Total WH</th><th>Diferencia</th>');
+      $('dashboard').querySelector('.summary-table thead').innerHTML='<tr>'+head.join('')+'</tr>';
+      const filas=App.summaryData.filas||[];
+      const rows=[];
+      const totalRows=Math.max(14,filas.length);
+      for(let i=0;i<totalRows;i++){
+        const fila=filas[i]||{linea:i+1,parte:'',carros:[],carroEtiquetas:[],carrosGuardando:[],carrosEnCola:[],totalAduanas:0,totalAlmacen:0,diferencia:0,estado:'OK'};
+        const hasDiff=Number(fila.totalAduanas||0)!==Number(fila.totalAlmacen||0)||Number(fila.diferencia||0)!==0;
+        const carros=Array.from({length:visible},(_,idx)=>fila.carros&&fila.carros[idx]!==undefined?fila.carros[idx]:'');
+        const etiquetas=Array.from({length:visible},(_,idx)=>fila.carroEtiquetas&&fila.carroEtiquetas[idx]!==undefined?fila.carroEtiquetas[idx]:'');
+        const totales='<td class="'+(hasDiff?'diff-error':'diff-ok')+'"><strong class="summary-total-value">'+htmlCell_(fila.totalAduanas||0)+'</strong></td><td class="'+(hasDiff?'diff-error':'diff-ok')+'"><strong class="summary-total-value">'+htmlCell_(fila.totalAlmacen||0)+'</strong></td>';
+        rows.push('<tr><td><strong>'+htmlCell_(fila.linea||i+1)+'</strong></td><td class="part-cell"><strong>'+htmlCell_(fila.parte||'')+'</strong></td><td class="strong">'+htmlCell_(fila.tipo||'')+'</td>'+carros.map((valor,indice)=>{
+          const guardando=!!(fila.carrosGuardando&&fila.carrosGuardando[indice]);
+          const pendiente=!!(fila.carrosPendientes&&fila.carrosPendientes[indice]);
+          const enCola=!!(fila.carrosEnCola&&fila.carrosEnCola[indice]);
+          const valorConfirmado=fila.carrosConfirmados&&fila.carrosConfirmados[indice]!==undefined?fila.carrosConfirmados[indice]:valor;
+          const estadoProvisional=guardando?'guardando':enCola?'encola':pendiente?'pendiente':'';
+          const etiquetaProvisional=guardando?'Guardando…':enCola?'En cola':pendiente?'Pendiente':etiquetas[indice]||'';
+          return '<td class="carro-summary-cell '+((valorConfirmado!==''&&Number(valorConfirmado)!==0&&fila.estado==='ERROR')?'diff-error':'')+'"><span class="carro-label '+(estadoProvisional?'carro-label-'+estadoProvisional:'')+'"'+(estadoProvisional?' aria-label="'+(guardando?'Guardando registro':enCola?'Registro en cola online':'Registro pendiente offline')+'"':'')+'>'+htmlCell_(etiquetaProvisional)+'</span><span class="carro-cantidad">'+htmlCell_(valor===0?0:valor||'')+'</span></td>';
+        }).join('')+'<td class="carro-add-cell"></td>'+totales+'<td class="'+(hasDiff?'diff-error':'diff-ok')+'"><strong class="summary-total-value">'+htmlCell_(fila.diferencia||0)+'</strong></td></tr>');
+      }
+      $('visualSummary').innerHTML=rows.join('');
+      Array.from($('visualSummary').rows).forEach(row=>{
+        const line=Number(row.cells[0]?.textContent.replace(/\D/g,''))||0;
+        row.classList.add(line%2?'summary-line-odd':'summary-line-even');
+        if(String(row.cells[0]?.textContent||'').trim()==='8003 RWK')row.classList.add('summary-line-8003');
+      });
+      $('summaryTotals').textContent='Aduanas: '+(App.summaryData.totalAduanas||0)+' | Almacén: '+(App.summaryData.totalAlmacen||0)+' | Discrepancias: '+(App.summaryData.discrepancias||0);
+      document.querySelector('.carro-add-button').onclick=()=>{
+        if((App.summaryVisibleCarros||14)<50){
+          App.summaryVisibleCarros=(App.summaryVisibleCarros||14)+1;
+          redibujarResumenActual_();
+        }
+      };
+    }
+    function buildSummaryUI(){const panel=$('dashboard').querySelector('.card');panel.className='card summary-card';const filtroDepartamento=App.user&&App.user.rol==='DEV'?'<div class="field"><label>Departamento</label><select id="summaryDepartment"><option value="">Todos</option><option value="UAD">Aduanas</option><option value="UWH">Almacén</option><option value="UQM">QM</option></select></div>':'';panel.innerHTML='<div id="summaryOperations" class="tabs"></div><div class="badge">📊 Resumen de materiales</div><div class="summary-tools">'+filtroDepartamento+'<div class="field"><label>Fecha</label><input id="summaryDate" type="date"></div><div class="field"><label>Corte</label><select id="summaryCut"><option>1</option><option>2</option><option>3</option><option>Acumulado</option></select></div><div class="field"><label>Turno</label><select id="summaryTurn"><option value="">Todos</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select></div><button id="refreshSummary" class="primary" type="button">Actualizar resumen</button></div><p id="summaryTotals">Selecciona fecha y corte.</p><div class="summary-table-wrap"><table class="table summary-table"><thead></thead><tbody id="visualSummary"></tbody></table></div>';$('summaryOperations').innerHTML=App.allowed.map(op=>'<button class="tab '+(op.indexOf('almacen_')===0?'uwh':'')+'" data-summary-op="'+op+'">'+operations[op]+'</button>').join('')+'<button id="pendingSummaryButton" class="tab" type="button">Pendientes (0)</button>';App.summaryOperation=App.allowed[0]||'';document.querySelectorAll('[data-summary-op]').forEach(b=>b.onclick=()=>{App.summaryOperation=b.dataset.summaryOp;document.querySelectorAll('[data-summary-op]').forEach(x=>x.classList.toggle('active',x===b));App.op=App.summaryOperation;document.querySelector('#registro .card').classList.remove('registration-collapsed');avisarEstadoOffline_();showView('registro');document.querySelectorAll('#tabs .tab').forEach(x=>x.classList.toggle('active',x.dataset.op===App.op));$('operationBadge').textContent=operations[App.op];$('operationBadge').className='badge '+(App.op.indexOf('almacen_')===0?'uwh':'');syncRegistroMeta();$('escaneo').focus();});$('pendingSummaryButton').onclick=mostrarPendientesOffline_;$('summaryDate').value=new Date().toISOString().slice(0,10);$('summaryCut').value='1';$('summaryTurn').value='';if($('summaryDepartment'))$('summaryDepartment').onchange=()=>loadSummary(true);$('refreshSummary').onclick=()=>{const boton=$('refreshSummary');const terminar=marcarBotonOcupado_(boton,'Actualizando...');loadSummary(true,terminar)};actualizarColaOfflineUI_();}
+    function indiceCarroPendiente_(valor){const texto=String(valor||'').trim().toUpperCase();if(!texto||texto==='CAJA'||texto==='C')return 0;const match=texto.match(/(?:CARRO\s*)?(\d+)/i);if(!match)return 0;const numero=Number(match[1]);if(!Number.isFinite(numero)||numero<=0||numero>50)return 0;return Math.min(Math.max(numero-1,0),49);}
+    function pendientesResumenLocal_(fecha,turno,corte){const empleadoActual=App.user?App.user.empleado:null;return leerColaOffline_().filter(item=>item.empleado===empleadoActual).map(item=>Object.assign({},item.datos,{carroAsignado:item.carroAsignado||item.datos.carroAsignado||''})).filter(d=>String(d.fecha||'')===String(fecha||'')&&(!turno||String(d.turno||'')===String(turno))&&(!corte||corte==='Acumulado'||String(d.corte||'')===String(corte)));}
+    function claveParteResumenPendiente_(valor){const parte=normalizarParte_(valor);return parte==='B/C L'||parte==='B/C R'||parte==='B/C L/B/C R'?'B/C L/B/C R':parte;}
+    function agregarPendientesResumenVisual_(data){const turno=String($('summaryTurn')&&$('summaryTurn').value||'');const pendientes=pendientesResumenLocal_(data.fecha,turno,data.corte);if(!pendientes.length)return data;const filas=(data.filas||[]).map(f=>Object.assign({},f,{carros:(f.carros||[]).slice(),carrosConfirmados:(f.carrosConfirmados||f.carros||[]).slice(),carroEtiquetas:(f.carroEtiquetas||[]).slice(),carrosPendientes:(f.carrosPendientes||[]).slice()}));pendientes.forEach(d=>{const parte=segmentosEscaneo_(d.escaneo||'')[2]||'';const cantidad=(Number(d.cantidad)||0)*(String(d.tipoOperacion||'').indexOf('_salida')>=0?-1:1);const valorCarro=d.carroAsignado||d.carro||d.numCarroCaja||d.carroCaja||'';const indiceCarro=indiceCarroPendiente_(valorCarro);const lineaNormalizada=valor=>String(valor||'').replace(/\u00a0/g,' ').trim().replace(/\s+/g,' ').toUpperCase();let fila=filas.find(f=>lineaNormalizada(f.linea)===lineaNormalizada(d.linea)&&claveParteResumenPendiente_(f.parte)===claveParteResumenPendiente_(parte));if(!fila){fila={linea:d.linea,parte:parte,tipo:buscarTipoParte_(parte)||'No registrado',carros:Array(50).fill(0),carrosConfirmados:Array(50).fill(0),carroEtiquetas:Array(50).fill(''),carrosPendientes:Array(50).fill(false),totalAduanas:0,totalAlmacen:0,totalCalidad:0,diferencia:0,estado:'OK'};filas.push(fila)}fila.carros=Array.from({length:50},(_,indice)=>Number(fila.carros&&fila.carros[indice]||0));fila.carrosPendientes=Array.from({length:50},(_,indice)=>!!(fila.carrosPendientes&&fila.carrosPendientes[indice]));fila.carros[indiceCarro]+=cantidad;fila.carrosPendientes[indiceCarro]=true;});return Object.assign({},data,{filas:filas})}
+    function normalizarLineaResumenGuardando_(valor){return String(valor||'').replace(/\u00a0/g,' ').trim().replace(/\s+/g,' ').toUpperCase()}
+    function movimientosGuardandoParaResumen_(data){
+      const grupoResumen=String(App.summaryOperation||App.allowed[0]||'').split('_')[0];
+      const departamento=String($('summaryDepartment')&&$('summaryDepartment').value||'').trim().toUpperCase();
+      const fecha=String($('summaryDate')&&$('summaryDate').value||'');
+      const corte=String($('summaryCut')&&$('summaryCut').value||'Acumulado');
+      const turno=String($('summaryTurn')&&$('summaryTurn').value||'').trim();
+      return App.movimientosGuardando.filter(movimiento=>{
+        const datos=movimiento.datos||{};
+        return ['aduanas','almacen'].includes(grupoResumen)&&
+          String(datos.tipoOperacion||'').indexOf(grupoResumen+'_')===0&&
+          (!fecha||String(datos.fecha||'')===fecha)&&
+          (!turno||String(datos.turno||'').trim()===turno)&&
+          (corte==='Acumulado'||String(datos.corte||'')===corte)&&
+          (!departamento||departamento===(grupoResumen==='aduanas'?'UAD':'UWH'));
+      });
+    }
+    function registrarMovimientoGuardando_(datos,estado){
+      const grupo=String(datos.tipoOperacion||'').split('_')[0];
+      if(!['aduanas','almacen'].includes(grupo))return;
+      const solicitud=String(datos.idSolicitud||'');
+      if(!Object.prototype.hasOwnProperty.call(App.columnasResumenAntesDeGuardar,solicitud))App.columnasResumenAntesDeGuardar[solicitud]=App.summaryVisibleCarros||14;
+      const escaneos=datos.esLateral==='Si'?[datos.escaneo,datos.escaneo2]:[datos.escaneo];
+      escaneos.forEach(escaneo=>{
+        const datosPieza=Object.assign({},datos,{escaneo:escaneo,esLateral:'No'});
+        let carro=Number(obtenerCarroAsignadoVisualOffline_(datosPieza));
+        const parte=segmentosEscaneo_(escaneo)[2]||'';
+        const linea=normalizarLineaResumenGuardando_(datos.linea);
+        const parteNormalizada=normalizarParte_(parte);
+        const carrosPrevios=App.movimientosGuardando.filter(item=>{
+          const previo=item.datos||{};
+          if(String(previo.tipoOperacion||'')!==String(datos.tipoOperacion||''))return false;
+          const partePrevia=segmentosEscaneo_(previo.escaneo)[2]||'';
+          return String(previo.fecha||'')===String(datos.fecha||'')&&
+            String(previo.turno||'')===String(datos.turno||'')&&
+            normalizarLineaResumenGuardando_(previo.linea)===linea&&
+            normalizarParte_(partePrevia)===parteNormalizada;
+        }).reduce((maximo,item)=>Math.max(maximo,Number(item.carroAsignado)||0),0);
+        if(carrosPrevios>=carro)carro=carrosPrevios+1;
+        const movimiento={idSolicitud:solicitud,datos:datosPieza,carroAsignado:String(carro||1),estado:estado||'guardando'};
+        App.movimientosGuardando.push(movimiento);
+        if(carro>App.summaryVisibleCarros&&carro<=50)App.summaryVisibleCarros=carro;
+      });
+      redibujarResumenActual_();
+    }
+    function quitarMovimientoGuardando_(idSolicitud,restaurarColumnas){
+      const id=String(idSolicitud||'');
+      App.movimientosGuardando=App.movimientosGuardando.filter(item=>item.idSolicitud!==id);
+      if(restaurarColumnas&&!App.movimientosGuardando.length&&Object.prototype.hasOwnProperty.call(App.columnasResumenAntesDeGuardar,id)){
+        App.summaryVisibleCarros=App.columnasResumenAntesDeGuardar[id];
+      }
+      delete App.columnasResumenAntesDeGuardar[id];
+      redibujarResumenActual_();
+    }
+    function redibujarResumenActual_(){
+      if(!$('summaryDate'))return;
+      const filtros={fecha:$('summaryDate').value||'',corte:$('summaryCut').value||'Acumulado',turno:$('summaryTurn')&&$('summaryTurn').value||'',departamento:$('summaryDepartment')&&$('summaryDepartment').value||'',operacion:App.summaryOperation||App.allowed[0]||'',tipoMovimiento:$('summaryDirection')&&$('summaryDirection').value||'entrada'};
+      const resumen=App.summaryCache[JSON.stringify(filtros)];
+      if(resumen)renderVisualSummary(resumen);
+    }
+    function agregarMovimientosGuardandoResumen_(data){
+      const pendientes=movimientosGuardandoParaResumen_(data||{});
+      if(!pendientes.length)return data;
+      const filas=(data.filas||[]).map(fila=>Object.assign({},fila,{
+        carros:(fila.carros||[]).slice(),
+        carrosConfirmados:(fila.carrosConfirmados||fila.carros||[]).slice(),
+        carroEtiquetas:(fila.carroEtiquetas||[]).slice(),
+        carrosPendientes:(fila.carrosPendientes||[]).slice(),
+        carrosEnCola:(fila.carrosEnCola||[]).slice(),
+        carrosGuardando:(fila.carrosGuardando||[]).slice()
+      }));
+      pendientes.forEach(movimiento=>{
+        const datos=movimiento.datos||{};
+        const parte=segmentosEscaneo_(datos.escaneo)[2]||'';
+        const cantidad=(Number(datos.cantidad)||0)*(String(datos.tipoOperacion||'').endsWith('_salida')?-1:1);
+        const indiceCarro=indiceCarroPendiente_(movimiento.carroAsignado);
+        let fila=filas.find(item=>normalizarLineaResumenGuardando_(item.linea)===normalizarLineaResumenGuardando_(datos.linea)&&
+          claveParteResumenPendiente_(item.parte)===claveParteResumenPendiente_(parte));
+        if(!fila){
+          fila={linea:datos.linea,parte:parte,tipo:buscarTipoParte_(parte)||'No registrado',carros:Array(50).fill(0),carroEtiquetas:Array(50).fill(''),carrosPendientes:Array(50).fill(false),carrosEnCola:Array(50).fill(false),carrosGuardando:Array(50).fill(false),totalAduanas:0,totalAlmacen:0,totalCalidad:0,diferencia:0,estado:'OK'};
+          filas.push(fila);
+        }
+        fila.carros=Array.from({length:50},(_,indice)=>Number(fila.carros&&fila.carros[indice]||0));
+        fila.carrosEnCola=Array.from({length:50},(_,indice)=>!!(fila.carrosEnCola&&fila.carrosEnCola[indice]));
+        fila.carrosGuardando=Array.from({length:50},(_,indice)=>!!(fila.carrosGuardando&&fila.carrosGuardando[indice]));
+        fila.carros[indiceCarro]+=cantidad;
+        if(movimiento.estado==='encola')fila.carrosEnCola[indiceCarro]=true;
+        else fila.carrosGuardando[indiceCarro]=true;
+      });
+      return Object.assign({},data,{filas:filas});
+    }
+    const registrarMovimientoOfflineTrasFalloOriginal_=registrarMovimientoOfflineTrasFallo_;
+    registrarMovimientoOfflineTrasFallo_=function(datos,error){
+      const trabajoActual=App.colaOnlineMovimientos[0];
+      if(App.procesandoColaOnline&&trabajoActual&&trabajoActual.datos.idSolicitud===String(datos&&datos.idSolicitud||'')){
+        migrarColaOnlineAOffline_(error,!!navigator.onLine);
+        return;
+      }
+      quitarMovimientoGuardando_(datos&&datos.idSolicitud,false);
+      return registrarMovimientoOfflineTrasFalloOriginal_(datos,error);
+    };
+    function agregarPendientesResumenDiario_(data){const pendientes=pendientesResumenLocal_(data.fecha,data.turno,'');if(!pendientes.length)return data;const grupos={};(data.filas||[]).forEach(f=>grupos[String(f.linea)+'|'+String(f.parte)] = f);pendientes.forEach(d=>{const parte=segmentosEscaneo_(d.escaneo)[2]||'';const clave=String(d.linea)+'|'+parte;const f=grupos[clave]||{linea:d.linea,parte:parte,tipo:buscarTipoParte_(parte)||'No registrado',corte1:0,corte2:0,corte3:0,acumulado:0,produccionTotal:0};const cantidad=(Number(d.cantidad)||0)*(String(d.tipoOperacion||'').indexOf('_salida')>=0?-1:1);const campo=d.corte==='1'?'corte1':d.corte==='2'?'corte2':d.corte==='3'?'corte3':'acumulado';f[campo]+=cantidad;f.produccionTotal+=cantidad;grupos[clave]=f});const filas=Object.keys(grupos).map(k=>grupos[k]);return Object.assign({},data,{filas:filas,produccionTotalDia:filas.reduce((s,f)=>s+(Number(f.produccionTotal)||0),0)})}
+    const renderDailySummaryOriginal_=renderDailySummary_;
+    renderDailySummary_=data=>{
+      const datos=agregarPendientesResumenDiario_(data);
+      const filas=(datos&&datos.filas||[]).map(fila=>Object.assign({},fila,{
+        linea:escapeHtml_(fila.linea),
+        parte:escapeHtml_(fila.parte),
+        tipo:escapeHtml_(fila.tipo),
+        corte1:escapeHtml_(fila.corte1),
+        corte2:escapeHtml_(fila.corte2),
+        corte3:escapeHtml_(fila.corte3),
+        acumulado:escapeHtml_(fila.acumulado),
+        produccionTotal:escapeHtml_(fila.produccionTotal)
+      }));
+      return renderDailySummaryOriginal_(Object.assign({},datos,{filas:filas}));
+    };
+    function loadSummary(forzar,finalizado){App.summaryVisibleCarros=14;const filtros={fecha:$('summaryDate')?.value||'',corte:$('summaryCut')?.value||'Acumulado',turno:$('summaryTurn')?.value||'',departamento:$('summaryDepartment')?.value||'',operacion:App.summaryOperation||App.allowed[0]||'',tipoMovimiento:$('summaryDirection')&&$('summaryDirection').value||'entrada'};const clave=JSON.stringify(filtros);if(!forzar&&App.summaryCache[clave]){renderVisualSummary(App.summaryCache[clave]);if(finalizado)finalizado();return}if(!navigator.onLine){const base=App.summaryCache[clave]||{fecha:filtros.fecha,corte:filtros.corte,turno:filtros.turno,tipoMovimiento:filtros.tipoMovimiento,filas:[],totalAduanas:0,totalAlmacen:0};renderVisualSummary(base);if(finalizado)finalizado();return}api('obtenerResumenVisual',[App.token,filtros],data=>{App.summaryCache[clave]=data;renderVisualSummary(data);if(finalizado)finalizado()},e=>{if(finalizado)finalizado();toast(e.message||e,true)});}
+    function filtrarHistorialLocal_(){const base=App.historySourceRecords||[];const texto=String($('historyPartSearch')?.value||'').trim().toUpperCase();App.historyRecords=texto?base.filter(r=>String(r.parte||'').toUpperCase().indexOf(texto)>=0):base.slice();renderHistoryTable_(App.historyRecords);}
+    function loadHistory_(forzar,finalizado){const filtros={fecha:$('historyDate')?.value||'',turno:$('historyTurn')?.value||'A',corte:$('historyCut')?.value||'1',parte:'',departamento:$('historyDepartment')?.value||'',tipoMovimiento:$('historyDirection')&&$('historyDirection').value||'entrada',pagina:1,porPagina:0};const clave=JSON.stringify(filtros);const quitarPaginacion=()=>{const pager=$('historyPager');if(pager)pager.remove()};if(!forzar&&App.historyCache[clave]){const res=App.historyCache[clave];App.historyPage=1;App.historySourceRecords=res.items||res||[];filtrarHistorialLocal_();quitarPaginacion();if(finalizado)finalizado();return}api('listarHistorial',[App.token,filtros],res=>{App.historyCache[clave]=res;App.historyEditedRows={};App.historyPage=1;App.historySourceRecords=res.items||res||[];filtrarHistorialLocal_();quitarPaginacion();if(finalizado)finalizado()},e=>{if(finalizado)finalizado();toast(e.message||e,true)});}
+    function exportarHXHExcel_(){const data=App.hxhData;if(!data||!data.items||!data.items.length)return toast('Primero actualiza HXH para descargar sus resultados.',true);const escapar=v=>{let texto=String(v??'');if(/^[\t\r\n ]*[=+\-@]/.test(texto))texto="'"+texto;return '"'+texto.replace(/"/g,'""')+'"'};const filas=[['Fecha','Turno','Departamento','Hora de inicio','Hora final'],[data.fecha,data.turno,data.departamento,data.horaInicio,data.horaFinal],[],['Línea','Número de parte','Tipo','Cantidad'],...data.items.map(item=>[item.linea,item.parte,item.tipo,item.cantidad]),['Total','','',data.total]];const csv='﻿'+filas.map(fila=>fila.map(escapar).join(',')).join('\r\n');const enlace=document.createElement('a');enlace.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));enlace.download='HXH-'+data.fecha+'-'+data.departamento+'-'+data.horaInicio.replace(':','')+'-'+data.horaFinal.replace(':','')+'.csv';enlace.click();setTimeout(()=>URL.revokeObjectURL(enlace.href),1000);toast('HXH descargado. Puedes abrirlo con Excel.')}
+    function mostrarModalHXH_(){if($('hxhModal'))return;const fecha=$('historyDate')?.value||new Date().toISOString().slice(0,10);const horas=['01:00','02:00','03:00','04:00','05:00','06:00','06:30','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','18:30','19:00','20:00','21:00','22:00','23:00','24:00'];const opcionesHora=horas.map(hora=>'<option value="'+hora+'">'+hora.replace(/^0/,'')+'</option>').join('');const siguienteHora=hora=>{const [h,m]=hora.split(':').map(Number);if(h===6&&m===0)return '06:30';if(h===6&&m===30)return '07:00';if(h===18&&m===0)return '18:30';if(h===18&&m===30)return '19:00';return String(h+1).padStart(2,'0')+':00'};const modal=document.createElement('div');modal.id='hxhModal';modal.className='capture-error-modal';modal.innerHTML='<div class="capture-error-card"><button type="button" class="capture-error-close" aria-label="Cerrar">×</button><h3>HXH - Material por hora</h3><div class="hxh-filters"><div class="field"><label for="hxhDate">Fecha</label><input id="hxhDate" type="date" value="'+fecha+'"></div><div class="field"><label for="hxhTurn">Turno</label><select id="hxhTurn"><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select></div><div class="field"><label for="hxhDepartment">Departamento</label><select id="hxhDepartment"><option value="UAD">Aduanas</option><option value="UWH">WH</option><option value="UQM">QM</option></select></div><div class="field"><label for="hxhStart">Hora de inicio</label><select id="hxhStart">'+opcionesHora+'</select></div><div class="field"><label for="hxhEnd">Hora final</label><select id="hxhEnd">'+opcionesHora+'</select></div></div><div class="hxh-actions"><button id="hxhUpdate" class="primary" type="button">Actualizar</button><button id="hxhExport" type="button">Descargar Excel</button></div><div id="hxhResults"></div></div>';document.body.appendChild(modal);$('hxhStart').value='01:00';$('hxhEnd').value='24:00';$('hxhStart').onchange=()=>{$('hxhEnd').value=siguienteHora($('hxhStart').value)};$('hxhTurn').value=$('historyTurn')?.value||'A';const cerrar=()=>modal.remove();modal.querySelector('.capture-error-close').onclick=cerrar;$('hxhExport').onclick=exportarHXHExcel_;$('hxhUpdate').onclick=()=>{const boton=$('hxhUpdate');const filtros={fecha:$('hxhDate').value,turno:$('hxhTurn').value,departamento:$('hxhDepartment').value,horaInicio:$('hxhStart').value,horaFinal:$('hxhEnd').value};if(!filtros.fecha||!filtros.horaInicio||!filtros.horaFinal)return toast('Completa todos los filtros de HXH',true);boton.disabled=true;boton.textContent='Actualizando...';api('obtenerResumenHXH',[App.token,filtros],data=>{App.hxhData=data;const filas=(data.items||[]).map(item=>'<tr><td>'+item.linea+'</td><td>'+item.parte+'</td><td>'+item.tipo+'</td><td>'+item.cantidad+'</td></tr>').join('');$('hxhResults').innerHTML='<div class="table-wrap hxh-table"><table class="table"><thead><tr><th>Línea</th><th>Número de parte</th><th>Tipo</th><th>Cantidad</th></tr></thead><tbody>'+(filas||'<tr><td colspan=\"4\">Sin registros en el rango indicado.</td></tr>')+'</tbody><tfoot><tr><th colspan=\"3\">Total</th><th>'+data.total+'</th></tr></tfoot></table></div>';boton.disabled=false;boton.textContent='Actualizar'},e=>{boton.disabled=false;boton.textContent='Actualizar';toast(e.message||e,true)})}}
+    function montarHistorial_(){if(!$('historyDate'))return;if(!$('historyDate').value)$('historyDate').value=new Date().toISOString().slice(0,10);$('refreshHistory').onclick=loadHistory_;}
+    $('logout').onclick=()=>{api('cerrarSesion',[App.token],()=>location.reload(),()=>location.reload());};
+    montarHistorial_=function(){const section=document.querySelector('#history section');if(!section)return;if(!$('historyHead'))section.innerHTML='<div class="badge">📜 Historial de movimientos</div><div id="historyFilters" class="summary-filter-tools"><div class="field"><label>Buscar número de parte</label><input id="historyPartSearch" type="search" placeholder="Número completo o últimos 4 dígitos"></div><button id="hxhButton" class="primary" type="button">HXH</button><div class="field"><label>Turno</label><select id="historyTurn"><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="">Todos</option></select></div><div class="field"><label>Fecha</label><input id="historyDate" type="date"></div><div class="field"><label>Corte</label><select id="historyCut"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="Acumulado">Acumulado</option><option value="">Todos</option></select></div>'+(App.user&&App.user.rol==='DEV'?'<div class="field"><label>Departamento</label><select id="historyDepartment"><option value="">Todos</option><option value="UAD">Aduanas</option><option value="UWH">Almacén</option><option value="UQM">QM</option></select></div>':'')+'<button id="refreshHistory" class="primary" type="button">Actualizar historial</button>    <button id="exportHistory" class="primary" type="button">Descargar Excel</button></div><div class="table-wrap"><table class="table summary-table"><thead id="historyHead"></thead><tbody id="historyList"></tbody></table></div>';if(!$('historyDate').value)$('historyDate').value=new Date().toISOString().slice(0,10);$('hxhButton').onclick=mostrarModalHXH_;$('historyPartSearch').oninput=()=>{App.historyPage=1;filtrarHistorialLocal_()};if($('historyDepartment'))$('historyDepartment').onchange=()=>{App.historyPage=1;loadHistory_(true)};$('refreshHistory').onclick=()=>{const boton=$('refreshHistory');if(boton.disabled)return;boton.disabled=true;boton.textContent='Actualizando...';App.historyPage=1;loadHistory_(true,()=>{boton.disabled=false;boton.textContent='Actualizar historial'})};$('exportHistory').onclick=exportarHistorialExcel_};
+    function exportarHistorialExcel_(){const rows=App.historyRecords||[];if(!rows.length)return toast('No hay registros cargados para exportar.',true);const columnas=['Hora','Línea','Rolling','Número de parte','Tipo','Cantidad','Número de carro','Carro','Corte','Departamento','Validado por QM','Comentarios'];const escapar=v=>{let texto=String(v??'');if(/^[\t\r\n ]*[=+\-@]/.test(texto))texto="'"+texto;return '"'+texto.replace(/"/g,'""')+'"'};const csv='﻿'+columnas.map(escapar).join(',')+'\r\n'+rows.map(r=>[r.hora,r.linea,r.rolling,r.parte,r.tipo,r.cantidad,r.carroCaja,r.carro,r.corte,r.departamento,r.validadoQM?'Sí':'No',r.comentarios||''].map(escapar).join(',')).join('\r\n');const enlace=document.createElement('a');enlace.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));enlace.download='historial-'+($('historyDate')?.value||new Date().toISOString().slice(0,10))+'.csv';enlace.click();setTimeout(()=>URL.revokeObjectURL(enlace.href),1000);toast('Historial descargado. Puedes abrirlo con Excel.')}
+    function mostrarModalEliminacion_(registro, directo){const modal=document.createElement('div');modal.className='capture-error-modal deletion-modal';const titulo=directo?'Borrar el registro seleccionado':'Solicitar la eliminacion de este registro';modal.innerHTML='<div class="capture-error-card"><button class="capture-error-close" type="button" aria-label="Cerrar">×</button><h3>'+titulo+'</h3>'+(directo?'':'<textarea id="deleteReason" maxlength="500" placeholder="Razones" aria-label="Razones"></textarea>')+'<div class="camera-actions"><button type="button" id="deleteCancel">Cancelar</button><button type="button" id="deleteConfirm" class="primary">'+(directo?'Eliminar':'Enviar')+'</button></div></div>';document.body.appendChild(modal);const cerrar=()=>modal.remove();modal.querySelector('.capture-error-close').onclick=cerrar;modal.querySelector('#deleteCancel').onclick=cerrar;modal.querySelector('#deleteConfirm').onclick=()=>{const razon=modal.querySelector('#deleteReason')?.value.trim()||'';if(!directo&&!razon)return toast('Escribe la razón de la eliminación',true);modal.querySelector('#deleteConfirm').disabled=true;const llamada=directo?'eliminarRegistro':'solicitarEliminacionRegistro';const referencia=registro.id||registro.fila;const args=directo?[App.token,registro.operacion,referencia]:[App.token,registro.operacion,referencia,razon];api(llamada,args,()=>{cerrar();toast(directo?'Registro eliminado':'Solicitud enviada');loadHistory_()},e=>{modal.querySelector('#deleteConfirm').disabled=false;toast(e.message||e,true)})};}
+    function claveRegistroHistorial_(registro){return String(registro.operacion||'')+'|'+String(registro.id||registro.fila||'')}
+    function actualizarHistorialEditadoLocal_(registro,cambios){
+      const claveRegistro=claveRegistroHistorial_(registro);
+      const listas=new Set();
+      const agregarLista=res=>{const lista=Array.isArray(res)?res:res&&Array.isArray(res.items)?res.items:null;if(lista)listas.add(lista)};
+      Object.values(App.historyCache).forEach(agregarLista);
+      agregarLista(App.historySourceRecords);
+      agregarLista(App.historyRecords);
+      listas.forEach(lista=>{
+        const indice=lista.findIndex(item=>claveRegistroHistorial_(item)===claveRegistro);
+        if(indice<0)return;
+        const item=lista[indice];
+        Object.assign(item,cambios);
+        if(Array.isArray(App.historySourceRecords)&&lista===App.historySourceRecords){
+          const corteVisible=String($('historyCut')?.value||'');
+          if(corteVisible&&corteVisible!=='Acumulado'&&String(item.corte)!==corteVisible)lista.splice(indice,1);
+        }
+      });
+      App.historyEditedRows[claveRegistro]=true;
+      if(Array.isArray(App.historySourceRecords))filtrarHistorialLocal_();
+    }
+    function activarEdicionHistorial_(button){
+      const row=button.closest('tr');
+      const registro=App.historyRecords.find(item=>item.operacion===button.dataset.historyOperation&&String(item.id||'')===button.dataset.historyEdit)||App.historyRecords.find(item=>!item.id&&item.operacion===button.dataset.historyOperation&&String(item.fila)===button.dataset.historyEdit);
+      if(!registro)return;
+      const esAdmin=['DEV','ADMAD','ADMWH','ADMQM'].includes(String(App.user&&App.user.rol||'').trim().toUpperCase());
+      const camposPermitidos=esAdmin?['cantidad','carroCaja','linea','corte']:['cantidad','carroCaja'];
+      if(button.dataset.mode!=='save'){
+        if(camposPermitidos.includes('cantidad'))row.querySelector('[data-edit-field="cantidad"]').innerHTML='<input type="number" min="1" value="'+escapeHtml_(registro.cantidad)+'">';
+        if(camposPermitidos.includes('carroCaja'))row.querySelector('[data-edit-field="carroCaja"]').innerHTML='<input value="'+escapeHtml_(registro.carroCaja)+'">';
+        if(esAdmin){
+          row.querySelector('[data-edit-field="linea"]').innerHTML='<select>'+Array.from({length:14},(_,i)=>'<option '+(String(i+1)===String(registro.linea)?'selected':'')+'>'+(i+1)+'</option>').join('')+'<option '+(String(registro.linea)==='8003 RWK'?'selected':'')+'>8003 RWK</option></select>';
+          row.querySelector('[data-edit-field="corte"]').innerHTML='<select>'+['1','2','3','Acumulado'].map(v=>'<option '+(v===String(registro.corte)?'selected':'')+'>'+v+'</option>').join('')+'</select>';
+        }
+        button.textContent='Guardar';
+        button.dataset.mode='save';
+        return;
+      }
+      const cambios={};
+      if(camposPermitidos.includes('cantidad'))cambios.cantidad=Number(row.querySelector('[data-edit-field="cantidad"] input').value);
+      if(camposPermitidos.includes('carroCaja'))cambios.carroCaja=row.querySelector('[data-edit-field="carroCaja"] input').value;
+      if(esAdmin){
+        cambios.linea=row.querySelector('[data-edit-field="linea"] select').value;
+        cambios.corte=row.querySelector('[data-edit-field="corte"] select').value;
+      }
+      const sinCambios=Number(cambios.cantidad)===Number(registro.cantidad)&&
+        String(cambios.carroCaja||'').trim().toUpperCase()===String(registro.carroCaja||'').trim().toUpperCase()&&
+        (!esAdmin||(String(cambios.linea)===String(registro.linea)&&String(cambios.corte)===String(registro.corte)));
+      if(sinCambios){
+        row.querySelector('[data-edit-field="cantidad"]').textContent=registro.cantidad;
+        row.querySelector('[data-edit-field="carroCaja"]').textContent=registro.carroCaja;
+        if(esAdmin){
+          row.querySelector('[data-edit-field="linea"]').textContent=registro.linea;
+          row.querySelector('[data-edit-field="corte"]').textContent=registro.corte;
+        }
+        button.textContent='Editar';
+        button.dataset.mode='edit';
+        toast('No se han generado cambios');
+        return;
+      }
+      if(!confirm('¿Confirmas modificar este registro?'))return;
+      button.disabled=true;
+      api('actualizarRegistro',[App.token,registro.operacion,registro.id||registro.fila,cambios],()=>{actualizarHistorialEditadoLocal_(registro,cambios);toast('Registro actualizado')},e=>{button.disabled=false;toast(e.message||e,true)});
+    }
+    function puedeEditarHistorialUI_(registro){
+      if(!App.user||!registro)return false;
+      const rol=String(App.user.rol||'').trim().toUpperCase();
+      if(['DEV','ADMAD','ADMWH','ADMQM'].includes(rol))return true;
+      return Array.isArray(App.allowed) && App.allowed.includes(registro.operacion);
+    }
+    function renderHistoryTable_(list){
+      const qm=esQM_();
+      const admin=['DEV','ADMAD','ADMWH','ADMQM'].includes(String(App.user&&App.user.rol||'').trim().toUpperCase());
+      $('historyHead').innerHTML='<tr><th class="history-number-column">No.</th><th>Hora</th><th>Línea</th><th>Rolling</th><th>Número de parte</th><th>Tipo</th><th>Cantidad</th><th>Número de carro</th><th>Carro</th><th>Corte</th>'+(qm?'<th>Comentarios</th><th>Registro</th>':'<th>Validado por QM</th><th>Comentarios</th>')+(admin?'<th>Eliminar</th>':'')+'<th>Editar</th></tr>';
+      const rows=(list||[]).map((r,index)=>{
+        const validada=!qm&&r.validadoQM;
+        const editada=!!App.historyEditedRows[claveRegistroHistorial_(r)];
+        const claseFila=(validada?'history-row-ok':'')+(editada?' history-row-edited':'');
+        const estado=validada?'<span class="history-status valid">✓</span>':'<span class="history-status">X</span>';
+        const puedeEditar=puedeEditarHistorialUI_(r);
+        const eliminarCelda=admin?'<td><button type="button" class="history-delete-button" data-history-delete="'+escapeHtml_(r.id||r.fila)+'" data-history-operation="'+escapeHtml_(r.operacion)+'">🗑</button></td>':'';
+        const editarCelda=puedeEditar?'<td><button type="button" data-history-edit="'+escapeHtml_(r.id||r.fila)+'" data-history-operation="'+escapeHtml_(r.operacion)+'" data-mode="edit">Editar</button></td>':'<td></td>';
+        return '<tr class="'+claseFila+'"><td class="history-number-column">'+(index+1)+'</td><td>'+escapeHtml_(r.hora)+'</td><td data-edit-field="linea">'+escapeHtml_(r.linea)+'</td><td>'+escapeHtml_(r.rolling)+'</td><td>'+escapeHtml_(r.parte)+'</td><td>'+escapeHtml_(r.tipo)+'</td><td data-edit-field="cantidad">'+escapeHtml_(r.cantidad)+'</td><td data-edit-field="carroCaja">'+escapeHtml_(r.carroCaja)+'</td><td>'+escapeHtml_(r.carro)+'</td><td data-edit-field="corte">'+escapeHtml_(r.corte)+'</td>'+(qm?'<td class="history-comment">'+escapeHtml_(r.comentarios)+'</td><td class="history-comment">'+escapeHtml_(r.registro)+'</td>':'<td>'+estado+'</td><td class="history-comment">'+escapeHtml_(r.comentarios||'')+'</td>')+eliminarCelda+editarCelda+'</tr>';
+      }).join('');
+      $('historyList').innerHTML=rows||'<tr><td colspan="12">No hay registros para el filtro seleccionado.</td></tr>';
+      $('historyList').closest('table').classList.add('history-table');
+      document.querySelectorAll('[data-history-delete]').forEach(button=>button.onclick=()=>{
+        const registro=(list||[]).find(item=>item.operacion===button.dataset.historyOperation&&String(item.id||'')===button.dataset.historyDelete)||(list||[]).find(item=>!item.id&&item.operacion===button.dataset.historyOperation&&String(item.fila)===button.dataset.historyDelete);
+        if(registro)mostrarModalEliminacion_(registro,true);
+      });
+      document.querySelectorAll('[data-history-edit]').forEach(button=>button.onclick=()=>activarEdicionHistorial_(button));
+    }
+    function confirmarBorradoUsuario_(empleado){const modal=document.createElement('div');modal.className='capture-error-modal deletion-modal';modal.innerHTML='<div class="capture-error-card"><button class="capture-error-close" type="button" aria-label="Cerrar">×</button><h3>Borrar usuario seleccionado</h3><p>Esta acción eliminará la fila del usuario.</p><div class="camera-actions"><button type="button" id="userDeleteCancel">Cancelar</button><button type="button" id="userDeleteConfirm" class="primary">Eliminar</button></div></div>';document.body.appendChild(modal);const cerrar=()=>modal.remove();modal.querySelector('.capture-error-close').onclick=cerrar;modal.querySelector('#userDeleteCancel').onclick=cerrar;modal.querySelector('#userDeleteConfirm').onclick=()=>{modal.querySelector('#userDeleteConfirm').disabled=true;api('eliminarUsuarioPermanentemente',[App.token,empleado],()=>{cerrar();toast('Usuario eliminado');loadUsersAdmin()},e=>{modal.querySelector('#userDeleteConfirm').disabled=false;toast(e.message||e,true)})};}
+    $('carro').setAttribute('autocomplete','off');$('carro').setAttribute('pattern','Caja|(?:[1-9][0-9]{0,3}|10000)');$('carro').setAttribute('title','Escribe Caja o un número del 1 al 10000');$('carro').addEventListener('input',e=>{const valor=e.target.value.trim();if(/^(?:c|ca|caj|caja)$/i.test(valor)){e.target.value='Caja';e.target.setSelectionRange(4,4);}actualizarEdicionCantidad_();const final=e.target.value.trim();e.target.setCustomValidity(!final||/^Caja$/i.test(final)||/^(?:[1-9][0-9]{0,3}|10000)$/.test(final)?'':'Usa Caja o un número del 1 al 10000.');});document.querySelectorAll('input,select,textarea').forEach(element=>element.setAttribute('autocomplete','off'));
+    function cargarAuditoria_(){if(!App.user||App.user.rol!=='DEV')return;const filtros={pagina:App.auditPage||1,porPagina:30,fecha:$('auditDate')?.value||'',empleado:$('auditEmployee')?.value||'',departamento:$('auditDepartment')?.value||''};api('listarAuditoria',[App.token,filtros],res=>{App.auditRecords=res.items||[];const body=$('auditBody');if(body)body.innerHTML=(App.auditRecords).map(r=>'<tr><td>'+escapeHtml_(new Date(r.fecha).toLocaleString())+'</td><td>'+escapeHtml_(r.usuario)+'</td><td>'+escapeHtml_(r.departamento)+'</td><td>'+escapeHtml_(r.rol)+'</td><td>'+escapeHtml_(r.accion)+'</td><td>'+escapeHtml_(r.entidad)+'</td><td>'+escapeHtml_(r.detalle)+'</td></tr>').join('')||'<tr><td colspan="7">No hay movimientos administrativos.</td></tr>';renderAdminPager_('auditPager',res,n=>{App.auditPage=n;cargarAuditoria_()})},e=>toast(e.message||e,true));}
+    function exportarAuditoriaExcel_(){const rows=App.auditRecords||[];if(!rows.length)return toast('No hay movimientos de auditoría cargados para exportar.',true);const columnas=['Fecha','Número de empleado','Departamento','Rol','Acción','Entidad','Detalle'];const escapar=v=>{let texto=String(v??'');if(/^[\t\r\n ]*[=+\-@]/.test(texto))texto="'"+texto;return '"'+texto.replace(/"/g,'""')+'"'};const csv='﻿'+columnas.map(escapar).join(',')+'\r\n'+rows.map(r=>[new Date(r.fecha).toLocaleString(),r.usuario,r.departamento,r.rol,r.accion,r.entidad,r.detalle].map(escapar).join(',')).join('\r\n');const enlace=document.createElement('a');enlace.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));enlace.download='auditoria-'+($('auditDate')?.value||new Date().toISOString().slice(0,10))+'.csv';enlace.click();setTimeout(()=>URL.revokeObjectURL(enlace.href),1000);toast('Auditoría descargada. Puedes abrirla con Excel.')}
+    function configurarAuditoriaDEV_(){if(!App.user||App.user.rol!=='DEV'||document.querySelector('[data-admin-view="audit"]'))return;const subnav=document.querySelector('#admin .subnav');const boton=document.createElement('button');boton.type='button';boton.dataset.adminView='audit';boton.textContent='Auditoría';const maintenanceButton=subnav.querySelector('[data-admin-view="maintenance"]');if(maintenanceButton)subnav.insertBefore(boton,maintenanceButton);else subnav.appendChild(boton);const panel=document.createElement('section');panel.id='auditPanel';panel.className='card hidden';panel.innerHTML='<div class="badge">🔐 Auditoría administrativa</div><div class="summary-tools audit-tools"><div class="field"><label>Fecha</label><input id="auditDate" type="date"></div><div class="field"><label>Número de empleado</label><input id="auditEmployee" placeholder="Número de empleado"></div><div class="field"><label>Departamento</label><select id="auditDepartment"><option value="">Todos</option><option value="UAD">Aduanas</option><option value="UWH">Almacén</option><option value="UQM">Calidad</option></select></div><button id="refreshAudit" class="primary" type="button">Actualizar auditoría</button><button id="exportAudit" class="primary" type="button">Descargar Excel</button></div><div class="table-wrap"><table class="table"><thead><tr><th>Fecha</th><th>Número de empleado</th><th>Departamento</th><th>Rol</th><th>Acción</th><th>Entidad</th><th>Detalle</th></tr></thead><tbody id="auditBody"></tbody></table></div>';const admin=document.querySelector('#admin');admin.appendChild(panel);$('auditDate').value=new Date().toISOString().slice(0,10);boton.onclick=()=>{document.querySelectorAll('#admin .subnav [data-admin-view]').forEach(x=>x.classList.toggle('active',x===boton));document.querySelectorAll('#admin>section').forEach(x=>x.classList.add('hidden'));panel.classList.remove('hidden');cargarAuditoria_()};subnav.querySelectorAll('[data-admin-view]:not([data-admin-view="audit"])').forEach(x=>x.addEventListener('click',()=>panel.classList.add('hidden')));$('refreshAudit').onclick=()=>{App.auditPage=1;cargarAuditoria_()};$('exportAudit').onclick=exportarAuditoriaExcel_;['auditDate','auditEmployee','auditDepartment'].forEach(id=>$(id).onchange=()=>{App.auditPage=1;cargarAuditoria_()});}
+    document.addEventListener('click',e=>{const boton=e.target.closest('#refreshParts,#refreshAudit,#loadRecords');if(!boton||boton.disabled)return;if(boton.id==='refreshAudit')App.auditPage=1;marcarBotonGlobal_(boton,boton.id==='loadRecords'?'Actualizando...':'Actualizando...')},true);
+    document.addEventListener('submit',e=>{if(e.target.id==='newUserForm'){const boton=e.target.querySelector('button[type="submit"]');if(boton&&!boton.disabled)marcarBotonGlobal_(boton,'Agregando usuario')}},true);
+  </script>
+  <script>
+    function actualizarResumenLocalCaptura_(datos,respuesta){
+      const grupo=String(datos.tipoOperacion||'').split('_')[0];
+      if(!['aduanas','almacen'].includes(grupo))return false;
+      if(grupo==='aduanas'&&respuesta&&respuesta.avisoCalidad&&respuesta.avisoCalidad.validado)return false;
+      const detalles=respuesta&&Array.isArray(respuesta.detalles)?respuesta.detalles:[];
+      const parteCapturada=segmentosEscaneo_(datos.escaneo)[2]||'';
+      const movimientos=detalles.map(detalle=>{
+        const noParte=normalizarParte_(detalle.noParte||parteCapturada);
+        const linea=String(detalle.linea||datos.linea||'').trim();
+        const cantidad=Number(detalle.cantidad==null?datos.cantidad:detalle.cantidad);
+        const carroMatch=String(detalle.carro||'').match(/^Carro\s+(\d+)$/i);
+        if(!noParte||!linea||!Number.isInteger(cantidad)||cantidad<=0||!carroMatch)return null;
+        return{
+          linea:linea,
+          parte:noParte==='B/C L'||noParte==='B/C R'?'B/C L / B/C R':noParte,
+          cantidad:cantidad,
+          carro:Number(carroMatch[1]),
+          carroEtiqueta:String(detalle.carroEtiqueta||datos.numCarroCaja||'').trim()
+        };
+      });
+      if(!movimientos.length||movimientos.some(movimiento=>!movimiento))return false;
+      const clavesCoincidentes=Object.keys(App.summaryCache).filter(clave=>{
+        const filtros=JSON.parse(clave);
+        const grupoResumen=String(filtros.operacion||'').split('_')[0];
+        const departamento=String(filtros.departamento||'').toUpperCase();
+        return grupoResumen===grupo&&
+          (!filtros.fecha||String(filtros.fecha)===String(datos.fecha))&&
+          (!filtros.turno||String(filtros.turno)===String(datos.turno||''))&&
+          (String(filtros.corte)==='Acumulado'||String(filtros.corte)===String(datos.corte))&&
+          (!departamento||departamento===(grupo==='aduanas'?'UAD':'UWH'));
+      });
+      if(!clavesCoincidentes.length)return false;
+      const salida=String(datos.tipoOperacion||'').endsWith('_salida');
+      const signo=salida?-1:1;
+      clavesCoincidentes.forEach(clave=>{
+        const resumen=App.summaryCache[clave];
+        if(!resumen||!Array.isArray(resumen.filas)){
+          delete App.summaryCache[clave];
+          return;
+        }
+        movimientos.forEach(movimiento=>{
+          const normalizarLinea=linea=>String(linea||'').replace(/\u00a0/g,' ').trim().replace(/\s+/g,' ').toUpperCase();
+          let fila=resumen.filas.find(item=>normalizarLinea(item.linea)===normalizarLinea(movimiento.linea)&&normalizarParte_(item.parte)===normalizarParte_(movimiento.parte));
+          if(!fila){
+            fila={linea:movimiento.linea,parte:movimiento.parte,tipo:movimiento.parte==='B/C L / B/C R'?'B/C L / B/C R':buscarTipoParte_(movimiento.parte)||'No registrado',carros:Array(50).fill(0),carroEtiquetas:Array(50).fill(''),totalAduanas:0,totalAlmacen:0,totalCalidad:0,diferencia:0,estado:'OK'};
+            resumen.filas.push(fila);
+          }
+          fila.carros=Array.from({length:50},(_,indice)=>Number(fila.carros&&fila.carros[indice]||0));
+          fila.carroEtiquetas=Array.from({length:50},(_,indice)=>String(fila.carroEtiquetas&&fila.carroEtiquetas[indice]||''));
+          if(movimiento.carro>=1&&movimiento.carro<=50){
+            const indice=movimiento.carro-1;
+            fila.carros[indice]+=signo*movimiento.cantidad;
+            if(!fila.carroEtiquetas[indice])fila.carroEtiquetas[indice]=movimiento.carroEtiqueta;
+            if(movimiento.carro>App.summaryVisibleCarros)App.summaryVisibleCarros=movimiento.carro;
+          }
+          if(grupo==='aduanas')fila.totalAduanas=Number(fila.totalAduanas||0)+signo*movimiento.cantidad;
+          else fila.totalAlmacen=Number(fila.totalAlmacen||0)+signo*movimiento.cantidad;
+          fila.totalCalidad=Number(fila.totalCalidad||0);
+        });
+        resumen.filas=resumen.filas.filter(fila=>fila.totalAduanas||fila.totalAlmacen||fila.totalCalidad);
+        resumen.filas.forEach(fila=>{
+          fila.diferencia=Number(fila.totalAduanas||0)-Number(fila.totalAlmacen||0)-Number(fila.totalCalidad||0);
+          fila.estado=Number(fila.totalAduanas||0)+Number(fila.totalAlmacen||0)+Number(fila.totalCalidad||0)===0||Number(fila.totalAduanas||0)===Number(fila.totalAlmacen||0)+Number(fila.totalCalidad||0)?'OK':'ERROR';
+        });
+        resumen.filas.sort((a,b)=>Number(a.linea)-Number(b.linea)||String(a.parte).localeCompare(String(b.parte)));
+        resumen.totalAduanas=resumen.filas.reduce((total,fila)=>total+Number(fila.totalAduanas||0),0);
+        resumen.totalAlmacen=resumen.filas.reduce((total,fila)=>total+Number(fila.totalAlmacen||0),0);
+        resumen.discrepancias=resumen.filas.filter(fila=>fila.estado==='ERROR').length;
+      });
+      const filtrosActuales={fecha:$('summaryDate')?.value||'',corte:$('summaryCut')?.value||'Acumulado',turno:$('summaryTurn')?.value||'',departamento:$('summaryDepartment')?.value||'',operacion:App.summaryOperation||App.allowed[0]||''};
+      const claveActual=JSON.stringify(filtrosActuales);
+      if(clavesCoincidentes.includes(claveActual)&&App.summaryCache[claveActual])renderVisualSummary(App.summaryCache[claveActual]);
+      return clavesCoincidentes.some(clave=>!!App.summaryCache[clave]);
+    }
+    function actualizarCeldasResumenConfirmadas_(datos,respuesta){
+      const filtros={fecha:$('summaryDate')?.value||'',corte:$('summaryCut')?.value||'Acumulado',turno:$('summaryTurn')?.value||'',departamento:$('summaryDepartment')?.value||'',operacion:App.summaryOperation||App.allowed[0]||''};
+      if(filtros.turno&&filtros.turno!==String(datos.turno||''))return false;
+      const resumen=App.summaryCache[JSON.stringify(filtros)];
+      const detalles=respuesta&&Array.isArray(respuesta.detalles)?respuesta.detalles:[];
+      if(!resumen||!Array.isArray(resumen.filas)||!detalles.length)return false;
+      const signo=String(datos.tipoOperacion||'').endsWith('_salida')?-1:1;
+      detalles.forEach(detalle=>{
+        const parte=normalizarParte_(detalle.noParte||segmentosEscaneo_(detalle.escaneo||datos.escaneo||'')[2]||'');
+        const linea=String(detalle.linea||datos.linea||'').trim();
+        const cantidad=Number(detalle.cantidad==null?datos.cantidad:detalle.cantidad);
+        const carroMatch=String(detalle.carro||'').match(/^Carro\s+(\d+)$/i);
+        if(!parte||!linea||!Number.isInteger(cantidad)||cantidad<=0||!carroMatch)return;
+        const parteResumen=parte==='B/C L'||parte==='B/C R'?'B/C L / B/C R':parte;
+        let fila=resumen.filas.find(item=>normalizarLineaResumenGuardando_(item.linea)===normalizarLineaResumenGuardando_(linea)&&
+          claveParteResumenPendiente_(item.parte)===claveParteResumenPendiente_(parteResumen));
+        if(!fila){
+          fila={linea:linea,parte:parteResumen,tipo:buscarTipoParte_(parte)||'No registrado',carros:Array(50).fill(0),carroEtiquetas:Array(50).fill(''),totalAduanas:0,totalAlmacen:0,totalCalidad:0,diferencia:0,estado:'OK'};
+          resumen.filas.push(fila);
+        }
+        fila.carros=Array.from({length:50},(_,indice)=>Number(fila.carros&&fila.carros[indice]||0));
+        fila.carroEtiquetas=Array.from({length:50},(_,indice)=>String(fila.carroEtiquetas&&fila.carroEtiquetas[indice]||''));
+        const indiceCarro=Number(carroMatch[1])-1;
+        if(indiceCarro<0||indiceCarro>=50)return;
+        fila.carros[indiceCarro]+=signo*cantidad;
+        fila.carroEtiquetas[indiceCarro]=String(detalle.carroEtiqueta||datos.numCarroCaja||'').trim();
+        if(Number(carroMatch[1])>App.summaryVisibleCarros)App.summaryVisibleCarros=Number(carroMatch[1]);
+      });
+      redibujarResumenActual_();
+      return true;
+    }
+    function mostrarAvisoResumenPendiente_(){
+      if($('summaryRefreshNotice'))return;
+      const modal=document.createElement('div');
+      modal.id='summaryRefreshNotice';
+      modal.className='summary-refresh-modal';
+      modal.innerHTML='<div class="summary-refresh-notice" role="dialog" aria-modal="true" aria-label="Aviso del resumen" tabindex="-1"><p>El registro se guardó. Para ver la información actualizada, pulsa «Actualizar resumen».</p></div>';
+      document.body.appendChild(modal);
+      const cerrar=()=>{
+        document.removeEventListener('keydown',cerrarConEscape);
+        modal.removeEventListener('click',cerrarAlTocarFuera);
+        modal.remove();
+      };
+      const cerrarConEscape=evento=>{if(evento.key==='Escape')cerrar()};
+      const cerrarAlTocarFuera=evento=>{if(evento.target===modal)cerrar()};
+      document.addEventListener('keydown',cerrarConEscape);
+      modal.addEventListener('click',cerrarAlTocarFuera);
+      modal.querySelector('[role="dialog"]').focus();
+    }
+    const renderVisualSummaryOriginal_=renderVisualSummary;
+    renderVisualSummary=function(data){
+      const agregarPendientesOriginal_=agregarPendientesResumenVisual_;
+      const datosCombinados=agregarPendientesOriginal_(data||{filas:[]});
+      const datosEscapados=Object.assign({},datosCombinados,{filas:(datosCombinados.filas||[]).map(fila=>Object.assign({},fila,{
+        linea:escapeHtml_(fila.linea),
+        parte:escapeHtml_(fila.parte),
+        tipo:escapeHtml_(fila.tipo),
+        carros:(fila.carros||[]).map(escapeHtml_),
+        carroEtiquetas:(fila.carroEtiquetas||[]).map(escapeHtml_),
+        totalAduanas:escapeHtml_(fila.totalAduanas||0),
+        totalAlmacen:escapeHtml_(fila.totalAlmacen||0),
+        diferencia:escapeHtml_(fila.diferencia||0)
+      }))});
+      agregarPendientesResumenVisual_=()=>datosEscapados;
+      try{
+        renderVisualSummaryOriginal_(data||{filas:[]});
+      }finally{
+        agregarPendientesResumenVisual_=agregarPendientesOriginal_;
+        App.summaryData=datosCombinados;
+      }
+    };
+    document.addEventListener('click',evento=>{
+      if(!window.matchMedia('(max-width:560px)').matches)return;
+      const fondo=evento.target;
+      if(fondo.matches('.capture-error-modal,#partsModal')||fondo.matches('.summary-refresh-modal'))fondo.remove();
+      if(fondo.matches('#registro.registration-modal')){
+        limpiarCaptura_();
+        showView('dashboard');
+      }
+      [['userMenu','sessionNameBtn'],['previewMenu',null]].forEach(([menuId,botonId])=>{
+        const menu=$(menuId);
+        const boton=botonId?$(botonId):document.querySelector('.brand-title-button');
+        if(menu&&!menu.classList.contains('hidden')&&!menu.contains(evento.target)&&(!boton||!boton.contains(evento.target)))menu.classList.add('hidden');
+      });
+    });
+    function actualizarAnchoColumnaFijaResumenMovil_(){
+      if(!window.matchMedia('(max-width:560px)').matches)return;
+      document.querySelectorAll('#dashboard .summary-card .summary-table,#dailyPanel .summary-table').forEach(tabla=>{
+        const primeraColumna=tabla.querySelector('thead th:first-child');
+        const ancho=primeraColumna&&primeraColumna.getBoundingClientRect().width;
+        if(ancho)tabla.style.setProperty('--summary-first-column-width',ancho+'px');
+      });
+    }
+    let actualizacionColumnasMovilPendiente_=false;
+    function programarActualizacionColumnasMovil_(){if(actualizacionColumnasMovilPendiente_)return;actualizacionColumnasMovilPendiente_=true;requestAnimationFrame(()=>{actualizacionColumnasMovilPendiente_=false;actualizarAnchoColumnaFijaResumenMovil_()})}
+    const observadorColumnasResumenMovil_=new MutationObserver(programarActualizacionColumnasMovil_);
+    [$('dashboard'),$('admin')].filter(Boolean).forEach(raiz=>observadorColumnasResumenMovil_.observe(raiz,{childList:true,subtree:true,attributes:true,attributeFilter:['class']}));
+    window.addEventListener('resize',programarActualizacionColumnasMovil_);
+    const apiPartesOriginal_=api;
+    let partesCacheLocal_=null;
+    let partesCacheToken_=null;
+    let usuariosCacheLocal_=null;
+    let usuariosCacheToken_=null;
+    function filtrarUsuariosLocal_(usuarios){
+      const departamento=$('usersDepartmentFilter')?.value||'';
+      const rol=$('usersRoleFilter')?.value||'';
+      return usuarios.filter(usuario=>(!departamento||usuario.departamento===departamento)&&(!rol||(rol==='admin'?!['UAD','UWH','UQM'].includes(usuario.rol):['UAD','UWH','UQM'].includes(usuario.rol))));
+    }
+    api=function(name,args,ok,fail){
+      const parametros=args||[];
+      if(name==='listarUsuarios'){
+        const responder=usuarios=>{
+          const items=filtrarUsuariosLocal_(usuarios);
+          asegurarFiltrosUsuariosLocal_();
+          ok({items:items,total:items.length,pagina:1,porPagina:items.length,paginas:0});
+        };
+        if(usuariosCacheLocal_&&usuariosCacheToken_===parametros[0]){responder(usuariosCacheLocal_);return;}
+        apiPartesOriginal_(name,[parametros[0],'TODAS',0],res=>{
+          usuariosCacheLocal_=res.items||res;
+          usuariosCacheToken_=parametros[0];
+          responder(usuariosCacheLocal_);
+        },fail);
+        return;
+      }
+      if(name==='listarPartesAdmin'){
+        const responder=partes=>{
+          const filtro=String(parametros[1]||'Todos');
+          const busqueda=String(parametros[4]||'').trim().toUpperCase();
+          const items=partes.filter(item=>(filtro==='Todos'||item.tipo===filtro)&&(!busqueda||item.parte.toUpperCase().indexOf(busqueda)>=0));
+          ok({items:items,total:items.length,pagina:1,porPagina:items.length,paginas:0});
+        };
+        if(partesCacheLocal_&&partesCacheToken_===parametros[0]){responder(partesCacheLocal_);return;}
+        apiPartesOriginal_(name,[parametros[0],'Todos','TODAS',0,''],res=>{
+          partesCacheLocal_=res.items||res;
+          partesCacheToken_=parametros[0];
+          responder(partesCacheLocal_);
+        },fail);
+        return;
+      }
+      const mutacionesPartes=['agregarClasificaciones','actualizarParte','eliminarParte'];
+      if(name==='crearUsuario'||name==='eliminarUsuarioPermanentemente'){
+        const alCompletar=res=>{
+          if(usuariosCacheLocal_&&usuariosCacheToken_===parametros[0]){
+            if(name==='crearUsuario'){
+              const datos=parametros[1]||{};
+              const departamento=String(datos.departamento||'').toUpperCase();
+              const rol=String(datos.rol||'').toUpperCase()==='ADM'?'ADM'+departamento.slice(1):departamento;
+              usuariosCacheLocal_.push({empleado:String(datos.empleado||'').trim(),nombre:String(datos.nombre||'').trim(),rol:rol,departamento:departamento,estado:'ACTIVO',intentos:0,cambioRequerido:false});
+            }else{
+              const empleado=String(parametros[1]||'').trim();
+              usuariosCacheLocal_=usuariosCacheLocal_.filter(usuario=>String(usuario.empleado).trim()!==empleado);
+            }
+          }
+          ok(res);
+        };
+        apiPartesOriginal_(name,parametros,alCompletar,fail);
+        return;
+      }
+      if(mutacionesPartes.includes(name)){
+        const alCompletar=res=>{
+          if(name==='agregarClasificaciones'&&res&&typeof res==='object'){
+            partesCacheLocal_=Object.keys(res).map(parte=>({parte:parte,tipo:res[parte]})).sort((a,b)=>a.parte.localeCompare(b.parte));
+            partesCacheToken_=parametros[0];
+          }else if(partesCacheLocal_&&name==='actualizarParte'){
+            const anterior=String(parametros[1]||'').trim().toUpperCase();
+            const indice=partesCacheLocal_.findIndex(item=>item.parte.toUpperCase()===anterior);
+            if(indice>=0)partesCacheLocal_[indice]={parte:String(parametros[2]).trim().toUpperCase(),tipo:String(parametros[3]).trim()};
+            partesCacheLocal_.sort((a,b)=>a.parte.localeCompare(b.parte));
+          }else if(partesCacheLocal_&&name==='eliminarParte'){
+            const eliminada=String(parametros[1]||'').trim().toUpperCase();
+            partesCacheLocal_=partesCacheLocal_.filter(item=>item.parte.toUpperCase()!==eliminada);
+          }
+          ok(res);
+        };
+        apiPartesOriginal_(name,parametros,alCompletar,fail);
+        return;
+      }
+      apiPartesOriginal_(name,parametros,ok,fail);
+    };
+    function renderizarUsuariosFiltradosLocal_(){
+      renderUsers(filtrarUsuariosLocal_(usuariosCacheLocal_||[]));
+    }
+    function asegurarFiltrosUsuariosLocal_(){
+      let filtros=$('usersFilters');
+      if(filtros)return filtros;
+      const tabla=$('usersBody')?.closest('.table-wrap');
+      if(!tabla)return null;
+      filtros=document.createElement('div');
+      filtros.id='usersFilters';
+      filtros.className='summary-tools';
+      filtros.innerHTML='<div class="field"><label for="usersDepartmentFilter">Departamento</label><select id="usersDepartmentFilter"><option value="">Todos</option><option value="UAD">Aduanas</option><option value="UWH">Almacén</option><option value="UQM">Calidad</option></select></div><div class="field"><label for="usersRoleFilter">Rol</label><select id="usersRoleFilter"><option value="">Todos</option><option value="user">Usuario estándar</option><option value="admin">Administrador</option></select></div><button id="refreshUsers" class="primary" type="button">Actualizar</button>';
+      tabla.parentNode.insertBefore(filtros,tabla);
+      $('usersDepartmentFilter').onchange=renderizarUsuariosFiltradosLocal_;
+      $('usersRoleFilter').onchange=renderizarUsuariosFiltradosLocal_;
+      $('refreshUsers').onclick=()=>{
+        usuariosCacheLocal_=null;
+        usuariosCacheToken_=null;
+        const boton=$('refreshUsers');
+        const terminar=marcarBotonOcupado_(boton,'Actualizando');
+        loadUsersAdmin(()=>terminar());
+      };
+      return filtros;
+    }
+    document.addEventListener('click',evento=>{
+      if(evento.target.closest('#refreshParts'))partesCacheLocal_=null;
+    },true);
+    const mostrarModalHXHOriginal_=mostrarModalHXH_;
+    mostrarModalHXH_=function(){
+      const campoFecha=$('historyDate');
+      if(!campoFecha){mostrarModalHXHOriginal_();return;}
+      const fechaOriginal=campoFecha.value;
+      if(!/^\d{4}-\d{2}-\d{2}$/.test(fechaOriginal))campoFecha.value='';
+      try{
+        mostrarModalHXHOriginal_();
+      }finally{
+        campoFecha.value=fechaOriginal;
+      }
+    };
+    document.addEventListener('click',evento=>{
+      const boton=evento.target.closest('#hxhUpdate');
+      if(!boton)return;
+      evento.preventDefault();
+      evento.stopImmediatePropagation();
+      const filtros={fecha:$('hxhDate').value,turno:$('hxhTurn').value,departamento:$('hxhDepartment').value,horaInicio:$('hxhStart').value,horaFinal:$('hxhEnd').value};
+      if(!filtros.fecha||!filtros.horaInicio||!filtros.horaFinal)return toast('Completa todos los filtros de HXH',true);
+      boton.disabled=true;
+      boton.textContent='Actualizando...';
+      api('obtenerResumenHXH',[App.token,filtros],data=>{
+        App.hxhData=data;
+        const filas=(data.items||[]).map(item=>'<tr><td>'+escapeHtml_(item.linea)+'</td><td>'+escapeHtml_(item.parte)+'</td><td>'+escapeHtml_(item.tipo)+'</td><td>'+escapeHtml_(item.cantidad)+'</td></tr>').join('');
+        $('hxhResults').innerHTML='<div class="table-wrap hxh-table"><table class="table"><thead><tr><th>Línea</th><th>Número de parte</th><th>Tipo</th><th>Cantidad</th></tr></thead><tbody>'+(filas||'<tr><td colspan="4">Sin registros en el rango indicado.</td></tr>')+'</tbody><tfoot><tr><th colspan="3">Total</th><th>'+escapeHtml_(data.total)+'</th></tr></tfoot></table></div>';
+        boton.disabled=false;
+        boton.textContent='Actualizar';
+      },error=>{
+        boton.disabled=false;
+        boton.textContent='Actualizar';
+        toast(error.message||error,true);
+      });
+    },true);
+    const loadDailySummaryOriginalFinal_=loadDailySummary_;
+    App.dailySummaryExplicitUpdate=false;
+    loadDailySummary_=function(finalizado){
+      if(!App.dailySummaryExplicitUpdate){if(finalizado)finalizado();return;}
+      App.dailySummaryExplicitUpdate=false;
+      loadDailySummaryOriginalFinal_(finalizado);
+    };
+    document.addEventListener('click',evento=>{
+      if(evento.target.closest('#dailySummaryRefresh'))App.dailySummaryExplicitUpdate=true;
+    },true);
+    marcarBotonOcupado_=function(boton){
+      if(!boton)return()=>{};
+      const original=boton.dataset.textoOriginal||boton.textContent;
+      clearInterval(boton._busyInterval);
+      boton.dataset.textoOriginal=original;
+      const frames=['.','..','...'];
+      let indice=0;
+      const actualizar=()=>{
+        if(!boton.disabled){clearInterval(boton._busyInterval);boton._busyInterval=null;boton.classList.remove('busy-button');delete boton.dataset.textoOriginal;return;}
+        boton.textContent='Actualizando'+frames[indice];
+        indice=(indice+1)%frames.length;
+      };
+      boton.disabled=true;
+      boton.classList.add('busy-button');
+      actualizar();
+      boton._busyInterval=setInterval(actualizar,420);
+      return()=>{
+        clearInterval(boton._busyInterval);
+        boton._busyInterval=null;
+        boton.disabled=false;
+        boton.classList.remove('busy-button');
+        boton.textContent=original;
+        delete boton.dataset.textoOriginal;
+      };
+    };
+    const apiAntesAnimacionEstado_=api;
+    api=function(nombre,args,ok,fail){
+      if(nombre==='iniciarSesion')return apiAntesAnimacionEstado_(nombre,args,ok,fail);
+      const estadosOcupados=/^(?:Actualizando|Guardando|Reparando|Agregando usuario)\.*$/;
+      const boton=Array.from(document.querySelectorAll('button:disabled')).find(elemento=>!elemento._busyInterval&&estadosOcupados.test(elemento.textContent.trim()));
+      if(!boton)return apiAntesAnimacionEstado_(nombre,args,ok,fail);
+      const texto=boton.textContent.trim().replace(/\.+$/,'');
+      const terminar=marcarBotonOcupado_(boton,texto);
+      return apiAntesAnimacionEstado_(nombre,args,respuesta=>{terminar();if(ok)ok(respuesta)},error=>{terminar();if(fail)fail(error)});
+    };
+      function configurarFiltroTurnoRegistro_(){
+        const campo=$('turno');
+        if(!campo||campo.tagName==='SELECT')return;
+        const selector=document.createElement('select');
+        selector.id='turno';
+        selector.required=true;
+        selector.setAttribute('aria-label','Turno de captura');
+        selector.innerHTML='<option value="">Seleccionar</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>';
+        const etiqueta=document.createElement('label');
+        etiqueta.append('Turno: ',selector);
+        campo.replaceWith(etiqueta);
+        const turnoActual=String(App.catalogos.turnoActual||'').trim().toUpperCase();
+        if(/^[A-D]$/.test(turnoActual))selector.value=turnoActual;
+        syncRegistroMeta();
+        selector.addEventListener('change',syncRegistroMeta);
+      }
+      const filtroTurnoRegistroObserver_=new MutationObserver(configurarFiltroTurnoRegistro_);
+      filtroTurnoRegistroObserver_.observe($('dashboard'),{childList:true,subtree:true});
+
+      (function aplicarAjustesCapturaConservadores_(){
+        const cantidad=$('cantidad');
+        const grupoCantidad=cantidad&&cantidad.parentElement;
+        if(cantidad&&grupoCantidad){
+          cantidad.pattern='[0-9]+(\\*[0-9]+)?';
+          const vistaPrevia=document.createElement('small');
+          vistaPrevia.id='cantidadPreview';
+          vistaPrevia.setAttribute('aria-live','polite');
+          grupoCantidad.appendChild(vistaPrevia);
+          let resultadoAplicado='';
+          const leerCantidad=()=>{
+            const valor=cantidad.value.trim();
+            const coincidencia=valor.match(/^(\d+)(?:\*(\d+))?$/);
+            if(!coincidencia)return{valida:false,valor:'',multiplicada:false};
+            const primerFactor=Number(coincidencia[1]);
+            const segundoFactor=coincidencia[2]===undefined?1:Number(coincidencia[2]);
+            const producto=primerFactor*segundoFactor;
+            return{valida:Number.isInteger(producto)&&producto>0,valor:String(producto),multiplicada:coincidencia[2]!==undefined};
+          };
+          const actualizarVistaPrevia=()=>{
+            const valor=cantidad.value.trim();
+            if(valor.indexOf('*')<0){
+              vistaPrevia.textContent=resultadoAplicado?'Resultado aplicado: '+resultadoAplicado:'';
+              return;
+            }
+            const resultado=leerCantidad();
+            vistaPrevia.textContent=resultado.valida
+              ?'Resultado: '+resultado.valor
+              :'Usa dos cantidades enteras positivas, por ejemplo: 20*16.';
+          };
+          const aplicarResultado=()=>{
+            const resultado=leerCantidad();
+            if(!resultado.valida||!resultado.multiplicada)return false;
+            cantidad.value=resultado.valor;
+            resultadoAplicado=resultado.valor;
+            actualizarVistaPrevia();
+            return true;
+          };
+          let seleccionarEmpleadoAlEnfocar_=false;
+          cantidad.addEventListener('input',()=>{
+            resultadoAplicado='';
+            actualizarVistaPrevia();
+          });
+          $('carro').addEventListener('input',()=>{
+            resultadoAplicado='';
+            cantidad.inputMode=cantidad.readOnly?'numeric':'text';
+            actualizarVistaPrevia();
+          });
+          cantidad.inputMode=cantidad.readOnly?'numeric':'text';
+          $('movementForm').addEventListener('reset',()=>{
+            resultadoAplicado='';
+            setTimeout(actualizarVistaPrevia,0);
+          });
+          cantidad.addEventListener('keydown',evento=>{
+            if(evento.key==='Enter'){
+              aplicarResultado();
+              seleccionarEmpleadoAlEnfocar_=true;
+            }
+          },true);
+          $('empleado').addEventListener('focus',()=>{
+            if(!seleccionarEmpleadoAlEnfocar_)return;
+            $('empleado').select();
+            seleccionarEmpleadoAlEnfocar_=false;
+          });
+          const submitMovementOriginalAjustes_=submitMovement;
+          submitMovement=function(evento){
+            if(cantidad.value.indexOf('*')>=0){
+              if(!aplicarResultado()){
+                evento.preventDefault();
+                return toast('La cantidad debe ser un entero positivo o una multiplicación de dos enteros positivos.');
+              }
+            }
+            return submitMovementOriginalAjustes_(evento);
+          };
+        }
+
+        let fechasResumenPrincipalInicializadas_=false;
+        const buildSummaryUIOriginalAjustes_=buildSummaryUI;
+        buildSummaryUI=function(){
+          const fechaResumenAnterior=fechasResumenPrincipalInicializadas_&&$('summaryDate')?$('summaryDate').value:'';
+          const fechaCapturaAnterior=fechasResumenPrincipalInicializadas_&&$('registroFecha')?$('registroFecha').value:'';
+          buildSummaryUIOriginalAjustes_();
+          if(!fechasResumenPrincipalInicializadas_){
+            const fechaInicial=new Date().toISOString().slice(0,10);
+            $('summaryDate').value=fechaInicial;
+            $('registroFecha').value=fechaInicial;
+            fechasResumenPrincipalInicializadas_=true;
+          }else{
+            $('summaryDate').value=fechaResumenAnterior;
+            $('registroFecha').value=fechaCapturaAnterior;
+          }
+          syncRegistroMeta();
+        };
+        const organizarControlesResumenOriginalAjustes_=organizarControlesResumen_;
+        organizarControlesResumen_=function(){
+          const fechaCaptura=$('registroFecha')?$('registroFecha').value:null;
+          organizarControlesResumenOriginalAjustes_();
+          if(fechasResumenPrincipalInicializadas_&&fechaCaptura!==null){
+            $('registroFecha').value=fechaCaptura;
+            syncRegistroMeta();
+          }
+        };
+        summaryControlsObserver_.disconnect();
+        summaryControlsObserver_.observe($('dashboard'),{childList:true,subtree:true});
+        const startSessionOriginalAjustes_=startSession;
+        startSession=function(data){
+          fechasResumenPrincipalInicializadas_=false;
+          return startSessionOriginalAjustes_(data);
+        };
+      })();
+    const buildSummaryUIConTipoMovimientoOriginal_=buildSummaryUI;
+    buildSummaryUI=function(){
+      buildSummaryUIConTipoMovimientoOriginal_();
+      organizarControlesResumen_();
+      const filtros=$('dashboard').querySelector('.summary-filter-tools');
+      const campo=document.createElement('div');
+      campo.className='field';
+      campo.innerHTML='<label for="summaryDirection">Movimiento</label><select id="summaryDirection"><option value="entrada">Entradas</option><option value="salida">Salidas</option></select>';
+      filtros.insertBefore(campo,filtros.firstChild);
+      $('summaryDirection').value='entrada';
+      $('summaryDirection').onchange=()=>loadSummary(true);
+    };
+    function envolverInicioSalida_(boton,accion){
+      return function(evento){
+        evento.preventDefault();
+        evento.stopPropagation();
+        mostrarConfirmacionSalida_(()=>{
+          const op=boton.dataset.op||boton.dataset.summaryOp;
+          document.body.classList.toggle('movement-warehouse',op.indexOf('almacen_')===0);
+          document.body.classList.toggle('movement-aduanas',op.indexOf('aduanas_')===0);
+          if(App.reintentoColaOfflineId&&op!==App.op)App.reintentoColaOfflineId=null;
+          accion.call(boton,evento);
+        },'Vas a iniciar un registro de salida. ¿Confirmas que deseas registrar una salida y no una entrada?');
+      };
+    }
+    window.addEventListener('click',evento=>{
+      const boton=evento.target.closest('#tabs [data-op$="_salida"],#summaryOperations [data-summary-op$="_salida"]');
+      if(!boton)return;
+      if(boton.matches('#tabs [data-op]')&&boton.dataset.op===App.op&&!$('registro').classList.contains('hidden'))return;
+      const accion=boton.onclick;
+      if(typeof accion!=='function')return;
+      evento.preventDefault();
+      evento.stopImmediatePropagation();
+      envolverInicioSalida_(boton,accion)(evento);
+    },true);
+    const montarHistorialConTipoMovimientoOriginal_=montarHistorial_;
+    montarHistorial_=function(){
+      montarHistorialConTipoMovimientoOriginal_();
+      const filtros=$('historyFilters');
+      if(!$('historyDirection')){
+        const campo=document.createElement('div');
+        campo.className='field';
+        campo.innerHTML='<label for="historyDirection">Movimiento</label><select id="historyDirection"><option value="entrada">Entradas</option><option value="salida">Salidas</option></select>';
+        filtros.insertBefore(campo,filtros.firstChild);
+        $('historyDirection').value='entrada';
+        $('historyDirection').onchange=()=>{App.historyCache={};loadHistory_(true)};
+      }
+    };
+    const apiConTipoMovimientoOriginal_=api;
+    api=function(nombre,args,ok,fail){
+      if(nombre==='obtenerResumenVisual'||nombre==='listarHistorial'){
+        const parametros=(args||[]).slice();
+        const filtros=Object.assign({},parametros[1]||{});
+        const selector=nombre==='obtenerResumenVisual'?'summaryDirection':'historyDirection';
+        filtros.tipoMovimiento=$(selector)&&$(selector).value||'entrada';
+        parametros[1]=filtros;
+        return apiConTipoMovimientoOriginal_(nombre,parametros,ok,fail);
+      }
+      return apiConTipoMovimientoOriginal_(nombre,args,ok,fail);
+    };
+    const actualizarResumenLocalCapturaTipoOriginal_=actualizarResumenLocalCaptura_;
+    function ejecutarConCacheResumenPorTipo_(tipoMovimiento,accion){
+      const cacheOriginal=App.summaryCache;
+      const cacheFiltrada={};
+      Object.keys(cacheOriginal).forEach(clave=>{
+        const filtros=JSON.parse(clave);
+        if(String(filtros.tipoMovimiento||'entrada')!==tipoMovimiento)return;
+        delete filtros.tipoMovimiento;
+        cacheFiltrada[JSON.stringify(filtros)]=cacheOriginal[clave];
+      });
+      App.summaryCache=cacheFiltrada;
+      try{return accion()}
+      finally{App.summaryCache=cacheOriginal}
+    }
+    actualizarResumenLocalCaptura_=function(datos,respuesta){
+      const movimiento=String(datos&&datos.tipoOperacion||'').endsWith('_salida')?'salida':'entrada';
+      if(movimiento!==String($('summaryDirection')&&$('summaryDirection').value||'entrada'))return false;
+      const datosIndependientes=movimiento==='salida'?Object.assign({},datos,{tipoOperacion:String(datos.tipoOperacion).replace(/_salida$/,'_entrada')}):datos;
+      const actualizado=ejecutarConCacheResumenPorTipo_(movimiento,()=>actualizarResumenLocalCapturaTipoOriginal_(datosIndependientes,respuesta));
+      if(actualizado)redibujarResumenActual_();
+      return actualizado;
+    };
+    const actualizarCeldasResumenConfirmadasTipoOriginal_=actualizarCeldasResumenConfirmadas_;
+    actualizarCeldasResumenConfirmadas_=function(datos,respuesta){
+      const movimiento=String(datos&&datos.tipoOperacion||'').endsWith('_salida')?'salida':'entrada';
+      const filtros={fecha:$('summaryDate')&&$('summaryDate').value||'',corte:$('summaryCut')&&$('summaryCut').value||'Acumulado',turno:$('summaryTurn')&&$('summaryTurn').value||'',departamento:$('summaryDepartment')&&$('summaryDepartment').value||'',operacion:App.summaryOperation||App.allowed[0]||''};
+      const departamentoOperacion=String(datos&&datos.tipoOperacion||'').startsWith('aduanas_')?'UAD':'UWH';
+      if(movimiento!==String($('summaryDirection')&&$('summaryDirection').value||'entrada')||
+        String(filtros.operacion).split('_')[0]!==String(datos&&datos.tipoOperacion||'').split('_')[0]||
+        (filtros.fecha&&filtros.fecha!==String(datos.fecha||''))||
+        (filtros.corte!=='Acumulado'&&filtros.corte!==String(datos.corte||''))||
+        (filtros.turno&&filtros.turno!==String(datos.turno||''))||
+        (filtros.departamento&&filtros.departamento!==departamentoOperacion))return false;
+      const datosIndependientes=movimiento==='salida'?Object.assign({},datos,{tipoOperacion:String(datos.tipoOperacion).replace(/_salida$/,'_entrada')}):datos;
+      const actualizado=ejecutarConCacheResumenPorTipo_(movimiento,()=>actualizarCeldasResumenConfirmadasTipoOriginal_(datosIndependientes,respuesta));
+      if(actualizado)redibujarResumenActual_();
+      return actualizado;
+    };
+    const agregarPendientesResumenVisualTipoOriginal_=agregarPendientesResumenVisual_;
+    agregarPendientesResumenVisual_=function(data){
+      const direccion=String($('summaryDirection')&&$('summaryDirection').value||'entrada');
+      const grupo=String(App.summaryOperation||App.allowed[0]||'').split('_')[0];
+      const pendientesOriginal=pendientesResumenLocal_;
+      pendientesResumenLocal_=function(fecha,turno,corte){
+        return pendientesOriginal(fecha,turno,corte)
+          .filter(item=>String(item.tipoOperacion||'').endsWith('_'+direccion)&&String(item.tipoOperacion||'').split('_')[0]===grupo)
+          .map(item=>direccion==='salida'?Object.assign({},item,{tipoOperacion:String(item.tipoOperacion).replace(/_salida$/,'_entrada')}):item);
+      };
+      try{return agregarPendientesResumenVisualTipoOriginal_(data)}
+      finally{pendientesResumenLocal_=pendientesOriginal}
+    };
+    const agregarMovimientosGuardandoResumenTipoOriginal_=agregarMovimientosGuardandoResumen_;
+    agregarMovimientosGuardandoResumen_=function(data){
+      const direccion=String($('summaryDirection')&&$('summaryDirection').value||'entrada');
+      const pendientesOriginal=App.movimientosGuardando;
+      App.movimientosGuardando=pendientesOriginal
+        .filter(item=>String(item.datos&&item.datos.tipoOperacion||'').endsWith('_'+direccion))
+        .map(item=>direccion==='salida'?Object.assign({},item,{datos:Object.assign({},item.datos,{tipoOperacion:String(item.datos.tipoOperacion).replace(/_salida$/,'_entrada')})}):item);
+      try{return agregarMovimientosGuardandoResumenTipoOriginal_(data)}
+      finally{App.movimientosGuardando=pendientesOriginal}
+    };
+  </script>
+</body>
+</html>
